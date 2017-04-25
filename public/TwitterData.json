@@ -1,0 +1,29 @@
+//join http://stackoverflow.com/questions/31480088/join-two-collection-in-mongodb-using-node-js
+{
+  "profile": {
+    "id": "XXX",
+    "name": "Oscar Javier Blancarte Iturralde",
+    "userName": "oscarjblancarte",
+    "avatar": "",
+    "banner": "",
+    "twitts": [
+      {
+        "id": "XXXXX",
+        "date": "",
+        "message": "Hello World",
+        "replys": [
+          {
+            "profile": {
+              "id": "XXX",
+              "name": "Oscar Javier Blancarte Iturralde",
+              "userName": "oscarjblancarte",
+              "avatar": "",
+              "banner": ""
+            }
+            "message": "Hola que tal"
+          }
+        ]
+      }
+    ]
+  }
+}

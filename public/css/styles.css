@@ -1,0 +1,297 @@
+*{
+  color: #333;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #F5F8FA;
+}
+
+a:hover{
+  text-decoration: none;
+
+}
+
+#suggestedUsers,
+#profile{
+  max-width: 350px;
+}
+
+#profile{
+  float: right;
+  width: 100%;
+  max-width: 350px;
+}
+
+.bs-test{
+  display: inline-block;
+  position: absolute;
+}
+
+.twitter-panel{
+  background-color: #fff;
+  background-clip: inherit;
+  border: 1px solid #e6ecf0;
+  border-radius: 5px;
+  line-height: inherit;
+}
+
+
+.navbar-brand .fa-twitter{
+  color: #1DA1F2;
+  font-size: 24px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(50%);
+}
+
+
+.navbar{
+  background-color: #FFFFFF;
+  height: 48px;
+}
+
+.reply{
+  padding: 10px;
+  border-top: 1px solid #e6ecf0;
+  background-color: #F6F7F8;
+}
+
+.reply .reply-avatar{
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #333;
+  border-radius: 5px;
+  height: 35px;
+  width: 35px;
+  left: 40px;
+  text-align: center;
+}
+
+.reply .reply-body{
+  margin-left: 55px;
+
+}
+
+.reply .reply-body textarea{
+  height: 35px;
+  display: block;
+  width: 100%;
+  border: 1px solid #DDE2E6;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  resize: none;
+  border-radius: 5px;
+
+}
+
+.reply .reply-body .reply-selected{
+  height: 70px;
+}
+
+
+.reply .reply-controls{
+  padding: 10px 0px 0px 0px;
+  text-align: right;
+}
+
+.reply .reply-controls button{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.reply .reply-controls button i{
+  color: inherit;
+  font-size: inherit;
+}
+
+.reply .reply-controls .char-counter{
+  margin-right: 10px;
+  color: #333;
+}
+
+.tweet{
+  padding: 10px;
+  border-top: 1px solid #e6ecf0;
+}
+
+
+.tweet .tweet-link{
+  position: absolute;
+  display: block;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.tweet:hover{
+  background-color: #F5F8FA;
+  cursor: pointer;
+}
+
+.tweet .tweet-avatar{
+  border: 1px solid #333;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  left: 25px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.tweet .tweet-body{
+  margin-left: 55px;
+}
+
+.tweet .tweet-body .tweet-name{
+  color: #333;
+}
+
+.tweet .tweet-body .tweet-name{
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-right: 10px;
+  z-index: 10000;
+}
+
+.tweet .tweet-body .tweet-name:hover{
+  text-decoration: underline;
+}
+
+.tweet .tweet-body .tweet-timeago,
+.tweet .tweet-body .tweet-username{
+  text-transform: lowercase;
+  color: #999;
+}
+
+#profile{
+  overflow: hidden;
+}
+
+#profile .profile-banner{
+}
+
+#profile .profile-banner a{
+  min-height: 100px;
+  background-size: cover;
+  display: block;
+
+}
+
+#profile .profile-body{
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+#profile .profile-body img{
+  position: absolute;
+  display: inline-block;
+  border: 3px solid #fafafa;
+  border-radius: 8px;
+  height: 75px;
+  width: 75px;
+  left: 10px;
+  top: -30px;
+}
+
+#profile .profile-body > a{
+  margin-left: 90px;
+  color: inherit;
+}
+
+#profile .profile-body > a:hover{
+  text-decoration: underline;
+}
+
+#profile .profile-name,
+#profile .profile-username{
+  display: block;
+  margin: 0px;
+}
+
+#profile .profile-name{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+
+
+#suggestedUsers{
+  padding: 10px;
+}
+
+
+#suggestedUsers .su-title{
+  font-size: 18px;
+  color: #66757f;
+  margin: 0px;
+}
+
+#suggestedUsers .sg-item{
+  padding: 5px 0px;
+}
+
+#suggestedUsers .sg-item .su-avatar{
+  position: relative;
+}
+
+#suggestedUsers .sg-item .su-avatar img{
+  display: inline-block;
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  top: 3px;
+}
+
+#suggestedUsers .sg-item .sg-body{
+  position: relative;
+  display: block;
+  margin-left: 55px;
+
+}
+
+#suggestedUsers .sg-item .sg-body .sg-name{
+  color: #333;
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+#suggestedUsers .sg-item .sg-body .sg-username{
+
+}
+
+#suggestedUsers .sg-item .sg-body i{
+  color: #fafafa;
+}
+
+.reply-icon,
+.like-icon{
+  color: #999;
+  transition: 0.5s;
+  padding-right: 40px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.like-icon:hover{
+  color: #E2264D;
+}
+
+.reply-icon:hover{
+  color: #1DA1F2;
+}
+
+
+.like-icon i{
+  color: inherit;
+}
+
+.reply-icon i{
+  color: inherit;
+}
