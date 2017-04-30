@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router';
 
 class Profile extends React.Component{
   constructor(){
@@ -6,19 +7,24 @@ class Profile extends React.Component{
     this.state = {}
   }
 
+
   render(){
     let bannerStyle = {
-      backgroundImage: 'url("https://pbs.twimg.com/profile_banners/562317715/1488694967/600x200")'
+      backgroundImage: (this.props.profile.banner!=null ? 'url('+this.props.profile.banner +')' : 'none')
     }
     return(
       <aside id="profile" className="twitter-panel">
         <div className="profile-banner">
-          <a href="#" style={bannerStyle}/>
+          <Link to={"/" + this.props.profile.userName} className="profile-name" style={bannerStyle}/>
         </div>
         <div className="profile-body">
-          <img className="profile-avatar" src="https://pbs.twimg.com/profile_images/453553938285883392/o05pJ717_bigger.jpeg"/>
-          <a href="#" className="profile-name">Oscar Blancarte</a>
-          <a href="#" className="profile-username">@oscarjblancarte</a>
+          <img className="profile-avatar" src={this.props.profile.avatar}/>
+          <Link to={"/" + this.props.profile.userName} className="profile-name">
+            {this.props.profile.name}
+          </Link>
+          <Link to={"/" + this.props.profile.userName} className="profile-username">
+            @{this.props.profile.userName}
+          </Link>
         </div>
       </aside>
     )

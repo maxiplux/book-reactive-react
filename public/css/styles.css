@@ -12,6 +12,95 @@ a:hover{
 
 }
 
+.app-container{
+  margin-top: 50px;
+}
+
+
+#menu{
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+}
+
+#menu li{
+  display: inline-block;
+  color: #666;
+  position: relative;
+}
+
+#menu li::before{
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0px;
+  right: 0px;
+  height: 0px;
+  background-color: #1B95E0;
+  bottom: -2px;
+  z-index: 1000;
+  transition: 0.5s;
+}
+
+
+
+#menu li:hover::before{
+  height: 5px;
+}
+
+#menu li:hover{
+  color: #1DA1F2;
+}
+
+
+#menu li.selected::before{
+  height: 5px!important;
+}
+
+#menu li.selected{
+  color: #1DA1F2;
+}
+
+
+#menu li a{
+  display: inline-block;
+  padding: 13px 18px 0px 0px;
+  font-size: 12px;
+  font-weight: bold;
+  color: inherit;
+}
+
+#menu li a:focus{
+  text-decoration: none;
+}
+
+
+#menu li a span{
+  color: inherit;
+}
+
+
+#menu li .menu-item{
+  color: inherit;
+  padding: 0px 10px;
+}
+
+#menu li .menu-item-icon{
+  font-size: 18px;
+  font-size: 24px;
+  vertical-align: sub;
+  padding-right: 5px;
+  color: inherit;
+}
+
+
+
+
+#dashboard{
+  margin-top: 60px;
+}
+
+
 #suggestedUsers,
 #profile{
   max-width: 350px;
@@ -37,12 +126,15 @@ a:hover{
 }
 
 
-.navbar-brand .fa-twitter{
-  color: #1DA1F2;
+.navbar-brand{
   font-size: 24px;
   position: absolute;
   left: 50%;
   transform: translateX(50%);
+}
+
+.navbar-brand i{
+  color: #1DA1F2;
 }
 
 
@@ -54,7 +146,7 @@ a:hover{
 .reply{
   padding: 10px;
   border-top: 1px solid #e6ecf0;
-  background-color: #F6F7F8;
+  background-color: #E8F4FB;
 }
 
 .reply .reply-avatar{
@@ -69,7 +161,7 @@ a:hover{
 }
 
 .reply .reply-body{
-  margin-left: 55px;
+  margin-left: 80px;
 
 }
 
@@ -90,10 +182,42 @@ a:hover{
   height: 70px;
 }
 
+.reply .reply-body .image-box{
+  display: block;
+  position: relative;
+  color: #F1F1F1;
+  padding: 10px;
+  border-left: 1px solid #DDE2E6;
+  border-right: 1px solid #DDE2E6;
+  border-bottom: 1px solid #DDE2E6;
+  border-radius: 0 0 5px 5px;
+  max-height: 250px;
+  width: 100%;
+}
+
+.tweet-event{
+  position: absolute;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.reply .reply-body .image-box img{
+  display: inline-block;
+  position: relative;
+  max-height: 230px;
+  border-radius: 5px;
+  max-width: 100%;
+}
+
 
 .reply .reply-controls{
   padding: 10px 0px 0px 0px;
   text-align: right;
+  margin-left: 55px;
 }
 
 .reply .reply-controls button{
@@ -111,9 +235,14 @@ a:hover{
   color: #333;
 }
 
+.reply input[type="file"]{
+  display: none;
+}
+
 .tweet{
   padding: 10px;
   border-top: 1px solid #e6ecf0;
+
 }
 
 
@@ -131,6 +260,21 @@ a:hover{
   cursor: pointer;
 }
 
+.tweet.detail{
+  border-top: none;
+}
+
+.tweet.detail:hover{
+  background-color: #FFF;
+  cursor: default;
+}
+
+
+.tweet .tweet-img{
+  max-width: 100%;
+  border-radius: 5px;
+}
+
 .tweet .tweet-avatar{
   border: 1px solid #333;
   display: inline-block;
@@ -145,6 +289,9 @@ a:hover{
 .tweet .tweet-body{
   margin-left: 55px;
 }
+
+
+
 
 .tweet .tweet-body .tweet-name{
   color: #333;
@@ -161,10 +308,41 @@ a:hover{
   text-decoration: underline;
 }
 
-.tweet .tweet-body .tweet-timeago,
 .tweet .tweet-body .tweet-username{
   text-transform: lowercase;
   color: #999;
+}
+
+
+.tweet.detail .tweet-body .tweet-user{
+  margin-left: 70px;
+}
+
+.tweet.detail .tweet-body{
+  margin-left: 0px;
+}
+
+
+.tweet.detail .tweet-body .tweet-name{
+  font-size: 18px;
+}
+
+.tweet-detail-responses .tweet.detail .tweet-body .tweet-message{
+  font-size: 16px;
+}
+
+.tweet.detail .tweet-body .tweet-username{
+  display: block;
+  font-size: 16px;
+}
+
+
+.tweet.detail .tweet-message{
+  position: relative;
+  display: block;
+  margin-top: 25px;
+  font-size: 26px;
+  left: 0px;
 }
 
 #profile{
@@ -276,10 +454,15 @@ a:hover{
   transition: 0.5s;
   padding-right: 40px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
+  z-index: 99999;
 }
 
 .like-icon:hover{
+  color: #E2264D;
+}
+
+.like-icon.liked{
   color: #E2264D;
 }
 
@@ -294,4 +477,312 @@ a:hover{
 
 .reply-icon i{
   color: inherit;
+}
+
+#user-page{
+
+}
+
+#user-page .user-header{
+  margin-bottom: 10px;
+}
+
+#user-page .user-header .user-banner{
+  background-color: tomato;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+}
+
+
+#user-page .user-header .user-summary{
+  border-bottom: 1px solid #dadada;
+  position: relative;
+}
+
+#user-page .user-header .user-summary .user-avatar{
+  position: absolute;
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  left: 50px;
+  top: -100px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-sizing: content-box;
+  border: 5px solid #fafafa;
+  box-shadow: 0 0 3px #999;
+}
+
+#user-page .user-header .user-summary .user-avatar img{
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+
+#user-page .user-avatar{
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  left: 50px;
+  top: -100px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-sizing: content-box;
+  border: 5px solid #fafafa;
+  box-shadow: 0 0 3px #999;
+}
+
+#user-page .user-avatar img{
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+#user-page .user-header .user-summary .user-summary-menu{
+  margin: 0px;
+  padding: 0px;
+}
+
+
+#user-page .user-header .user-summary .user-summary-menu li{
+  text-align: center;
+  padding: 0px;
+  display: inline-block;
+  position: relative;
+
+}
+
+#user-page .user-header .user-summary .user-summary-menu li a{
+  padding: 15px 15px 0px;
+  display: inline-block;
+  position: relative;
+}
+
+#user-page .user-header .user-summary .user-summary-menu li a::before{
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  height: 0px;
+  bottom: 0px;
+  background: #1B95E0;
+  transition: 0.3s;
+
+}
+
+#user-page .user-header .user-summary .user-summary-menu li a:hover::before{
+  display: block;
+  height: 5px;
+}
+
+
+
+#user-page .user-header .user-summary .user-summary-menu li .summary-label{
+  font-size: 11px;
+  margin: 0px;
+}
+
+#user-page .user-header .user-summary .user-summary-menu li .summary-value{
+  font-weight: bold;
+  font-size: 18px;
+  color: #666;
+
+}
+
+.tweet-footer{
+  padding-top: 10px;
+}
+
+
+#user-info{
+  top: -180px;
+  position: absolute;
+  display: block;
+  position: relative;
+  padding: 10px;
+  margin-left: 35px;
+  max-width: 350px;
+  float: right;
+
+}
+
+#user-info .user-info-name{
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+#user-info .user-info-username{
+  font-size: 14px;
+
+}
+
+#user-info .user-info-description{
+
+}
+
+.fullscreen{
+  position: absolute;
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  top:0;
+  right: 0;
+  left: 0;
+  height: auto;
+  min-height: 100%;
+  z-index: 999999;
+
+}
+
+.fullscreen .tweet-detail{
+  max-width: 700px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  position: relative;
+  width: 60%;
+  background-color: #fff;
+}
+
+
+.fullscreen .tweet-detail .tweet-close{
+  position: absolute;
+  display: inline-block;
+  right: 15px;
+  top: 10px;
+}
+
+.fullscreen .tweet-detail .tweet-close:hover{
+  cursor: pointer;
+}
+
+
+
+.tweet-detail .tweet-detail-responses{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.tweet-detail .tweet-details-reply{
+  border-bottom: 1px solid #E6ECF0;
+}
+
+
+
+
+/*if(this.state.replys != null){
+  replys = this.state.replys.map(reply => {
+    return <div className="tweet-details-reply" key={reply._id}>
+      <img src={reply._creator.avatar} alt={reply._creator.name}/>
+      <p className="tweet-details-reply-name">{reply._creator.name}</p>
+      <p className="tweet-details-reply-username">{reply._creator.userName}</p>
+    </div>
+  })
+}
+
+return(
+  <div className="fullscreen">
+    <div className="tweet-detail">
+      <div className="tweet-detail-header">
+        <img src={this.state._creator.avatar} alt={this.state._creator.name}/>
+        <p className="tweet-detail-name">{this.state._creator.name}</p>
+        <p className="tweet-detail-username">{this.state._creator.userName}</p>
+        <p className="tweet-detail-username">{this.state.message}</p>
+        {img}
+      </div>
+      <div className="tweet-details-reply">
+        <Reply/>
+      </div>
+      <div className="tweet-detail-responses">
+        {replys}
+      </div>
+    </div>
+  </div>
+)*/
+
+
+/*.fullscreen{
+  position: fixed;
+  display: block;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}*/
+
+
+
+
+@media (max-width: 576px) {
+  #menu li .menu-item{
+    padding: 0px 5px;
+  }
+
+  #menu li a{
+    padding: 13px 0px 0px 0px;
+    margin-right: 5px;
+  }
+}
+
+@media (min-width: 576px) {
+  #user-page .user-avatar{
+    width: 150px;
+    height: 150px;
+  }
+
+  #user-info{
+    top: -150px;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+  #user-info{
+    top: -180px;
+  }
+
+
+  #user-page .user-avatar{
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (min-width: 1000px) {
+  #user-page .user-header .user-banner{
+    height: 300px;
+  }
+}
+
+
+@media (min-width: 1400px) {
+  #user-page .user-header .user-banner{
+    height: 400px;
+  }
+}
+
+@media (min-width: 1800px) {
+  #user-page .user-header .user-banner{
+    height: 500px;
+  }
 }

@@ -32,18 +32,7 @@ class TweetsContainer extends React.Component{
       tweets: {$splice: [[0, 0, newTweet]]}
     })
 
-    //   tweets: {$push: [newTweet]}
-    // })
-    // this.setState(newState)
-
-    // let newState = update(this.state,{
-    //   tweets: {$push: [newTweet]}
-    // })
-
     this.setState(newState)
-
-
-
     // TODO
   }
 

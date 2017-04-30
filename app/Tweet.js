@@ -1,48 +1,81 @@
 import React from 'react'
+import update from 'react-addons-update'
+import { Link } from 'react-router';
+import TweetDetail from './TweetDetail'
+import { browserHistory } from 'react-router';
+
 
 class Tweet extends React.Component{
 
-  constructor(){
-    super(...arguments)
-    this.state={}
+  constructor(props){
+    super(props)
+    this.state = props.tweet
   }
 
-  tweetClicked(){
 
+  handleLike(e){
+    e.preventDefault()
+    if(this.state.liked){
+      let newState = update(this.state,{
+        liked : {$set: false},
+        likeCounter : {$apply : (x) => {return --x}}
+      })
+      this.setState(newState)
+    }else{
+      let newState = update(this.state,{
+        liked : {$set: true},
+        likeCounter : {$apply : (x) => {return ++x}}
+      })
+      this.setState(newState)
+    }
   }
 
-  componentDidMount(){
-    console.log("didMount ==>");
+  handleClick(e){
+    if(e.target.getAttribute("data-ignore-onclick")){
+      return
+    }
+    let url = "/" + this.state._creator.userName + "/" + this.state._id
+    browserHistory.push(url);
+    let tweetId = e.target.id;
   }
-
 
   render(){
-    let tweetClass = this.props.tweet.isNew ? 'tweet fadeIn animated' : 'tweet'
+    let tweetClass = null
+    if(this.props.detail){
+      tweetClass = 'tweet detail'
+    }else{
+      tweetClass = this.state.isNew ? 'tweet fadeIn animated' : 'tweet'
+    }
+
+    let likeClass = this.state.liked ? 'like-icon liked' : 'like-icon'
+
+    let img = null
+    if(this.state.image != null){
+      img = (<img className="tweet-img" src={this.state.image}/>)
+    }
 
     return (
-        <article className={tweetClass} onClick={this.tweetClicked.bind(this)}>
-          <div className="tweet-avatar">
-            <i className="fa fa-user fa-3x" aria-hidden="true"></i>
-          </div>
-
+        <article  className={tweetClass} onClick={this.props.detail ? '' : this.handleClick.bind(this)} id={"tweet-" + this.state._id}>
+          <img src={this.state._creator.avatar} className="tweet-avatar" />
           <div className="tweet-body">
-            <a href="#user" className="tweet-name-link">
-              <span  className="tweet-name">{this.props.tweet._creator.name}</span>
-            </a>
-            <span className="tweet-username">@{this.props.tweet.date}</span>
-            <span className="tweet-timeago"> - 5 min
-            </span>
-            <p>{this.props.tweet.message}</p>
+            <div className="tweet-user">
+              <Link to={"/" + this.state._creator.userName} >
+                <span  className="tweet-name" data-ignore-onclick>{this.state._creator.name}</span>
+              </Link>
+              <span className="tweet-username">@{this.state._creator.userName}</span>
+            </div>
+            <p className="tweet-message">{this.state.message}</p>
+            {img}
+            <div className="tweet-footer">
+              <a className={likeClass} onClick={this.handleLike.bind(this)} data-ignore-onclick>
+                <i className="fa fa-heart " aria-hidden="true" data-ignore-onclick></i> {this.state.likeCounter}
+              </a>
+              <a className="reply-icon" data-ignore-onclick>
+                <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> 1
+              </a>
+            </div>
           </div>
-
-          <div className="tweet-footer">
-            <a className="like-icon">
-              <i className="fa fa-heart " aria-hidden="true"></i> 1
-            </a>
-            <a className="reply-icon">
-              <i className="fa fa-reply " aria-hidden="true"></i> 1
-            </a>
-          </div>
+          <div id={"tweet-detail-" + this.state._id}/>
         </article>
     )
   }

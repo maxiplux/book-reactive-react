@@ -1,0 +1,68 @@
+{
+  "_id": "10",
+  "_creator": {
+    "_id"     : "2",
+    "name"    : "Oscar Blancarte",
+    "userName"     : "oscarjblancarte",
+    "avatar": "/public/avatars/4.jpg"
+  },
+  "date" : "2012-04-23T18:25:43.511Z",
+  "message": "Hola que tal, como estan todos",
+  "liked": true,
+  "likeCounter": 1,
+  "image" : "/public/tweets/1.png",
+  "replys":[
+    {
+      "_id": "1",
+      "_creator": {
+        "_id"     : "1",
+        "name"    : "Juan Manuel",
+        "userName"     : "jmanuel",
+        "avatar": "/public/avatars/1.jpg"
+      },
+      "message": "Muy bien gracias",
+      "image" : null,
+      "likeCounter": 0,
+      "liked": false
+    },
+    {
+      "_id": "2",
+      "_creator": {
+        "_id"     : "2",
+        "name"    : "Oscar Blancarte",
+        "userName"     : "oscarjblancarte",
+        "avatar": "/public/avatars/4.jpg"
+      },
+      "message": "Muy bien, muchas gracias por preguntar",
+      "image" : null,
+      "likeCounter": 1,
+      "liked": false
+    },
+    {
+      "_id": "3",
+      "_creator": {
+        "_id"     : "3",
+        "name"    : "René Suarez",
+        "userName"     : "rsuarez",
+        "avatar": "/public/avatars/3.jpg"
+      },
+      "message": "Muy Feliz",
+      "image" : "/public/tweets/6.jpg",
+      "likeCounter": 10,
+      "liked": true
+    },
+    {
+      "_id": "4",
+      "_creator": {
+        "_id"     : "2",
+        "name"    : "Oscar Blancarte",
+        "userName"     : "juanperez",
+        "avatar": "/public/avatars/4.jpg"
+      },
+      "message": "Qué bueno amigos, que se la sigan pasando bien",
+      "image" : null,
+      "likeCounter": 0,
+      "liked": false
+    }
+  ]
+}

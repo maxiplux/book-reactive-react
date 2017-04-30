@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from "react-router";
-import createBrowserHistory from "history/lib/createBrowserHistory";
+import { Router, Route, browserHistory, Link  } from "react-router";
 import TwitterContainer from './TwitterContainer'
-import UserPage from './UserPage'
+import UserPageContainer from './UserPageContainer'
+import TweetDetail from './TweetDetail'
+// var createBrowserHistory = require('history/createBrowserHistory')
+var createHashHistory = require('history/createHashHistory')
 
-//render(<AppContainer/>, document.getElementById('root'));
 
+
+// render(<UserPageContainer/>, document.getElementById('root'));
+//render(<TwitterContainer/>, document.getElementById('root'));
 
 render((
   <Router history={ browserHistory }>
-    <Route path="/"  component={TwitterContainer}/>
-    <Route path="/:user"  component={UserPage}/>
+    <Route path="/"  component={TwitterContainer}>
+      <Route path="/:user/:tweet" component={TweetDetail}/>
+    </Route>
+    <Route path="/:user" component={UserPageContainer}>
+      <Route path="/:tweet" component={TweetDetail}/>
+    </Route>
   </Router>
-  ), document.getElementById('root'));
+), document.getElementById('root'));

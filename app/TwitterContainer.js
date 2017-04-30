@@ -2,6 +2,7 @@ import React from "react"
 import APIInvoker from "./utils/APIInvoker"
 import TwitterDashboard from './TwitterDashboard'
 import Toolbar from './Toolbar'
+import TweetDetail from "./TweetDetail"
 
 class TwitterContainer extends React.Component{
 
@@ -15,7 +16,7 @@ class TwitterContainer extends React.Component{
 
   componentWillMount(){
     console.log("WillMount");
-    APIInvoker.invokeGET('/public/data.json', response => {
+    APIInvoker.invokeGET('/public/users/rsuarez.json', response => {
       this.setState(response);
     },error => {
       console.log("Error al cargar los Tweets");
@@ -27,6 +28,10 @@ class TwitterContainer extends React.Component{
       <div>
         <Toolbar profile={this.state}/>
         <TwitterDashboard  profile={this.state}/>
+        {this.props.children}
+        {/* <TweetDetail/> */}
+        {/* {this.props.children == null ? <TwitterDashboard  profile={this.state}/> : this.props.children} */}
+
       </div>
 
     )
