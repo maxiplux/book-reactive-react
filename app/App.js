@@ -4,6 +4,7 @@ import { Router, Route, browserHistory, Link  } from "react-router";
 import TwitterContainer from './TwitterContainer'
 import UserPageContainer from './UserPageContainer'
 import TweetDetail from './TweetDetail'
+import Signup from './Signup'
 // var createBrowserHistory = require('history/createBrowserHistory')
 var createHashHistory = require('history/createHashHistory')
 
@@ -17,8 +18,10 @@ render((
     <Route path="/"  component={TwitterContainer}>
       <Route path="/:user/:tweet" component={TweetDetail}/>
     </Route>
+    <Route path="/signup" component={Signup}/>
     <Route path="/:user" component={UserPageContainer}>
       <Route path="/:tweet" component={TweetDetail}/>
     </Route>
+
   </Router>
 ), document.getElementById('root'));

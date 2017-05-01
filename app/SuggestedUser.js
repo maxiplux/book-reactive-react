@@ -13,7 +13,7 @@ class SuggestedUser extends React.Component{
         <span className="su-title">A quién seguir</span>
         <div className="sg-item">
           <div className="su-avatar">
-            <img src="/public/avatars/1.jpg" alt="Juan manuel"/>
+            <img src="/resources/avatars/1.jpg" alt="Juan manuel"/>
           </div>
           <div className="sg-body">
             <div>
@@ -25,7 +25,7 @@ class SuggestedUser extends React.Component{
         </div>
         <div className="sg-item">
           <div className="su-avatar">
-            <img src="/public/avatars/2.jpg" alt="Juan manuel"/>
+            <img src="/resources/avatars/2.jpg" alt="Juan manuel"/>
           </div>
           <div className="sg-body">
             <div>
@@ -37,7 +37,7 @@ class SuggestedUser extends React.Component{
         </div>
         <div className="sg-item">
           <div className="su-avatar">
-            <img src="/public/avatars/3.jpg" alt="Juan manuel"/>
+            <img src="/resources/avatars/3.jpg" alt="Juan manuel"/>
           </div>
           <div className="sg-body">
             <div>

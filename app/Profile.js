@@ -26,6 +26,30 @@ class Profile extends React.Component{
             @{this.props.profile.userName}
           </Link>
         </div>
+        <div className="profile-resumen">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-3">
+                <a href="#">
+                  <p className="profile-resumen-title">TWEETS</p>
+                  <p className="profile-resumen-value">{this.props.profile.tweetCount}</p>
+                </a>
+              </div>
+              <div className="col-xs-4">
+                <a href="#">
+                  <p className="profile-resumen-title">SIGUIENDO</p>
+                  <p className="profile-resumen-value">{this.props.profile.following}</p>
+                </a>
+              </div>
+              <div className="col-xs-5">
+                <a href="#">
+                  <p className="profile-resumen-title">SEGUIDORES</p>
+                  <p className="profile-resumen-value">{this.props.profile.followers}</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </aside>
     )
   }

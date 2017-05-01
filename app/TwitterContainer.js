@@ -16,7 +16,7 @@ class TwitterContainer extends React.Component{
 
   componentWillMount(){
     console.log("WillMount");
-    APIInvoker.invokeGET('/public/users/rsuarez.json', response => {
+    APIInvoker.invokeGET('/resources/users/rsuarez.json', response => {
       this.setState(response);
     },error => {
       console.log("Error al cargar los Tweets");
@@ -26,7 +26,7 @@ class TwitterContainer extends React.Component{
   render(){
     return (
       <div>
-        <Toolbar profile={this.state}/>
+        <Toolbar profile={this.state} selected="home"/>
         <TwitterDashboard  profile={this.state}/>
         {this.props.children}
         {/* <TweetDetail/> */}

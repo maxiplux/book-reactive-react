@@ -13,7 +13,7 @@ class TweetsContainer extends React.Component{
   }
 
   componentWillMount(){
-    APIInvoker.invokeGET('/public/tweets.json', response => {
+    APIInvoker.invokeGET('/resources/tweets.json', response => {
       this.setState({
         tweets: response
       })

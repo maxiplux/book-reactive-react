@@ -1,0 +1,136 @@
+[
+  {
+    "_id": "10",
+    "_creator": {
+      "_id"     : "2",
+      "name"    : "Oscar Blancarte",
+      "userName"     : "oscarjblancarte",
+      "avatar": "/resources/avatars/4.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "¿Quien se apunta para la revista?",
+    "liked": true,
+    "likeCounter": 1,
+    "image" : "/resources/tweets/1.png"
+  },
+  {
+    "_id": "20",
+    "_creator": {
+      "_id"     : "1",
+      "name"    : "Juan Manuel",
+      "userName"     : "jmanuel",
+      "avatar": "/resources/avatars/1.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Hola que tal, como estan todos",
+    "liked": false,
+    "likeCounter": 0
+  },
+  {
+    "_id": "30",
+    "_creator": {
+      "_id"     : "3",
+      "name"    : "René Suarez",
+      "userName"     : "rsuarez",
+      "avatar": "/resources/avatars/3.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Hola que tal, como estan todos",
+    "liked": false,
+    "likeCounter": 0
+  },
+  {
+    "_id": "40",
+    "_creator": {
+      "_id"     : "2",
+      "name"    : "Oscar Blancarte",
+      "userName"     : "oscarjblancarte",
+      "avatar": "/resources/avatars/4.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Hola que tal, como estan todos",
+    "liked": false,
+    "likeCounter": 10
+  },
+  {
+    "_id": "50",
+    "_creator": {
+      "_id"     : "2",
+      "name"    : "Oscar Blancarte",
+      "userName"     : "oscarjblancarte",
+      "avatar": "/resources/avatars/4.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Ya están mis objetivos del 2017",
+    "liked": false,
+    "likeCounter": 10,
+    "image" : "/resources/tweets/3.png"
+  },
+  {
+    "_id": "60",
+    "_creator": {
+      "_id"     : "2",
+      "name"    : "Oscar Blancarte",
+      "userName"     : "oscarjblancarte",
+      "avatar": "/resources/avatars/4.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "¿Quien se apunta para la revista?",
+    "liked": true,
+    "likeCounter": 1,
+    "image" : "/resources/tweets/1.png"
+  },
+  {
+    "_id": "70",
+    "_creator": {
+      "_id"     : "1",
+      "name"    : "Juan Manuel",
+      "userName"     : "jmanuel",
+      "avatar": "/resources/avatars/1.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Hola que tal, como estan todos",
+    "liked": false,
+    "likeCounter": 0
+  },
+  {
+    "_id": "80",
+    "_creator": {
+      "_id"     : "3",
+      "name"    : "René Suarez",
+      "userName"     : "rsuarez",
+      "avatar": "/resources/avatars/3.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Hola que tal, como estan todos",
+    "liked": false,
+    "likeCounter": 0
+  },
+  {
+    "_id": "90",
+    "_creator": {
+      "_id"     : "2",
+      "name"    : "Oscar Blancarte",
+      "userName"     : "oscarjblancarte",
+      "avatar": "/resources/avatars/4.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Hola que tal, como estan todos",
+    "liked": false,
+    "likeCounter": 10
+  },
+  {
+    "_id": "100",
+    "_creator": {
+      "_id"     : "2",
+      "name"    : "Oscar Blancarte",
+      "userName"     : "oscarjblancarte",
+      "avatar": "/resources/avatars/4.jpg"
+    },
+    "date" : "2012-04-23T18:25:43.511Z",
+    "message": "Ya están mis objetivos del 2017",
+    "liked": false,
+    "likeCounter": 10,
+    "image" : "/resources/tweets/3.png"
+  }
+]

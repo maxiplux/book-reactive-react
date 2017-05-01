@@ -16,6 +16,73 @@ a:hover{
   margin-top: 50px;
 }
 
+#signup{
+  position: relative;
+  padding-top: 150px;
+  height: auto;
+}
+
+#signup h1{
+  font-size: 27px;
+  margin-bottom: 30px;
+}
+
+#signup .signup-form{
+  position: relative;
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+}
+
+#signup input{
+  margin-bottom: 30px;
+}
+
+#signup .signup-form button{
+  background-color: #1DA1F2;
+  padding: 10px;
+  outline: none;
+  border: none;
+}
+
+#signup input[type="text"],
+#signup input[type="password"]{
+  outline: none;
+  border: 1px solid #999;
+  font-size: 18px;
+  width: 100%;
+  padding: 8px;
+
+  border-radius: 5px;
+}
+
+#signup button{
+  display: block;
+  padding: 5px;
+  width: 100%;
+
+}
+
+#signup .user-test{
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+#signup #usernameLabel{
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  padding: 10px;
+}
+
+#signup #submitBtnLabel{
+  display: block;
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+}
 
 #menu{
   padding: 0px;
@@ -381,14 +448,39 @@ a:hover{
   color: inherit;
 }
 
-#profile .profile-body > a:hover{
+ .profile-body > a:hover{
   text-decoration: underline;
 }
+
+#profile .profile-resumen a {
+  color:#657786;
+}
+
+#profile .profile-resumen a:hover{
+  color: #1B95E0;
+}
+
+#profile .profile-resumen a .profile-resumen-title{
+  font-size: 10px;
+  margin: 0px;
+  color:inherit;
+  transition: 0.5s;
+}
+
+#profile .profile-resumen a .profile-resumen-value{
+  color: #1B95E0;
+  font-size: 18px;
+}
+
 
 #profile .profile-name,
 #profile .profile-username{
   display: block;
   margin: 0px;
+}
+
+#profile .profile-username{
+  color: #66757f;
 }
 
 #profile .profile-name{

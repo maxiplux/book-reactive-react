@@ -3,6 +3,6 @@
   "name"    : "Juan Manuel",
   "userName"     : "jmanuel",
   "description": "Amante del diseño gráfico y el desarrollo de páginas web, me gusta la lectura y el football.",
-  "avatar": "/public/avatars/1.jpg",
-  "banner": "/public/banners/1.jpg"
+  "avatar": "/resources/avatars/1.jpg",
+  "banner": "/resources/banners/1.jpg"
 }

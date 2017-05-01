@@ -12,7 +12,7 @@ class TweetDetail extends React.Component{
   }
 
   componentWillMount(){
-    APIInvoker.invokeGET('/public/tweet-detail.json', response => {
+    APIInvoker.invokeGET('/resources/tweet-detail.json', response => {
       this.setState( response)
     },error => {
       console.log("Error al cargar los Tweets");

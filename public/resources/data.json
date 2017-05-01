@@ -1,8 +1,8 @@
 {
-  "_id"     : "2",
+  "_id"     : "1",
   "name"    : "Oscar Blancarte",
   "userName"     : "oscarjblancarte",
   "description": "Arquitecto de software & Full Stack Developer. Apasionado por las tecnologías, emprendedor e innovador. Autor del libro Introducción a los patrones de diseño.",
-  "avatar": "/public/avatars/4.jpg",
-  "banner": "/public/banners/4.png"
+  "avatar": "/avatars/",
+  "banner": "/banner"
 }

@@ -6,9 +6,13 @@ import SuggestedUser from './SuggestedUser'
 
 class UserPage extends React.Component{
 
+  constructor(props){
+    super(props)
+  }
+
   render(){
     let bannerStyle = {
-      backgroundImage: 'url(' + this.props.profile.banner + ')'
+      backgroundImage: this.props.profile.banner == null ? '' : 'url(' + this.props.profile.banner + ')'
     }
 
     return(
