@@ -77,6 +77,14 @@ a:hover{
   padding: 10px;
 }
 
+#signup #usernameLabel.ok{
+  color: #1DA1F2;
+}
+
+#signup #usernameLabel.fail{
+  color: tomato;
+}
+
 #signup #submitBtnLabel{
   display: block;
   text-align: center;
@@ -182,6 +190,11 @@ a:hover{
 .bs-test{
   display: inline-block;
   position: absolute;
+}
+
+.tweet-container-header{
+  padding: 10px;
+  font-size: 19px;
 }
 
 .twitter-panel{

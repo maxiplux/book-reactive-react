@@ -14,8 +14,10 @@ class UserPageContainer extends React.Component{
   }
 
   componentWillMount(){
-    APIInvoker.invokeGET('/resources/users/' + this.props.params.user + '.json', response => {
-      this.setState(response);
+    APIInvoker.invokeGET('/profile/' + this.props.params.user, response => {
+      if(response.ok){
+        this.setState(response.body);
+      }
     },error => {
       console.log("Error al cargar los Tweets");
     })

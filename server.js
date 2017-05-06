@@ -5,14 +5,51 @@ var path = require('path')
 var webpack = require('webpack')
 var config = require('./webpack.config')
 var compiler = webpack(config)
+var mongoose = require('mongoose')
+var configuration = require('./config')
+var vhost = require('vhost')
+var api = require('./server/api')
+
+var opts = {
+    server: {
+        socketOptions: {keepAlive: 1}
+    }
+};
+
+switch (app.get('env')) {
+    case 'development':
+        mongoose.connect(configuration.mongodb.development.connectionString, opts);
+        break;
+    case 'production':
+        mongoose.connect(configuration.mongodb.production.connectionString, opts);
+        break;
+    default:
+        throw new Error('Unknown execution environment: ' + app.get('env'));
+}
 
 
+app.use('*', require('cors')());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath
 }));
+
+
+// var apiOptions = {
+//   context: '/',
+//   domain: require('domain').create(),
+// };
+//
+// app.use(vhost('api.*', rest.rester(apiOptions));
+
+
+
+app.use(vhost('api.*', api));
+
 
 app.get('/bundle.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/bundle.js'));
@@ -22,7 +59,11 @@ app.get('/styles.css', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/resources/styles.css'));
 });
 
-app.get('/signup/', function (req, res) {
+app.get('/signup', function (req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/login', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -30,14 +71,13 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
-
-
 app.get('/:user', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
+app.get('/:user/:tweet', function (req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 
 app.listen(3000, function () {
@@ -75,16 +115,7 @@ app.listen(3000, function () {
 //     }
 // };
 //
-// switch (app.get('env')) {
-//     case 'development':
-//         mongoose.connect(configuration.mongodb.development.connectionString, opts);
-//         break;
-//     case 'production':
-//         mongoose.connect(configuration.mongodb.production.connectionString, opts);
-//         break;
-//     default:
-//         throw new Error('Unknown execution environment: ' + app.get('env'));
-// }
+
 
 // app.use(express.static(path.join(__dirname, 'public')));
 //

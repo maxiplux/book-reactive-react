@@ -3,6 +3,7 @@ import APIInvoker from "./utils/APIInvoker"
 import TwitterDashboard from './TwitterDashboard'
 import Toolbar from './Toolbar'
 import TweetDetail from "./TweetDetail"
+import { browserHistory,Link } from 'react-router'
 
 class TwitterContainer extends React.Component{
 
@@ -14,13 +15,31 @@ class TwitterContainer extends React.Component{
     }
   }
 
+  componentWillUpdate(){
+  }
+
   componentWillMount(){
+    this.loadProfile()
+  }
+
+  loadProfile(){
     console.log("WillMount");
-    APIInvoker.invokeGET('/resources/users/rsuarez.json', response => {
-      this.setState(response);
+    let user = window.sessionStorage.getItem("username")
+    if(user == null){
+      browserHistory.push('/login');
+    }
+    APIInvoker.invokeGET('/profile/' + user, response => {
+      if(response.ok){
+        this.setState(response.body);
+
+      }else{
+        //browserHistory.push('/login');
+      }
+
     },error => {
       console.log("Error al cargar los Tweets");
     })
+
   }
 
   render(){

@@ -21,7 +21,7 @@ class TwitterDashboard extends React.Component{
             </div>
 
             <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-4">
-              <TweetsContainer profile={this.props.profile}/>
+              <TweetsContainer profile={this.props.profile} />
             </div>
 
             <div className="hidden-xs hidden-sm hidden-md col-lg-push-1 col-lg-3">

@@ -1,8 +1,8 @@
-const API_URL = 'http://localhost:3000'
-
+//const API_URL = 'http://localhost:3000'
+const API_URL = 'http://api.localhost:3000'
 const API_HEADERS = {
     'Content-Type': 'application/json',
-    Authorization: 'any-string-you-like'
+    authorization: window.sessionStorage.getItem("token"),
 }
 
 const debug = false;

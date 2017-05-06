@@ -5,6 +5,7 @@ import TwitterContainer from './TwitterContainer'
 import UserPageContainer from './UserPageContainer'
 import TweetDetail from './TweetDetail'
 import Signup from './Signup'
+import Login from './Login'
 // var createBrowserHistory = require('history/createBrowserHistory')
 var createHashHistory = require('history/createHashHistory')
 
@@ -19,9 +20,9 @@ render((
       <Route path="/:user/:tweet" component={TweetDetail}/>
     </Route>
     <Route path="/signup" component={Signup}/>
+    <Route path="/login" component={Login}/>
     <Route path="/:user" component={UserPageContainer}>
-      <Route path="/:tweet" component={TweetDetail}/>
+      <Route path="/:user/:tweet" component={TweetDetail}/>
     </Route>
-
   </Router>
 ), document.getElementById('root'));

@@ -14,7 +14,6 @@ class UserPage extends React.Component{
     let bannerStyle = {
       backgroundImage: this.props.profile.banner == null ? '' : 'url(' + this.props.profile.banner + ')'
     }
-
     return(
       <div id="user-page" className="app-container">
         <header className="user-header">
@@ -29,7 +28,7 @@ class UserPage extends React.Component{
                     <li>
                       <a href="#">
                         <p className="summary-label">TWEETS</p>
-                        <p className="summary-value">982</p>
+                        <p className="summary-value">{this.props.profile.tweetCount}</p>
                       </a>
                     </li>
                     <li>
@@ -59,7 +58,7 @@ class UserPage extends React.Component{
             </div>
 
             <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-4">
-              <TweetsContainer profile={this.props.profile}/>
+              <TweetsContainer profile={this.props.profile} onlyUserTweet={true} />
             </div>
 
             <div className="hidden-xs hidden-sm hidden-md col-lg-push-1 col-lg-3">
@@ -72,4 +71,7 @@ class UserPage extends React.Component{
     )
   }
 }
+
+
+
 export default UserPage;

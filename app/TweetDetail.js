@@ -12,20 +12,36 @@ class TweetDetail extends React.Component{
   }
 
   componentWillMount(){
-    APIInvoker.invokeGET('/resources/tweet-detail.json', response => {
-      this.setState( response)
+    let tweet = this.props.params.tweet
+    APIInvoker.invokeGET('/tweetDetails/'+tweet, response => {
+      this.setState( response.body)
     },error => {
       console.log("Error al cargar los Tweets");
     })
   }
 
   addNewTweet(newTweet){
+    console.log("TweetDetail addNewTweet ==>")
     let oldState = this.state;
     let newState = update(this.state, {
       replys: {$splice: [[0, 0, newTweet]]}
     })
     this.setState(newState)
-    // TODO
+
+    let request = {
+      tweetParent: this.props.params.tweet,
+      message: newTweet.message,
+      image: newTweet.image
+    }
+
+    console.log("new Reply ==> ");
+    console.log(request);
+
+    APIInvoker.invokePOST('/secure/tweet', request, response => {
+      //this.setState( response)
+    },error => {
+      console.log("Error al cargar los Tweets");
+    })
   }
 
   handleClose(){
