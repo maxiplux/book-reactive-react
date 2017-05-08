@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 
 function addTweet(req, res, err){
 
-  console.log("addTweet ==>");
   let user = req.user
 
   Profile.findOne({_id: user.id}, function(err, queryUser){
@@ -32,7 +31,6 @@ function addTweet(req, res, err){
     })
 
     if(req.body.tweetParent){// Reply
-      console.log("Reply Tweet");
       Tweet.findOne({_id: req.body.tweetParent},function(err,tweet){
         if(err || tweet == null){
           res.send({
@@ -50,16 +48,25 @@ function addTweet(req, res, err){
               error: err.message
             })
           }else{
-            res.send({
-              ok: true,
-              tweet: createTweet
+            tweet.replys = tweet.replys+1
+            tweet.save(function(err, tweetUpdate){
+              if(err){
+                res.send({
+                  ok: false,
+                  message: "Error al actualziar el Tweet",
+                  error: err
+                })
+              }else{
+                res.send({
+                  ok: true,
+                  tweet: createTweet
+                })
+              }
             })
           }
         })
-
       })
     }else{ //New Tweet
-      console.log("New Tweet");
       newTweet.save(function(err, createTweet){
         if(err){
           console.log(err);
@@ -116,6 +123,7 @@ function getNewTweets(req, res, err){
           message: x.message,
           liked: false,
           likeCounter: x.likeCounter,
+          replys: x.replys,
           image: x.image
         }
       })
@@ -128,7 +136,6 @@ function getNewTweets(req, res, err){
 }
 
 function getUserTweets(req, res, err){
-  console.log("getUserTweets =>=");
   let username = req.params.user
 
   Profile.findOne({userName: username}, function(err, user){
@@ -172,6 +179,7 @@ function getUserTweets(req, res, err){
             message: x.message,
             liked: false,
             likeCounter: x.likeCounter,
+            replys: x.replys,
             image: x.image
           }
         })
@@ -191,7 +199,6 @@ function getUserTweets(req, res, err){
 
 function getTweetDetails(req, res, err){
   let tweetId = req.params.tweet
-  console.log("getTweetDetails ==> " + tweetId);
   Tweet.findOne({_id: tweetId})
   .populate("_creator")
 
@@ -222,7 +229,6 @@ function getTweetDetails(req, res, err){
         })
       }
 
-      console.log(tweets);
 
       let replys = []
       if(tweets != null && tweets.length > 0){
@@ -239,6 +245,7 @@ function getTweetDetails(req, res, err){
             message: x.message,
             liked: false,
             likeCounter: x.likeCounter,
+            replys: x.replys,
             image: x.image,
 
           }
@@ -259,7 +266,8 @@ function getTweetDetails(req, res, err){
           liked: false,
           likeCounter: tweet.likeCounter,
           image: tweet.image,
-          replys: replys
+          replys: tweet.replys,
+          replysTweets: replys
         }
       })
     })

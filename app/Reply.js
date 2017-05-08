@@ -78,6 +78,10 @@ class Reply extends React.Component{
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
+    if(file.size > 1240000){
+      alert('La imagen supera el máximo de 1MB')
+      return
+    }
 
     reader.onloadend = () => {
       let newState = update(this.state,{
@@ -136,8 +140,7 @@ class Reply extends React.Component{
             <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
           </label>
 
-          <input href="#" className={btnPhoto} type="file" onChange={this.imageSelect.bind(this)} id={"reply-camara-" + randomID}>
-
+          <input href="#" className={btnPhoto} accept=".gif,.jpg,.jpeg,.png" type="file" onChange={this.imageSelect.bind(this)} id={"reply-camara-" + randomID}>
           </input>
 
           <span ref="charCounter" className="char-counter">{config.tweets.maxTweetSize - this.state.message.length }</span>

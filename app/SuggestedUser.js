@@ -1,52 +1,58 @@
 import React from 'react'
+import APIInvoker from './utils/APIInvoker'
 
 class SuggestedUser extends React.Component{
 
   constructor(){
     super(...arguments)
-    this.state = {}
+    this.state = {
+      load: false
+    }
+  }
+
+  componentWillMount(){
+    APIInvoker.invokeGET('/secure/suggestedUsers', response => {
+      if(!response.ok){
+        console.log(response);
+      }else{
+        this.setState({
+          load: true,
+          users: response.body
+        })
+      }
+    },error => {
+      console.log("Error al actualizar el perfil");
+    })
   }
 
   render(){
+
+    let users = null
+
+    if(this.state.load){
+      users = this.state.users.map(x => { return (
+        <div className="sg-item" key={x._id}>
+          <div className="su-avatar">
+            <img src={x.avatar} alt="Juan manuel"/>
+          </div>
+          <div className="sg-body">
+            <div>
+              <span className="sg-name">{x.name}</span>
+              <span className="sg-username">@{x.userName}</span>
+            </div>
+            <button className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</button>
+          </div>
+        </div>
+      )
+    })
+    }
+
+
+
     return(
       <aside id="suggestedUsers" className="twitter-panel">
         <span className="su-title">A quién seguir</span>
-        <div className="sg-item">
-          <div className="su-avatar">
-            <img src="/resources/avatars/1.jpg" alt="Juan manuel"/>
-          </div>
-          <div className="sg-body">
-            <div>
-              <span className="sg-name">Andres Perez</span>
-              <span className="sg-username">@aperez</span>
-            </div>
-            <button className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</button>
-          </div>
-        </div>
-        <div className="sg-item">
-          <div className="su-avatar">
-            <img src="/resources/avatars/2.jpg" alt="Juan manuel"/>
-          </div>
-          <div className="sg-body">
-            <div>
-              <span className="sg-name">Claudia Rocha</span>
-              <span className="sg-username">@crocha</span>
-            </div>
-            <button className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</button>
-          </div>
-        </div>
-        <div className="sg-item">
-          <div className="su-avatar">
-            <img src="/resources/avatars/3.jpg" alt="Juan manuel"/>
-          </div>
-          <div className="sg-body">
-            <div>
-              <span className="sg-name">Emmanuel Suarez</span>
-              <span className="sg-username">@esuerez</span>
-            </div>
-            <button className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</button>
-          </div>
-        </div>
+        {users}
       </aside>
     )
   }

@@ -1,18 +1,20 @@
 //const API_URL = 'http://localhost:3000'
 const API_URL = 'http://api.localhost:3000'
-const API_HEADERS = {
-    'Content-Type': 'application/json',
-    authorization: window.sessionStorage.getItem("token"),
-}
-
 const debug = false;
 
 class APIInvoker {
 
+  getAPIHeader(){
+    return {
+        'Content-Type': 'application/json',
+        authorization: window.sessionStorage.getItem("token"),
+    }
+  }
+
   invokeGET(url, okCallback, failCallback){
     let params = {
       method: 'get',
-      headers: API_HEADERS
+      headers: this.getAPIHeader()
     }
     this.invoke(url, okCallback, failCallback,params);
   }
@@ -20,7 +22,7 @@ class APIInvoker {
   invokePUT(url, body, okCallback, failCallback){
     let params = {
       method: 'put',
-      headers: API_HEADERS,
+      headers: this.getAPIHeader(),
       body: JSON.stringify(body)
     };
 
@@ -30,7 +32,7 @@ class APIInvoker {
   invokePOST(url, body, okCallback, failCallback){
     let params = {
       method: 'post',
-      headers: API_HEADERS,
+      headers: this.getAPIHeader(),
       body: JSON.stringify(body)
     };
 

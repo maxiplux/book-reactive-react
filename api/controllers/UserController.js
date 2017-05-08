@@ -4,8 +4,6 @@ var bcrypt = require('bcrypt')
 var base64Img = require('base64-img');
 
 function signup(req, res, err){
-  console.log("signup ==>");
-
   const newProfile = new Profile({
     name: req.body.name,
     userName: req.body.username,
@@ -150,9 +148,69 @@ function getProfileByUsername(req, res, err){
 }
 
 
+function updateProfile(req, res, err){
+  let username = req.user.username
+  const updates = {
+    name: req.body.name,
+    description: req.body.description,
+    avatar: req.body.avatar,
+    banner: req.body.banner
+  }
+
+  Profile.update({ userName: username }, updates, function(err,user){
+    if(err){
+      res.send({
+        ok: false,
+        message: "Error al actualizar el perfil",
+        error: err
+      })
+    }else{
+      res.send({
+        ok: true
+      })
+    }
+
+
+  })
+}
+
+function getSuffestedUser(req, res, err){
+  let user = req.user
+
+  Profile.find({userName: {$ne: user.username}}).sort({"date": -1}).limit(3).exec(function(err, users){
+    if(err){
+      res.send({
+        ok: false,
+        message: err.message,
+        error: err
+      })
+    }else{
+      let response = users.map(x => {
+        return {
+          _id: x._id,
+          name: x.name,
+          description: x.description,
+          userName: x.userName,
+          avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+          banner: x.banner || base64Img.base64Sync('./public/resources/banners/4.png'),
+          tweetCount: x.tweetCount,
+          following: x.following,
+          followers: x.followers
+        }
+      })
+      res.send({
+        ok: true,
+        body: response
+      })
+    }
+  })
+}
+
 module.exports = {
   signup,
   usernameValidate,
   login,
-  getProfileByUsername
+  getProfileByUsername,
+  updateProfile,
+  getSuffestedUser
 }

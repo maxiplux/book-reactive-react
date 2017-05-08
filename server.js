@@ -31,7 +31,7 @@ switch (app.get('env')) {
 app.use('*', require('cors')());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'10mb'})); 
 
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,

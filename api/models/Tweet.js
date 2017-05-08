@@ -9,8 +9,8 @@ var tweet = Schema({
   date: {type: Date, default: Date.now},
   message: String,
   likeCounter: {type: Number, default: 0} ,
-  image: {type: String}
-  // ,replys:[{type: Schema.Types.ObjectId, ref: mongoose.model('Reply').schema}]
+  image: {type: String},
+  replys: {type: Number, default: 0}
 })
 
 var Tweet = mongoose.model('Tweet', tweet);

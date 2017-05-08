@@ -33,10 +33,13 @@ router.post('/signup', userController.signup)
 router.post('/login', userController.login)
 router.post('/secure/tweet', tweetController.addTweet)
 
+router.put('/secure/profile', userController.updateProfile)
+
 router.get('/tweets',tweetController.getNewTweets)
 router.get('/tweetDetails/:tweet', tweetController.getTweetDetails )
 router.get('/tweets/:user', tweetController.getUserTweets)
 router.get('/profile/:user',userController.getProfileByUsername)
 router.get('/usernameValidate/:username', userController.usernameValidate)
+router.get('/secure/suggestedUsers',userController.getSuffestedUser)
 
 module.exports = router;

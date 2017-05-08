@@ -24,7 +24,7 @@ class TweetDetail extends React.Component{
     console.log("TweetDetail addNewTweet ==>")
     let oldState = this.state;
     let newState = update(this.state, {
-      replys: {$splice: [[0, 0, newTweet]]}
+      replysTweets: {$splice: [[0, 0, newTweet]]}
     })
     this.setState(newState)
 
@@ -62,8 +62,8 @@ class TweetDetail extends React.Component{
       }
 
       let replys = null
-      if(this.state.replys != null){
-        replys = this.state.replys.map(reply => {
+      if(this.state.replysTweets != null){
+        replys = this.state.replysTweets.map(reply => {
           return <li className="tweet-details-reply" key={reply._id}>
             <Tweet tweet={reply} detail={true}/>
           </li>

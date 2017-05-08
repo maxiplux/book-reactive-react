@@ -14,6 +14,7 @@ var profile = new Schema({
   tweetCount: {type: Number, default: 0},
   following: {type: Number, default: 0},
   followers: {type: Number, default: 0},
+  date: {type: Date, default: Date.now},
   Tweets: [{type: Schema.Types.ObjectId, ref: mongoose.model('Tweet').schema}]
 });
 // profile.plugin(AutoIncrement, {inc_field: '_id'});

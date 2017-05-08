@@ -315,7 +315,7 @@ a:hover{
   color: #333;
 }
 
-.reply input[type="file"]{
+input[type="file"]{
   display: none;
 }
 
@@ -593,10 +593,28 @@ a:hover{
 }
 
 #user-page .user-header .user-banner{
-  background-color: tomato;
+  position: relative;
+  background-color: #fafafa;
   height: 280px;
   background-size: cover;
   background-position: center;
+}
+
+
+#user-page .user-header .select-banner{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  padding-top: 100px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.select-banner:hover{
+  padding-top: 90px;
+  border: 10px solid tomato;
 }
 
 
@@ -620,11 +638,33 @@ a:hover{
   box-shadow: 0 0 3px #999;
 }
 
+#user-page .user-avatar .avatar-box{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 #user-page .user-header .user-summary .user-avatar img{
   height: 100%;
   width: 100%;
 }
 
+
+.select-avatar{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  padding-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.select-avatar:hover{
+  padding-top: 40px;
+  border: 5px solid tomato;
+}
 
 
 
@@ -654,6 +694,7 @@ a:hover{
 #user-page .user-header .user-summary .user-summary-menu{
   margin: 0px;
   padding: 0px;
+  display: inline-block;
 }
 
 
@@ -703,6 +744,12 @@ a:hover{
 
 }
 
+
+#user-page .user-header .user-summary .edit-button{
+  margin: 15px 0px;
+  float: right;
+}
+
 .tweet-footer{
   padding-top: 10px;
 }
@@ -716,9 +763,39 @@ a:hover{
   padding: 10px;
   margin-left: 35px;
   max-width: 350px;
+  width: 280px;
+  max-width: 100%;
   float: right;
 
 }
+
+#user-info .user-info-edit{
+  padding: 10px;
+  background-color: #E8F4FB;
+
+}
+
+#user-info .user-info-edit .user-info-username{
+  color: #1B96E0;
+  margin-top: 10px;
+}
+
+#user-info .user-info-edit textarea,
+#user-info .user-info-edit input{
+  display: block;
+  width: 100%;
+  border: 1px solid #A3D4F2;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#user-info .user-info-edit textarea{
+  resize: none;
+  height: 220px;
+}
+
+
 
 #user-info .user-info-name{
   font-size: 22px;
@@ -727,6 +804,7 @@ a:hover{
 }
 
 #user-info .user-info-username{
+
   font-size: 14px;
 
 }

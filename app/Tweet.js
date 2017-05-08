@@ -71,7 +71,7 @@ class Tweet extends React.Component{
                 <i className="fa fa-heart " aria-hidden="true" data-ignore-onclick></i> {this.state.likeCounter}
               </a>
               <a className="reply-icon" data-ignore-onclick>
-                <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> 1
+                <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> {this.state.replys}
               </a>
             </div>
           </div>

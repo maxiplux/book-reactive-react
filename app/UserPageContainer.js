@@ -2,14 +2,14 @@ import React from 'react'
 import Toolbar from './Toolbar'
 import UserPage from './UserPage'
 import APIInvoker from "./utils/APIInvoker"
+import update from 'react-addons-update'
 
 class UserPageContainer extends React.Component{
 
   constructor(){
     super(...arguments);
     this.state = {
-      name: "",
-      _id: ""
+      
     }
   }
 
