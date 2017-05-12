@@ -1,7 +1,5 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-//var Profile = require('./Profile')
-// var Reply = require('./Reply')
 
 var tweet = Schema({
   _creator: {type: Schema.Types.ObjectId, ref: 'Profile'},

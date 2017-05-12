@@ -275,10 +275,33 @@ function getTweetDetails(req, res, err){
   })
 }
 
+function like(req, res, err){
+  let user = req.user
+
+  Tweet.findOne({_id: req.body.tweetID},function(err, tweet){
+      tweet.likeCounter = tweet.likeCounter + (req.body.like ? 1 : -1)
+      tweet.save(function(err, tweetUpdate){
+        if(err){
+          res.send({
+            ok: false,
+            message: "Error al actualizar el Tweet",
+            error: err
+          })
+        }else{
+          res.send({
+            ok: true,
+            body: tweetUpdate
+          })
+        }
+      })
+  })
+
+}
 
 
 
 module.exports={
+  like,
   addTweet,
   getNewTweets,
   getTweetDetails,

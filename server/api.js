@@ -29,8 +29,10 @@ router.use('/secure',function(req, res, next) {
   });
 });
 
-router.post('/signup', userController.signup)
+
 router.post('/login', userController.login)
+router.post('/signup', userController.signup)
+router.post('/secure/like', tweetController.like)
 router.post('/secure/tweet', tweetController.addTweet)
 
 router.put('/secure/profile', userController.updateProfile)

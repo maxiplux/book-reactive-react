@@ -42,8 +42,6 @@ class Login extends React.Component{
       if(response.ok){
         window.sessionStorage.setItem("token", response.token)
         window.sessionStorage.setItem("username", response.profile.userName)
-        console.log(window.sessionStorage.getItem("token"))
-        console.log(window.sessionStorage.getItem("username"))
         browserHistory.push('/');
       }else{
         this.refs.submitBtnLabel.innerHTML = response.message

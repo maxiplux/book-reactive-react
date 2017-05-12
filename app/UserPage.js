@@ -4,7 +4,7 @@ import Profile from './Profile'
 import TweetsContainer from './TweetsContainer'
 import SuggestedUser from './SuggestedUser'
 import APIInvoker from './utils/APIInvoker'
-
+import Toolbar from './Toolbar'
 
 class UserPage extends React.Component{
 
@@ -21,15 +21,25 @@ class UserPage extends React.Component{
     }
   }
 
+  componentWillMount(){
+    this.loadProfile(this.props.params.user)
+  }
+
   componentWillReceiveProps(props){
-    this.setState(update(this.state,{
-      profile:{
-        name: {$set: props.profile.name},
-        description: {$set: props.profile.description},
-        avatar: {$set: props.profile.avatar},
-        banner: {$set: props.profile.banner}
+    this.loadProfile(props.params.user)
+  }
+
+  loadProfile(user){
+    APIInvoker.invokeGET('/profile/' + user, response => {
+      if(response.ok){
+        this.setState({
+          edit:false,
+          profile: response.body
+        });
       }
-    }))
+    },error => {
+      console.log("Error al cargar los Tweets");
+    })
   }
 
   imageSelect(e){
@@ -79,7 +89,7 @@ class UserPage extends React.Component{
   changeToEditMode(e){
     if(this.state.edit){
       let request = {
-        username: this.props.profile.userName,
+        username: this.state.profile.userName,
         name: this.state.profile.name,
         description: this.state.profile.description,
         avatar: this.state.profile.avatar,
@@ -87,9 +97,7 @@ class UserPage extends React.Component{
       }
 
       APIInvoker.invokePUT('/secure/profile', request, response => {
-        if(!response.ok){
-          console.log(response);
-        }else{
+        if(response.ok){
           this.setState(update(this.state,{
             edit: {$set: false}
           }))
@@ -106,7 +114,7 @@ class UserPage extends React.Component{
 
   render(){
     let bannerStyle = {
-      backgroundImage: 'url(' + (this.state.profile.banner == null ?this.props.profile.banner : this.state.profile.banner) + ')'
+      backgroundImage: 'url(' + (this.state.profile.banner == null ?this.state.profile.banner : this.state.profile.banner) + ')'
     }
     let selectBanner = null
     if(this.state.edit){
@@ -126,7 +134,7 @@ class UserPage extends React.Component{
     if(this.state.edit){
       selectAvatar = (
         <div className="avatar-box">
-          <img src={this.state.profile.avatar == null ? this.props.profile.avatar : this.state.profile.avatar} />
+          <img src={this.state.profile.avatar == null ? this.state.profile.avatar : this.state.profile.avatar} />
           <label htmlFor="avatarInput" className="btn select-avatar">
             <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
             <p>Foto</p>
@@ -137,7 +145,7 @@ class UserPage extends React.Component{
     }else{
       selectAvatar = (
         <div className="avatar-box">
-          <img src={this.state.profile.avatar == null ? this.props.profile.avatar : this.state.profile.avatar} />
+          <img src={this.state.profile.avatar == null ? this.state.profile.avatar : this.state.profile.avatar} />
         </div>
       )
     }
@@ -147,22 +155,23 @@ class UserPage extends React.Component{
       userDate = (
         <div className="user-info-edit">
           <input maxLength="20" type="text" value={this.state.profile.name} onChange={this.handleInput.bind(this)} id="name"/>
-          <p className="user-info-username">@{this.props.profile.userName}</p>
+          <p className="user-info-username">@{this.state.profile.userName}</p>
           <textarea  maxLength="180" value={this.state.profile.description} onChange={this.handleInput.bind(this)} id="description" />
         </div>
       )
     }else{
       userDate = (
         <div>
-          <p className="user-info-name">{this.props.profile.name}</p>
-          <p className="user-info-username">@{this.props.profile.userName}</p>
-          <p className="user-info-description">{this.props.profile.description}</p>
+          <p className="user-info-name">{this.state.profile.name}</p>
+          <p className="user-info-username">@{this.state.profile.userName}</p>
+          <p className="user-info-description">{this.state.profile.description}</p>
         </div>
       )
     }
 
     return(
       <div id="user-page" className="app-container">
+        <Toolbar selected="inicio" profile={this.state.profile}/>
         <header className="user-header">
           <div className="user-banner" style={bannerStyle}>
             {selectBanner}
@@ -177,7 +186,7 @@ class UserPage extends React.Component{
                     <li>
                       <a href="#">
                         <p className="summary-label">TWEETS</p>
-                        <p className="summary-value">{this.props.profile.tweetCount}</p>
+                        <p className="summary-value">{this.state.profile.tweetCount}</p>
                       </a>
                     </li>
                     <li>
@@ -187,7 +196,7 @@ class UserPage extends React.Component{
                       </a>
                     </li>
                   </ul>
-                  <button className="btn btn-primary  edit-button" onClick={this.changeToEditMode.bind(this)}  >{this.state.edit ? "Guardar" : "Editar perfil"}</button>
+                  {this.state.profile.userName === window.sessionStorage.getItem("username") ? <button className="btn btn-primary  edit-button" onClick={this.changeToEditMode.bind(this)}  >{this.state.edit ? "Guardar" : "Editar perfil"}</button>: null }
                   {this.state.edit ? <button className="btn edit-button" onClick={this.cancelEditMode.bind(this)} >Cancelar</button> : null}
                 </div>
               </div>
@@ -206,7 +215,7 @@ class UserPage extends React.Component{
               </aside>
             </div>
             <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-4">
-              <TweetsContainer profile={this.props.profile} onlyUserTweet={true} />
+              <TweetsContainer profile={this.state.profile} onlyUserTweet={true} />
             </div>
             <div className="hidden-xs hidden-sm hidden-md col-lg-push-1 col-lg-3">
               <SuggestedUser/>

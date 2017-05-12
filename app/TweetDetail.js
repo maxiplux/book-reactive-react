@@ -21,7 +21,6 @@ class TweetDetail extends React.Component{
   }
 
   addNewTweet(newTweet){
-    console.log("TweetDetail addNewTweet ==>")
     let oldState = this.state;
     let newState = update(this.state, {
       replysTweets: {$splice: [[0, 0, newTweet]]}
@@ -34,11 +33,8 @@ class TweetDetail extends React.Component{
       image: newTweet.image
     }
 
-    console.log("new Reply ==> ");
-    console.log(request);
-
     APIInvoker.invokePOST('/secure/tweet', request, response => {
-      //this.setState( response)
+      //this.setState( response) 
     },error => {
       console.log("Error al cargar los Tweets");
     })

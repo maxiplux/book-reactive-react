@@ -50,7 +50,6 @@ class TweetsContainer extends React.Component{
             }
           }
         }))
-        console.log(response);
       }
     },error => {
       console.log("Error al cargar los Tweets");
@@ -61,7 +60,6 @@ class TweetsContainer extends React.Component{
     let tweets= ''
     if(this.state.tweets != null){
       tweets = this.state.tweets.map(x => {
-        console.log(x);
         return <Tweet key={x._id} tweet={x}/>
       })
     }

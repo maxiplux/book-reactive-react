@@ -1,8 +1,9 @@
 import React from 'react'
 import update from 'react-addons-update'
-import { Link } from 'react-router';
+import { Link } from 'react-router'
 import TweetDetail from './TweetDetail'
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
+import APIInvoker from './utils/APIInvoker'
 
 
 class Tweet extends React.Component{
@@ -15,19 +16,23 @@ class Tweet extends React.Component{
 
   handleLike(e){
     e.preventDefault()
-    if(this.state.liked){
-      let newState = update(this.state,{
-        liked : {$set: false},
-        likeCounter : {$apply : (x) => {return --x}}
-      })
-      this.setState(newState)
-    }else{
-      let newState = update(this.state,{
-        liked : {$set: true},
-        likeCounter : {$apply : (x) => {return ++x}}
-      })
-      this.setState(newState)
+    let request = {
+      tweetID: this.state._id,
+      like: !this.state.liked
     }
+
+    APIInvoker.invokePOST('/secure/like', request, response => {
+      if(response.ok){
+        let newState = update(this.state,{
+          likeCounter : {$set: response.body.likeCounter},
+          liked: {$apply: (x) => {return !x}}
+        })
+        this.setState(newState)
+        console.log(this.state);
+      }
+    },error => {
+      console.log("Error al cargar los Tweets");
+    })
   }
 
   handleClick(e){

@@ -23,7 +23,6 @@ class TwitterContainer extends React.Component{
   }
 
   loadProfile(){
-    console.log("WillMount");
     let user = window.sessionStorage.getItem("username")
     if(user == null){
       browserHistory.push('/login');
@@ -31,11 +30,7 @@ class TwitterContainer extends React.Component{
     APIInvoker.invokeGET('/profile/' + user, response => {
       if(response.ok){
         this.setState(response.body);
-
-      }else{
-        //browserHistory.push('/login');
       }
-
     },error => {
       console.log("Error al cargar los Tweets");
     })
@@ -48,9 +43,6 @@ class TwitterContainer extends React.Component{
         <Toolbar profile={this.state} selected="home"/>
         <TwitterDashboard  profile={this.state}/>
         {this.props.children}
-        {/* <TweetDetail/> */}
-        {/* {this.props.children == null ? <TwitterDashboard  profile={this.state}/> : this.props.children} */}
-
       </div>
 
     )

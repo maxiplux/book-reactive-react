@@ -1,5 +1,6 @@
 import React from 'react'
 import APIInvoker from './utils/APIInvoker'
+import { Link } from 'react-router';
 
 class SuggestedUser extends React.Component{
 
@@ -37,8 +38,10 @@ class SuggestedUser extends React.Component{
           </div>
           <div className="sg-body">
             <div>
-              <span className="sg-name">{x.name}</span>
-              <span className="sg-username">@{x.userName}</span>
+              <Link to={"/" + x.userName}>
+                <span className="sg-name">{x.name}</span>
+                <span className="sg-username">@{x.userName}</span>
+              </Link>
             </div>
             <button className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</button>
           </div>

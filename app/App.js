@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory, Link  } from "react-router";
 import TwitterContainer from './TwitterContainer'
-import UserPageContainer from './UserPageContainer'
+import UserPage from './UserPage'
 import TweetDetail from './TweetDetail'
 import Signup from './Signup'
 import Login from './Login'
@@ -21,8 +21,8 @@ render((
     </Route>
     <Route path="/signup" component={Signup}/>
     <Route path="/login" component={Login}/>
-    <Route path="/:user" component={UserPageContainer}>
+    <Route path="/:user" component={UserPage}>
       <Route path="/:user/:tweet" component={TweetDetail}/>
     </Route>
-  </Router>
+  </Router> 
 ), document.getElementById('root'));

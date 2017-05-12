@@ -1,10 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router';
+import { browserHistory,Link } from 'react-router'
 
 class Toolbar extends React.Component{
   constructor(props){
     super(props)
     this.state= {}
+  }
+
+  logout(e){
+    window.sessionStorage.removeItem("token")
+    window.sessionStorage.removeItem("username")
+    browserHistory.push('/login');
   }
 
   render(){
@@ -29,7 +35,21 @@ class Toolbar extends React.Component{
                   </Link>
                 </li>
               </ul>
+
+
             </div>
+            <ul className="nav navbar-nav navbar-right">
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <img className="navbar-avatar" src={this.props.profile.avatar} alt={this.props.profile.userName}/>
+                </a>
+                <ul className="dropdown-menu">
+                  <li><Link to={"/"+this.props.profile.userName}>Ver perfil</Link></li>
+                  <li role="separator" className="divider"></li>
+                  <li><a href="#" onClick={this.logout.bind(this)}>Cerrar sesión</a></li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
