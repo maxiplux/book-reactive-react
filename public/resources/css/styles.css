@@ -875,49 +875,65 @@ input[type="file"]{
 
 
 
-
-/*if(this.state.replys != null){
-  replys = this.state.replys.map(reply => {
-    return <div className="tweet-details-reply" key={reply._id}>
-      <img src={reply._creator.avatar} alt={reply._creator.name}/>
-      <p className="tweet-details-reply-name">{reply._creator.name}</p>
-      <p className="tweet-details-reply-username">{reply._creator.userName}</p>
-    </div>
-  })
+.user-card{
+  margin-bottom: 20px;
+  position: relative;
+  border: 1px solid #E6ECF0;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-return(
-  <div className="fullscreen">
-    <div className="tweet-detail">
-      <div className="tweet-detail-header">
-        <img src={this.state._creator.avatar} alt={this.state._creator.name}/>
-        <p className="tweet-detail-name">{this.state._creator.name}</p>
-        <p className="tweet-detail-username">{this.state._creator.userName}</p>
-        <p className="tweet-detail-username">{this.state.message}</p>
-        {img}
-      </div>
-      <div className="tweet-details-reply">
-        <Reply/>
-      </div>
-      <div className="tweet-detail-responses">
-        {replys}
-      </div>
-    </div>
-  </div>
-)*/
+.user-card .user-card-banner{
+  background-position: center;
+  background-size: cover;
+  height: 100px;
+  border-bottom: 1px solid ##E6ECF0;
+}
+
+.user-card .user-card-avatar{
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  position: absolute;
+  top: 70px;
+  left: 10px;
+}
 
 
-/*.fullscreen{
-  position: fixed;
+.user-card .user-card-body{
+  padding-top: 100px;
+  background-color: #FFF;
+  padding: 10px 10px 20px;
+
+}
+
+.user-card .user-card-body .user-card-username p{
+  font-size: 12px;
+  color: #66757f;
+}
+
+.user-card .user-card-body .user-card-name{
+  font-weight: bold;
+  font-size: 18px;
   display: block;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-}*/
+  position: relative;
+  margin-top: 40px;
+}
+
+.user-card .user-card-body .user-card-name p {
+  margin: 0px;
+}
+
+.user-card .user-card-body .user-card-description{
+  font-size: 14px;
+  color: #66757f;
+}
 
 
-
+.user-card .user-card-body .user-card-username:hover,
+.user-card .user-card-body .user-card-name:hover{
+  text-decoration: underline;
+}
 
 @media (max-width: 576px) {
   #menu li .menu-item{

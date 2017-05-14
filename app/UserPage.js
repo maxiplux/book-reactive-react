@@ -5,6 +5,8 @@ import TweetsContainer from './TweetsContainer'
 import SuggestedUser from './SuggestedUser'
 import APIInvoker from './utils/APIInvoker'
 import Toolbar from './Toolbar'
+import Followers from './Followers'
+import { Link } from 'react-router'
 
 class UserPage extends React.Component{
 
@@ -22,11 +24,13 @@ class UserPage extends React.Component{
   }
 
   componentWillMount(){
-    this.loadProfile(this.props.params.user)
+    let user = this.props.params.user || window.sessionStorage.getItem("username")
+    this.loadProfile(user)
   }
 
   componentWillReceiveProps(props){
-    this.loadProfile(props.params.user)
+    let user = this.props.params.user || window.sessionStorage.getItem("username")
+    this.loadProfile(user)
   }
 
   loadProfile(user){
@@ -112,6 +116,23 @@ class UserPage extends React.Component{
     }
   }
 
+  follow(e){
+    let request = {
+      followingUser: this.props.params.user
+    }
+    APIInvoker.invokePOST('/secure/follow', request, response => {
+      if(response.ok){
+        this.setState(update(this.state,{
+          profile:{
+            follow: {$set: !response.unfollow}
+          }
+        }))
+      }
+    },error => {
+      console.log("Error al actualizar el perfil");
+    })
+  }
+
   render(){
     let bannerStyle = {
       backgroundImage: 'url(' + (this.state.profile.banner == null ?this.state.profile.banner : this.state.profile.banner) + ')'
@@ -169,6 +190,27 @@ class UserPage extends React.Component{
       )
     }
 
+    // <button className="btn edit-button" onClick={this.follow.bind(this)}  >
+    //   <i className="fa fa-user-times" aria-hidden="true"></i> Siguiendo
+    //   <i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir
+    // </button>
+
+    let followButton = null
+    if(this.state.profile.follow != null && this.state.profile.userName !== window.sessionStorage.getItem("username") ){
+      followButton = (
+        <button className="btn edit-button" onClick={this.follow.bind(this)} >
+          {this.state.profile.follow ? (<span><i className="fa fa-user-times" aria-hidden="true"></i> Siguiendo</span>) :  (<span><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</span>)}
+        </button>
+      )
+    }
+
+    let tab = null
+    if(this.props.route.tab === 'tweets'){
+      tab = (<TweetsContainer profile={this.state.profile} onlyUserTweet={true} />)
+    }else if(this.props.route.tab === 'followings' || this.props.route.tab === 'followers'){
+      tab = (<Followers type={this.props.route.tab}> </Followers>)
+    }
+
     return(
       <div id="user-page" className="app-container">
         <Toolbar selected="inicio" profile={this.state.profile}/>
@@ -181,22 +223,29 @@ class UserPage extends React.Component{
               <div className="row">
                 <div className="hidden-xs col-sm-4 col-md-push-1 col-md-3 col-lg-push-1 col-lg-3" >
                 </div>
-                <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-4">
+                <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-6">
                   <ul className="user-summary-menu">
                     <li>
-                      <a href="#">
+                      <Link to={"/" + this.state.profile.userName}>
                         <p className="summary-label">TWEETS</p>
                         <p className="summary-value">{this.state.profile.tweetCount}</p>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">
-                        <p className="summary-label">ME GUSTA</p>
-                        <p className="summary-value">250</p>
-                      </a>
+                      <Link to="/following">
+                        <p className="summary-label">SIGUIENDO</p>
+                        <p className="summary-value">{this.state.profile.following}</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/followers">
+                        <p className="summary-label">SEGUIDORES</p>
+                        <p className="summary-value">{this.state.profile.followers}</p>
+                      </Link>
                     </li>
                   </ul>
                   {this.state.profile.userName === window.sessionStorage.getItem("username") ? <button className="btn btn-primary  edit-button" onClick={this.changeToEditMode.bind(this)}  >{this.state.edit ? "Guardar" : "Editar perfil"}</button>: null }
+                  {followButton}
                   {this.state.edit ? <button className="btn edit-button" onClick={this.cancelEditMode.bind(this)} >Cancelar</button> : null}
                 </div>
               </div>
@@ -215,7 +264,7 @@ class UserPage extends React.Component{
               </aside>
             </div>
             <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-4">
-              <TweetsContainer profile={this.state.profile} onlyUserTweet={true} />
+              {tab}
             </div>
             <div className="hidden-xs hidden-sm hidden-md col-lg-push-1 col-lg-3">
               <SuggestedUser/>

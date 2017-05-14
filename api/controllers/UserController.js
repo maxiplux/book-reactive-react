@@ -2,6 +2,8 @@ var Profile = require('../models/Profile')
 var authService = require('../services/AuthService')
 var bcrypt = require('bcrypt')
 var base64Img = require('base64-img');
+var jwt = require('jsonwebtoken');
+var configuration = require('../../config')
 
 function signup(req, res, err){
   const newProfile = new Profile({
@@ -121,30 +123,32 @@ function getProfileByUsername(req, res, err){
       })
       return
     }
-    res.send({
-      ok:true,
-      body: {
-        _id: user._id,
-        name: user.name,
-        description: user.description,
-        userName: user.userName,
-        avatar: user.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
-        banner: user.banner || base64Img.base64Sync('./public/resources/banners/4.png'),
-        tweetCount: user.tweetCount,
-        following: user.following,
-        followers: user.followers
+
+    var token = req.headers['authorization'] || ''
+    token = token.replace('Bearer ', '')
+    jwt.verify(token, configuration.jwt.secret, function(err, usertToken) {
+      let follow = null
+      if (!err) {
+        follow = user.followersRef.find(x => x.toString() === usertToken.id.toString()) != null
       }
+
+      res.send({
+        ok:true,
+        body: {
+          _id: user._id,
+          name: user.name,
+          description: user.description,
+          userName: user.userName,
+          avatar: user.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+          banner: user.banner || base64Img.base64Sync('./public/resources/banners/4.png'),
+          tweetCount: user.tweetCount,
+          following: user.following,
+          followers: user.followers,
+          follow: follow
+        }
+      })
     })
   })
-
-  // {
-  //   "_id"     : "1",
-  //   "name"    : "Juan Manuel",
-  //   "userName"     : "jmanuel",
-  //   "description": "Amante del diseño gráfico y el desarrollo de páginas web, me gusta la lectura y el football.",
-  //   "avatar": "/resources/avatars/1.jpg",
-  //   "banner": "/resources/banners/1.jpg"
-  // }
 }
 
 
@@ -169,8 +173,6 @@ function updateProfile(req, res, err){
         ok: true
       })
     }
-
-
   })
 }
 
@@ -206,11 +208,132 @@ function getSuffestedUser(req, res, err){
   })
 }
 
+function follow(req, res, err){
+  let username = req.user.username
+  let followingUser = req.body.followingUser
+
+  Profile.findOne({userName: username}, function(err, myUser){
+    if(err){
+      res.send({
+        ok: false,
+        message: "Error al consultar tu usuario",
+        error: err
+      })
+    }else{
+      Profile.findOne({userName: followingUser}, function(err, otherUser){
+        let unfollow = myUser.followingRef.find(x => x.toString() === otherUser._id.toString()) != null
+        if(unfollow){
+          myUser.followingRef.pop(otherUser._id)
+          myUser.following += -1
+        }else{
+          myUser.followingRef.unshift(otherUser._id)
+          myUser.following += 1
+        }
+
+        myUser.save(function(err){
+          if(err){
+            res.send({
+              ok: false,
+              message: "Error al guardar los cambios",
+              error: err
+            })
+          }else{
+            if(unfollow){
+              otherUser.followersRef.pop(myUser._id)
+              otherUser.followers += -1
+            }else{
+              otherUser.followersRef.unshift(myUser._id)
+              otherUser.followers += 1
+            }
+
+            otherUser.save(function(err){
+              if(err){
+                res.send({
+                  ok: false,
+                  message: "Error al guardar los cambios",
+                  error: err
+                })
+              }else{
+                res.send({
+                  ok: true,
+                  unfollow: unfollow,
+                  body: myUser
+                })
+              }
+            })
+          }
+        })
+      })
+    }
+  })
+}
+
+function getFollower(req, res, err){
+    let username = req.user.username
+    Profile.findOne({userName : username}).populate("followersRef").exec(function(err, followers){
+      if(err){
+        res.send({
+          ok:false,
+          message: "Error al consultara los seguidores",
+          error: err
+        })
+      }else{
+        let response = followers.followersRef.map( x => {
+          return {
+            _id: x._id,
+            userName: x.userName,
+            name: x.name,
+            description: x.description,
+            avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+            banner: base64Img.base64Sync('./public/resources/banners/4.png')
+          }
+        })
+
+        res.send({
+          ok: true,
+          body: response
+        })
+      }
+    })
+}
+
+function getFollowing(req, res, err){
+  let username = req.user.username
+  Profile.findOne({userName : username}).populate("followingRef").exec(function(err, followings){
+    if(err){
+      res.send({
+        ok:false,
+        message: "Error al consultara los seguidores",
+        error: err
+      })
+    }else{
+      let response = followings.followingRef.map( x => {
+        return {
+          _id: x._id,
+          userName: x.userName,
+          name: x.name,
+          description: x.description,
+          avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+          banner: base64Img.base64Sync('./public/resources/banners/4.png')
+        }
+      })
+
+      res.send({
+        ok: true,
+        body: response
+      })
+    }
+  })
+}
+
 module.exports = {
   signup,
   usernameValidate,
   login,
   getProfileByUsername,
   updateProfile,
-  getSuffestedUser
+  getSuffestedUser,
+  follow,
+  getFollower,
+  getFollowing
 }

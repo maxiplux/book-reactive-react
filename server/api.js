@@ -32,6 +32,7 @@ router.use('/secure',function(req, res, next) {
 
 router.post('/login', userController.login)
 router.post('/signup', userController.signup)
+router.post('/secure/follow', userController.follow)
 router.post('/secure/like', tweetController.like)
 router.post('/secure/tweet', tweetController.addTweet)
 
@@ -43,5 +44,7 @@ router.get('/tweets/:user', tweetController.getUserTweets)
 router.get('/profile/:user',userController.getProfileByUsername)
 router.get('/usernameValidate/:username', userController.usernameValidate)
 router.get('/secure/suggestedUsers',userController.getSuffestedUser)
+router.get('/secure/followers',userController.getFollower)
+router.get('/secure/followings',userController.getFollowing)
 
 module.exports = router;

@@ -11,6 +11,9 @@ function generateToken(user) {
      expiresIn: 60 * 60 * 24 // expires in 24 hours
   });
 }
+
+
+
 module.exports = {
   generateToken
 }
