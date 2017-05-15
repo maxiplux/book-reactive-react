@@ -34,17 +34,20 @@ class TweetDetail extends React.Component{
     }
 
     APIInvoker.invokePOST('/secure/tweet', request, response => {
-      //this.setState( response) 
+      //this.setState( response)
     },error => {
       console.log("Error al cargar los Tweets");
     })
   }
 
   handleClose(){
+    $( "html" ).removeClass( "modal-mode");
     browserHistory.goBack()
   }
 
   render(){
+    $( "html" ).addClass( "modal-mode");
+
     let tweetDetails = null
 
     if(this.state == null){

@@ -8,12 +8,32 @@ class Toolbar extends React.Component{
   }
 
   logout(e){
+    e.preventDefault()
     window.sessionStorage.removeItem("token")
     window.sessionStorage.removeItem("username")
-    browserHistory.push('/login');
+    window.location = '/login';
+    // browserHistory.push('/login');
   }
 
   render(){
+
+    let menu = null
+    if(this.props.profile != null){
+      menu = (
+        <ul className="nav navbar-nav navbar-right">
+          <li className="dropdown">
+            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <img className="navbar-avatar" src={this.props.profile.avatar} alt={this.props.profile.userName}/>
+            </a>
+            <ul className="dropdown-menu">
+              <li><a href={"/"+this.props.profile.userName}>Ver perfil</a></li>
+              <li role="separator" className="divider"></li>
+              <li><a href="#" onClick={this.logout.bind(this)}>Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      )
+    }
 
     return(
       <nav className="navbar navbar-default navbar-fixed-top">
@@ -35,21 +55,8 @@ class Toolbar extends React.Component{
                   </Link>
                 </li>
               </ul>
-
-
             </div>
-            <ul className="nav navbar-nav navbar-right">
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <img className="navbar-avatar" src={this.props.profile.avatar} alt={this.props.profile.userName}/>
-                </a>
-                <ul className="dropdown-menu">
-                  <li><Link to={"/"+this.props.profile.userName}>Ver perfil</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><a href="#" onClick={this.logout.bind(this)}>Cerrar sesión</a></li>
-                </ul>
-              </li>
-            </ul>
+            {menu}
           </div>
         </div>
       </nav>

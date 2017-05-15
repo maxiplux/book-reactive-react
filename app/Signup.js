@@ -1,5 +1,4 @@
 import React from 'react'
-import Toolbar from './Toolbar'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
 import { browserHistory,Link } from 'react-router'
@@ -110,7 +109,6 @@ class Signup extends React.Component{
 
     return (
       <div id="signup">
-        <Toolbar profile={this.state} />
         <div className="container" >
           <div className="row">
             <div className="col-xs-12">

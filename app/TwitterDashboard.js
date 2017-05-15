@@ -5,12 +5,6 @@ import SuggestedUser from './SuggestedUser'
 
 class TwitterDashboard extends React.Component{
 
-  constructor(){
-    super(...arguments);
-    this.state = {
-    }
-  }
-
   render(){
     return(
       <div id="dashboard">

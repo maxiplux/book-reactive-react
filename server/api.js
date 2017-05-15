@@ -46,5 +46,6 @@ router.get('/usernameValidate/:username', userController.usernameValidate)
 router.get('/secure/suggestedUsers',userController.getSuffestedUser)
 router.get('/secure/followers',userController.getFollower)
 router.get('/secure/followings',userController.getFollowing)
+router.get('/secure/relogin',userController.relogin)
 
 module.exports = router;

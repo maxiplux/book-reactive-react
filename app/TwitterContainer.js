@@ -1,7 +1,6 @@
 import React from "react"
 import APIInvoker from "./utils/APIInvoker"
 import TwitterDashboard from './TwitterDashboard'
-import Toolbar from './Toolbar'
 import TweetDetail from "./TweetDetail"
 import { browserHistory,Link } from 'react-router'
 
@@ -40,7 +39,6 @@ class TwitterContainer extends React.Component{
   render(){
     return (
       <div>
-        <Toolbar profile={this.state} selected="home"/>
         <TwitterDashboard  profile={this.state}/>
         {this.props.children}
       </div>

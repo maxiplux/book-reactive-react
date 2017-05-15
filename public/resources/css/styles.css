@@ -3,13 +3,23 @@
   box-sizing: border-box;
 }
 
+html.modal-mode{
+  overflow-y: hidden;
+}
+
 body{
   background-color: #F5F8FA;
 }
 
+
+
 a:hover{
   text-decoration: none;
 
+}
+
+#mainApp{
+  margin-top: 50px;
 }
 
 .app-container{
@@ -825,15 +835,17 @@ input[type="file"]{
 }
 
 .fullscreen{
-  position: absolute;
+  position: fixed;
   display: block;
   background-color: rgba(0,0,0,0.5);
-  top:0;
+  top: 0;
   right: 0;
   left: 0;
+  overflow-y: scroll;
   height: auto;
-  min-height: 100%;
   z-index: 999999;
+  overflow: auto;
+  bottom: 0;
 
 }
 

@@ -85,16 +85,55 @@ function login(req, res, err){
 
         let token = authService.generateToken(user)
 
+
         res.send({
           ok:true,
           profile: {
             id: profile.id,
             name: profile.name,
-            userName: profile.userName
+            userName: profile.userName,
+            avatar: profile.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+            banner: profile.banner || base64Img.base64Sync('./public/resources/banners/4.png'),
+            tweetCount: profile.tweetCount,
+            following: profile.following,
+            followers: profile.followers
           },
           token: token
          });
        });
+  })
+}
+
+function relogin(req,res, err){
+  let userToken = {
+    id: req.user.id,
+    username: req.user.username
+  }
+  let newToken = authService.generateToken(userToken)
+
+  Profile.findOne({_id: req.user.id}, function( err, profile){
+    if(err){
+      res.send({
+        ok: false,
+        message: "Error al consultar el usuario",
+        error: err
+      })
+    }else{
+      res.send({
+        ok:true,
+        profile: {
+          id: profile._id,
+          name: profile.name,
+          userName: profile.userName,
+          avatar: profile.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+          banner: profile.banner || base64Img.base64Sync('./public/resources/banners/4.png'),
+          tweetCount: profile.tweetCount,
+          following: profile.following,
+          followers: profile.followers
+        },
+        token: newToken
+       });
+    }
   })
 }
 
@@ -335,5 +374,6 @@ module.exports = {
   getSuffestedUser,
   follow,
   getFollower,
-  getFollowing
+  getFollowing,
+  relogin
 }

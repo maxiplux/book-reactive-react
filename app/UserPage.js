@@ -4,7 +4,6 @@ import Profile from './Profile'
 import TweetsContainer from './TweetsContainer'
 import SuggestedUser from './SuggestedUser'
 import APIInvoker from './utils/APIInvoker'
-import Toolbar from './Toolbar'
 import Followers from './Followers'
 import { Link } from 'react-router'
 
@@ -23,12 +22,20 @@ class UserPage extends React.Component{
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.params.user !== prevState.profile.userName){
+      console.log("force update");
+      this.loadProfile(prevProps.params.user)
+    }
+  }
+
   componentWillMount(){
     let user = this.props.params.user || window.sessionStorage.getItem("username")
     this.loadProfile(user)
   }
 
   componentWillReceiveProps(props){
+    console.log(this.props.params.user);
     let user = this.props.params.user || window.sessionStorage.getItem("username")
     this.loadProfile(user)
   }
@@ -213,7 +220,6 @@ class UserPage extends React.Component{
 
     return(
       <div id="user-page" className="app-container">
-        <Toolbar selected="inicio" profile={this.state.profile}/>
         <header className="user-header">
           <div className="user-banner" style={bannerStyle}>
             {selectBanner}
@@ -271,6 +277,7 @@ class UserPage extends React.Component{
             </div>
           </div>
         </div>
+        {this.props.children}
       </div>
     )
   }

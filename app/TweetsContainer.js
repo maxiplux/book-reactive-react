@@ -3,18 +3,31 @@ import Tweet from './Tweet'
 import Reply  from './Reply'
 import update from 'react-addons-update'
 import APIInvoker from "./utils/APIInvoker"
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 class TweetsContainer extends React.Component{
-  constructor(props){
-    super(props)
+  constructor(){
+    super(...arguments)
     this.state = {
       tweets: []
     }
   }
 
   componentWillReceiveProps(props){
-    APIInvoker.invokeGET('/tweets' + (props.onlyUserTweet  ? "/" + props.profile.userName : ""), response => {
+    let username = props.profile.userName
+    let onlyUserTweet = props.onlyUserTweet
+    this.loadTweets(username, onlyUserTweet)
+  }
+
+  // componentWillReceiveProps(props){
+  componentWillMount(){
+    let username = this.props.profile.userName
+    let onlyUserTweet = this.props.onlyUserTweet
+    this.loadTweets(username, onlyUserTweet)
+  }
+
+  loadTweets(username, onlyUserTweet){
+    APIInvoker.invokeGET('/tweets' + (onlyUserTweet  ? "/" + username : ""), response => {
       if(response.ok){
         this.setState({
           tweets: response.body
@@ -26,8 +39,9 @@ class TweetsContainer extends React.Component{
     },error => {
       console.log("Error al cargar los Tweets");
     })
-
   }
+
+
 
   addNewTweet(newTweet){
     let oldState = this.state;

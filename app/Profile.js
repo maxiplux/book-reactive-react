@@ -30,10 +30,10 @@ class Profile extends React.Component{
           <div className="container-fluid">
             <div className="row">
               <div className="col-xs-3">
-                <a href="#">
+                <Link to={"/"+this.props.profile.userName}>
                   <p className="profile-resumen-title">TWEETS</p>
                   <p className="profile-resumen-value">{this.props.profile.tweetCount}</p>
-                </a>
+                </Link>
               </div>
               <div className="col-xs-4">
                 <Link to="/following">

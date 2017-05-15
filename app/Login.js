@@ -1,8 +1,7 @@
 import React from 'react'
-import Toolbar from './Toolbar'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
-import { browserHistory, Link } from 'react-router';
+import { browserHistory, Link, Router } from 'react-router';
 
 class Login extends React.Component{
 
@@ -42,7 +41,8 @@ class Login extends React.Component{
       if(response.ok){
         window.sessionStorage.setItem("token", response.token)
         window.sessionStorage.setItem("username", response.profile.userName)
-        browserHistory.push('/');
+        //browserHistory.push('/');
+        window.location = '/';
       }else{
         this.refs.submitBtnLabel.innerHTML = response.message
         this.refs.submitBtnLabel.className = 'shake animated'
@@ -56,7 +56,6 @@ class Login extends React.Component{
 
     return(
       <div id="signup">
-        <Toolbar profile={this.state} />
         <div className="container" >
           <div className="row">
             <div className="col-xs-12">
