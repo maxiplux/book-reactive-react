@@ -19,7 +19,7 @@ class TwitterApp extends React.Component{
   }
 
   loadProfile(){
-    let token = window.sessionStorage.getItem("token")
+    let token = window.localStorage.getItem("token")
     if(token == null){
       browserHistory.push('/login');
       this.setState({
@@ -33,11 +33,11 @@ class TwitterApp extends React.Component{
             load: true,
             profile: response.profile
           });
-          window.sessionStorage.setItem("token", response.token)
-          window.sessionStorage.setItem("username", response.profile.userName)
+          window.localStorage.setItem("token", response.token)
+          window.localStorage.setItem("username", response.profile.userName)
         }else{
-          window.sessionStorage.removeItem("token")
-          window.sessionStorage.removeItem("username")
+          window.localStorage.removeItem("token")
+          window.localStorage.removeItem("username")
           browserHistory.push('/login');
         }
       },error => {

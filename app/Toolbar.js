@@ -9,8 +9,8 @@ class Toolbar extends React.Component{
 
   logout(e){
     e.preventDefault()
-    window.sessionStorage.removeItem("token")
-    window.sessionStorage.removeItem("username")
+    window.localStorage.removeItem("token")
+    window.localStorage.removeItem("username")
     window.location = '/login';
   }
 

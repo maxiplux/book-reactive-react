@@ -39,8 +39,8 @@ class Login extends React.Component{
     APIInvoker.invokePOST('/login',request, response => {
       console.log(response);
       if(response.ok){
-        window.sessionStorage.setItem("token", response.token)
-        window.sessionStorage.setItem("username", response.profile.userName)
+        window.localStorage.setItem("token", response.token)
+        window.localStorage.setItem("username", response.profile.userName)
         //browserHistory.push('/');
         window.location = '/';
       }else{
