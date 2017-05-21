@@ -98,26 +98,13 @@ class Reply extends React.Component{
   }
 
   render(){
-    let textareaStyles = this.state.focus ? 'reply-selected' : ''
-    let controlStyles = this.state.focus ? 'reply-controls' : 'hidden'
-    let buttonStyles = this.state.message.length===0 ? 'btn btn-primary disabled' : 'btn btn-primary '
-    let btnPhoto = this.state.message.length===0 ? 'btn pull-left disabled' : 'btn pull-left'
-
-    let img = null
-    if(this.state.image != null){
-      img =  (<div className="image-box"><img src={this.state.image}/></div>)
-    }
-
-    let avatar = null;
-    if(this.props.profile!=null){
-      avatar = (<img src={this.props.profile.avatar} className="reply-avatar" />)
-    }
-
     let randomID = uuidV4();
 
     return (
       <section className="reply">
-        {avatar}
+        <If condition={this.props.profile!=null} >
+          <img src={this.props.profile.avatar} className="reply-avatar" />
+        </If>
         <div className="reply-body">
           <textarea
             ref="reply"
@@ -125,27 +112,29 @@ class Reply extends React.Component{
             type="text"
             maxLength = {config.tweets.maxTweetSize}
             placeholder="¿Qué está pensando?"
-            className={textareaStyles}
+            className={this.state.focus ? 'reply-selected' : ''}
             value={this.state.message}
             onKeyDown={this.handleKeyDown.bind(this)}
             onBlur={this.handleMessageFocusLost.bind(this)}
             onFocus={this.handleMessageFocus.bind(this)}
             onChange={this.handleChangeMessage.bind(this)}
             />
-            {img}
+            <If condition={this.state.image != null} >
+              <div className="image-box"><img src={this.state.image}/></div>
+            </If>
 
         </div>
-        <div className={controlStyles}>
-          <label htmlFor={"reply-camara-" + randomID} className={btnPhoto}>
+        <div className={this.state.focus ? 'reply-controls' : 'hidden'}>
+          <label htmlFor={"reply-camara-" + randomID} className={this.state.message.length===0 ? 'btn pull-left disabled' : 'btn pull-left'}>
             <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
           </label>
 
-          <input href="#" className={btnPhoto} accept=".gif,.jpg,.jpeg,.png" type="file" onChange={this.imageSelect.bind(this)} id={"reply-camara-" + randomID}>
+          <input href="#" className={this.state.message.length===0 ? 'btn pull-left disabled' : 'btn pull-left'} accept=".gif,.jpg,.jpeg,.png" type="file" onChange={this.imageSelect.bind(this)} id={"reply-camara-" + randomID}>
           </input>
 
           <span ref="charCounter" className="char-counter">{config.tweets.maxTweetSize - this.state.message.length }</span>
 
-          <button className={buttonStyles} onClick={this.newTweet.bind(this)}>
+          <button className={this.state.message.length===0 ? 'btn btn-primary disabled' : 'btn btn-primary '} onClick={this.newTweet.bind(this)}>
             <i className="fa fa-twitch" aria-hidden="true"></i>   Twittear
           </button>
         </div>

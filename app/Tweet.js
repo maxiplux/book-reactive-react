@@ -4,7 +4,8 @@ import { Link } from 'react-router'
 import TweetDetail from './TweetDetail'
 import { browserHistory } from 'react-router'
 import APIInvoker from './utils/APIInvoker'
-
+import TweetReply from './TweetReply'
+import { render } from 'react-dom';
 
 class Tweet extends React.Component{
 
@@ -35,6 +36,14 @@ class Tweet extends React.Component{
     })
   }
 
+  handleReply(e){
+    e.preventDefault()
+
+    if(!this.props.detail){
+      render(<TweetReply tweet={this.props.tweet} profile={this.state._creator} />, document.getElementById('dialog'))
+    }
+  }
+
   handleClick(e){
     if(e.target.getAttribute("data-ignore-onclick")){
       return
@@ -52,13 +61,6 @@ class Tweet extends React.Component{
       tweetClass = this.state.isNew ? 'tweet fadeIn animated' : 'tweet'
     }
 
-    let likeClass = this.state.liked ? 'like-icon liked' : 'like-icon'
-
-    let img = null
-    if(this.state.image != null){
-      img = (<img className="tweet-img" src={this.state.image}/>)
-    }
-
     return (
         <article  className={tweetClass} onClick={this.props.detail ? '' : this.handleClick.bind(this)} id={"tweet-" + this.state._id}>
           <img src={this.state._creator.avatar} className="tweet-avatar" />
@@ -70,14 +72,18 @@ class Tweet extends React.Component{
               <span className="tweet-username">@{this.state._creator.userName}</span>
             </div>
             <p className="tweet-message">{this.state.message}</p>
-            {img}
+            <If condition={this.state.image != null}>
+              <img className="tweet-img" src={this.state.image}/>
+            </If>
             <div className="tweet-footer">
-              <a className={likeClass} onClick={this.handleLike.bind(this)} data-ignore-onclick>
+              <a className={this.state.liked ? 'like-icon liked' : 'like-icon'} onClick={this.handleLike.bind(this)} data-ignore-onclick>
                 <i className="fa fa-heart " aria-hidden="true" data-ignore-onclick></i> {this.state.likeCounter}
               </a>
-              <a className="reply-icon" data-ignore-onclick>
-                <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> {this.state.replys}
-              </a>
+              <If condition={!this.props.detail} >
+                <a className="reply-icon" onClick={this.handleReply.bind(this)} data-ignore-onclick>
+                  <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> {this.state.replys}
+                </a>
+              </If>
             </div>
           </div>
           <div id={"tweet-detail-" + this.state._id}/>

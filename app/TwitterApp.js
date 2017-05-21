@@ -47,27 +47,25 @@ class TwitterApp extends React.Component{
   }
 
   render(){
-    let view = null
-
-    if(!this.state.load){
-      view = (<div className="tweet-detail">
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      </div>)
-    }else {
-      if(this.props.children == null && this.state.profile != null){
-        view = (<TwitterDashboard  profile={this.state.profile}/>)
-      }else{
-        view = (this.props.children)
-      }
-    }
 
     return (
       <div id="mainApp">
         <Toolbar profile={this.state.profile} selected="home"/>
-        {view}
+        <Choose>
+          <When condition={!this.state.load}>
+            <div className="tweet-detail">
+              <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+            </div>
+          </When>
+          <When condition={this.props.children == null && this.state.profile != null}>
+            <TwitterDashboard  profile={this.state.profile}/>
+          </When>
+          <Otherwise>
+            {this.props.children}
+          </Otherwise>
+        </Choose>
         <div id="dialog"/>
       </div>
-
     )
   }
 }

@@ -18,6 +18,18 @@ a:hover{
 
 }
 
+.no-padding{
+  padding: 0px !important;
+}
+
+.no-padding-left{
+  padding-left: 0px !important;
+}
+
+.no-padding-right{
+  padding-right: 0px !important;
+}
+
 #mainApp{
   margin-top: 50px;
 }
@@ -747,6 +759,11 @@ input[type="file"]{
 }
 
 #user-page .user-header .user-summary .user-summary-menu li a:hover::before{
+  display: block;
+  height: 5px; 
+}
+
+#user-page .user-header .user-summary .user-summary-menu li.selected a::before{
   display: block;
   height: 5px;
 }

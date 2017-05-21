@@ -13,8 +13,9 @@ class Followers extends React.Component{
 
   componentWillReceiveProps(props){
     let type = this.props.type
+    let username = this.props.profile.userName
 
-    APIInvoker.invokeGET('/secure/' + type, response => {
+    APIInvoker.invokeGET('/' + type + "/" + username, response => {
       if(response.ok){
           this.setState({
             users: response.body
@@ -26,19 +27,16 @@ class Followers extends React.Component{
   }
 
   render(){
-    //
-    let cards = this.state.users.map(x => {
-      return (
-        <div className="col-xs-12 col-sm-6" key={x._id}>
-          <UserCard user={x} />
-        </div>
-      )
-    })
+
     return(
       <section>
-        <div className="container-fluid">
-          <div className="row">
-              {cards}
+        <div className="container-fluid no-padding">
+          <div className="row no-padding">
+              <For each="user" of={ this.state.users }>
+                <div className="col-xs-12 col-sm-6 col-lg-4" key={user._id}>
+                  <UserCard user={user} />
+                </div>
+              </For>
           </div>
         </div>
       </section>

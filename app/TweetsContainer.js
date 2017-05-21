@@ -71,31 +71,28 @@ class TweetsContainer extends React.Component{
   }
 
   render(){
-    let tweets= ''
-    if(this.state.tweets != null){
-      tweets = this.state.tweets.map(x => {
-        return <Tweet key={x._id} tweet={x}/>
-      })
-    }
 
     let operations = {
       addNewTweet: this.addNewTweet.bind(this)
     }
 
-    let header = null
-    if(this.props.onlyUserTweet){
-      header = (
-        <div className="tweet-container-header">
-          Tweets
-        </div>)
-    }else{
-      header = (<Reply profile={this.props.profile} operations={operations}/>)
-    }
-
     return (
       <main className="twitter-panel">
-        {header}
-        {tweets}
+        <Choose>
+          <When condition={this.props.onlyUserTweet} >
+            <div className="tweet-container-header">
+              Tweets
+            </div>
+          </When>
+          <Otherwise>
+            <Reply profile={this.props.profile} operations={operations}/>
+          </Otherwise>
+        </Choose>
+        <If condition={this.state.tweets != null}>
+          <For each="tweet" of={this.state.tweets}>
+            <Tweet key={tweet._id} tweet={tweet}/>
+          </For>
+        </If>
       </main>
     )
   }

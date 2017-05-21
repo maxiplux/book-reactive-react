@@ -13,7 +13,6 @@ function signup(req, res, err){
   })
 
   newProfile.save(function(err){
-    console.log(err);
     if(err){
 
       let errorMessage = null
@@ -308,7 +307,7 @@ function follow(req, res, err){
 }
 
 function getFollower(req, res, err){
-    let username = req.user.username
+    let username = req.params.user
     Profile.findOne({userName : username}).populate("followersRef").exec(function(err, followers){
       if(err){
         res.send({
@@ -317,27 +316,34 @@ function getFollower(req, res, err){
           error: err
         })
       }else{
-        let response = followers.followersRef.map( x => {
-          return {
-            _id: x._id,
-            userName: x.userName,
-            name: x.name,
-            description: x.description,
-            avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
-            banner: base64Img.base64Sync('./public/resources/banners/4.png')
-          }
-        })
+        if(followers === null){
+          res.send({
+            ok: false,
+            message: "No existe el usuario"
+          })
+        }else{
+          let response = followers.followersRef.map( x => {
+            return {
+              _id: x._id,
+              userName: x.userName,
+              name: x.name,
+              description: x.description,
+              avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+              banner: x.banner || base64Img.base64Sync('./public/resources/banners/4.png')
+            }
+          })
 
-        res.send({
-          ok: true,
-          body: response
-        })
+          res.send({
+            ok: true,
+            body: response
+          })
+        }
       }
     })
 }
 
 function getFollowing(req, res, err){
-  let username = req.user.username
+  let username = req.params.user
   Profile.findOne({userName : username}).populate("followingRef").exec(function(err, followings){
     if(err){
       res.send({
@@ -346,21 +352,28 @@ function getFollowing(req, res, err){
         error: err
       })
     }else{
-      let response = followings.followingRef.map( x => {
-        return {
-          _id: x._id,
-          userName: x.userName,
-          name: x.name,
-          description: x.description,
-          avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
-          banner: base64Img.base64Sync('./public/resources/banners/4.png')
-        }
-      })
+      if(followings === null){
+        res.send({
+          ok: false,
+          message: "No existe el usuario"
+        })
+      }else{
+        let response = followings.followingRef.map( x => {
+          return {
+            _id: x._id,
+            userName: x.userName,
+            name: x.name,
+            description: x.description,
+            avatar: x.avatar || base64Img.base64Sync('./public/resources/avatars/0.png'),
+            banner: x.banner || base64Img.base64Sync('./public/resources/banners/4.png')
+          }
+        })
 
-      res.send({
-        ok: true,
-        body: response
-      })
+        res.send({
+          ok: true,
+          body: response
+        })
+      }
     }
   })
 }

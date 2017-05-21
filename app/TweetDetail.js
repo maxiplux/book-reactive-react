@@ -48,48 +48,37 @@ class TweetDetail extends React.Component{
   render(){
     $( "html" ).addClass( "modal-mode");
 
-    let tweetDetails = null
-
-    if(this.state == null){
-      tweetDetails = (<div className="tweet-detail">
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      </div>)
-    }else{
-      let img = null;
-      if(this.state.image != null){
-        img = (<img src={this.state} alt={this.state.name} />)
-      }
-
-      let replys = null
-      if(this.state.replysTweets != null){
-        replys = this.state.replysTweets.map(reply => {
-          return <li className="tweet-details-reply" key={reply._id}>
-            <Tweet tweet={reply} detail={true}/>
-          </li>
-        })
-      }
-
-      let operations = {
-        addNewTweet: this.addNewTweet.bind(this)
-      }
-
-      tweetDetails = (
-        <div className="tweet-detail">
-          <i className="fa fa-times fa-2x tweet-close" aria-hidden="true" onClick={this.handleClose.bind(this)}/>
-          <Tweet tweet={this.state} detail={true} />
-          <div className="tweet-details-reply">
-            <Reply profile={this.state._creator} operations={operations} key={"detail-" + this.state._id} newReply={false}/>
-          </div>
-          <ul className="tweet-detail-responses">
-            {replys}
-          </ul>
-        </div>
-      )
+    let operations = {
+      addNewTweet: this.addNewTweet.bind(this)
     }
 
     return(
       <div className="fullscreen">
-        {tweetDetails}
+        <Choose>
+          <When condition={this.state == null}>
+            <div className="tweet-detail">
+              <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+            </div>
+          </When>
+          <Otherwise>
+            <div className="tweet-detail">
+              <i className="fa fa-times fa-2x tweet-close" aria-hidden="true" onClick={this.handleClose.bind(this)}/>
+              <Tweet tweet={this.state} detail={true} />
+              <div className="tweet-details-reply">
+                <Reply profile={this.state._creator} operations={operations} key={"detail-" + this.state._id} newReply={false}/>
+              </div>
+              <ul className="tweet-detail-responses">
+                <If condition={this.state.replysTweets != null} >
+                  <For each="reply" of={this.state.replysTweets}>
+                    <li className="tweet-details-reply" key={reply._id}>
+                      <Tweet tweet={reply} detail={true}/>
+                    </li>
+                  </For>
+                </If>
+              </ul>
+            </div>
+          </Otherwise>
+        </Choose>
       </div>
     )
   }

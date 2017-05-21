@@ -36,13 +36,13 @@ class Profile extends React.Component{
                 </Link>
               </div>
               <div className="col-xs-4">
-                <Link to="/following">
+                <Link to={"/"+this.props.profile.userName + "/following"}>
                   <p className="profile-resumen-title">SIGUIENDO</p>
                   <p className="profile-resumen-value">{this.props.profile.following}</p>
                 </Link>
               </div>
               <div className="col-xs-5">
-                <Link to="/followers">
+                <Link to={"/"+this.props.profile.userName + "/followers"}>
                   <p className="profile-resumen-title">SEGUIDORES</p>
                   <p className="profile-resumen-value">{this.props.profile.followers}</p>
                 </Link>
