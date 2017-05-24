@@ -10,38 +10,22 @@ import MyTweets from './MyTweets'
 
 class UserPage extends React.Component{
 
-  constructor(){
-    super(...arguments)
+  constructor(props){
+    super(props)
     this.state = {
       edit: false,
       profile:{
         name: "",
         description: "",
         avatar: null,
-        banner: null
+        banner: null,
+        userName: ""
       }
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(prevProps.params.user !== prevState.profile.userName){
-      console.log("force update");
-      this.loadProfile(prevProps.params.user)
-    }
-  }
-
   componentWillMount(){
-    let user = this.props.params.user || window.sessionStorage.getItem("username")
-    this.loadProfile(user)
-  }
-
-  componentWillReceiveProps(props){
-    console.log(this.props.params.user);
-    let user = this.props.params.user || window.sessionStorage.getItem("username")
-    this.loadProfile(user)
-  }
-
-  loadProfile(user){
+    let user = this.props.params.user || window.localStorage.getItem("username")
     APIInvoker.invokeGET('/profile/' + user, response => {
       if(response.ok){
         this.setState({
@@ -49,6 +33,7 @@ class UserPage extends React.Component{
           profile: response.body
         });
       }
+      console.log(response)
     },error => {
       console.log("Error al cargar los Tweets");
     })
@@ -93,8 +78,10 @@ class UserPage extends React.Component{
   }
 
   cancelEditMode(e){
+    let currentState = this.state.currentState
     this.setState(update(this.state,{
-      edit: {$set: false}
+      edit: {$set: false},
+      profile: {$set: currentState}
     }))
   }
 
@@ -118,8 +105,10 @@ class UserPage extends React.Component{
         console.log("Error al actualizar el perfil");
       })
     }else{
+      let currentState = this.state.profile
       this.setState(update(this.state,{
-        edit: {$set: true}
+        edit: {$set: true},
+        currentState: {$set: currentState}
       }))
     }
   }
@@ -143,8 +132,9 @@ class UserPage extends React.Component{
 
   render(){
     let bannerStyle = {
-      backgroundImage: 'url(' + (this.state.profile.banner == null ?this.state.profile.banner : this.state.profile.banner) + ')'
+      backgroundImage: 'url(' + (this.state.profile.banner == null ? this.state.profile.banner : this.state.profile.banner) + ')'
     }
+    let childs = this.props.children && React.cloneElement(this.props.children, { profile: this.state.profile })
 
     return(
       <div id="user-page" className="app-container">
@@ -186,10 +176,13 @@ class UserPage extends React.Component{
                       </Link>
                     </li>
                   </ul>
-                  {this.state.profile.userName === window.sessionStorage.getItem("username") ? <button className="btn btn-primary  edit-button" onClick={this.changeToEditMode.bind(this)}  >{this.state.edit ? "Guardar" : "Editar perfil"}</button>: null }
-                  <If condition={this.state.profile.follow != null && this.state.profile.userName !== window.sessionStorage.getItem("username")} >
+                  {this.state.profile.userName === window.localStorage.getItem("username") ? <button className="btn btn-primary  edit-button" onClick={this.changeToEditMode.bind(this)}  >{this.state.edit ? "Guardar" : "Editar perfil"}</button>: null }
+                  <If condition={this.state.profile.follow != null && this.state.profile.userName !== window.localStorage.getItem("username")} >
                     <button className="btn edit-button" onClick={this.follow.bind(this)} >
-                      {this.state.profile.follow ? (<span><i className="fa fa-user-times" aria-hidden="true"></i> Siguiendo</span>) :  (<span><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</span>)}
+                      {this.state.profile.follow
+                        ? (<span><i className="fa fa-user-times" aria-hidden="true"></i> Siguiendo</span>)
+                        : (<span><i className="fa fa-user-plus" aria-hidden="true"></i> Seguir</span>)
+                      }
                     </button>
                   </If>
                   {this.state.edit ? <button className="btn edit-button" onClick={this.cancelEditMode.bind(this)} >Cancelar</button> : null}
@@ -242,21 +235,10 @@ class UserPage extends React.Component{
             </div>
 
             <div className="col-xs-12 col-sm-8 col-md-7 col-md-push-1 col-lg-7">
-              <Choose>
-                <When condition={this.props.route.tab === 'tweets'}>
-                  <MyTweets profile={this.state.profile} />
-                </When>
-                <When condition={this.props.route.tab === 'followings'}>
-                  <Followers type={this.props.route.tab} profile={this.state.profile}> </Followers>
-                </When>
-                <When condition={this.props.route.tab === 'followers'}>
-                  <Followers type={this.props.route.tab} profile={this.state.profile}> </Followers>
-                </When>
-              </Choose>
+              {childs}
             </div>
           </div>
         </div>
-        {this.props.children}
       </div>
     )
   }

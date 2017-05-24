@@ -20,24 +20,21 @@ var createBrowserHistory = require('history/createBrowserHistory')
 render((
   <Router history={ browserHistory }>
     <Router component={TwitterApp} path="/">
-      {/* <Route path="/"  component={TwitterContainer}>
-        <Route path="/:user/:tweet" component={TweetDetail}/>
-      </Route> */}
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={Login}/>
 
-      <Route path="/:user/followers" component={UserPage} tab="followers"/>
+      {/* <Route path="/:user/followers" component={UserPage} tab="followers"/>
       <Route path="/:user/following" component={UserPage} tab="followings"/>
       <Route path="/:user" component={UserPage} tab="tweets">
         <Route path="/:user/:tweet" component={TweetDetail}/>
-      </Route>
-
-      {/* <Route path="/:user" component={UserPage} tab="tweets">
-        <IndexRoute component={MyTweets}  />
-        <Route path="/:user/followers" component={Followers} tab="followers"/>
-        <Route path="/:user/following" component={Followers} tab="followings"/>
-        <Route path="/:user/:tweet" component={TweetDetail}/>
       </Route> */}
+
+      <Route path="/:user" component={UserPage} >
+        <IndexRoute component={MyTweets} tab="tweets" />
+        <Route path="followers" component={Followers} tab="followers"/>
+        <Route path="following" component={Followers} tab="followings"/>
+        <Route path=":tweet" component={TweetDetail}/>
+      </Route>
 
 
       {/* <Route path="/:user/:tweet" component={TweetDetail}/> */}

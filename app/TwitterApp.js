@@ -6,8 +6,8 @@ import TwitterDashboard from './TwitterDashboard'
 
 class TwitterApp extends React.Component{
 
-  constructor(){
-    super(...arguments)
+  constructor(props){
+    super(props)
     this.state = {
       load: false,
       profile: null

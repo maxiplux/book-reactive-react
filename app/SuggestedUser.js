@@ -13,13 +13,13 @@ class SuggestedUser extends React.Component{
 
   componentWillMount(){
     APIInvoker.invokeGET('/secure/suggestedUsers', response => {
-      if(!response.ok){
-        console.log(response);
-      }else{
+      if(response.ok){
         this.setState({
           load: true,
           users: response.body
         })
+      }else{
+        console.error(response);
       }
     },error => {
       console.log("Error al actualizar el perfil");
@@ -38,12 +38,12 @@ class SuggestedUser extends React.Component{
               </div>
               <div className="sg-body">
                 <div>
-                  <Link to={"/" + user.userName}>
+                  <a href={"/" + user.userName}>
                     <span className="sg-name">{user.name}</span>
                     <span className="sg-username">@{user.userName}</span>
-                  </Link>
+                  </a>
                 </div>
-                <button className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Seguir</button>
+                <a href={"/" + user.userName} className="btn btn-primary btn-sm"><i className="fa fa-user-plus" aria-hidden="true"></i>  Ver perfil</a>
               </div>
             </div>
           </For>

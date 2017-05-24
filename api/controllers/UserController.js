@@ -164,10 +164,11 @@ function getProfileByUsername(req, res, err){
 
     var token = req.headers['authorization'] || ''
     token = token.replace('Bearer ', '')
-    jwt.verify(token, configuration.jwt.secret, function(err, usertToken) {
-      let follow = null
+    jwt.verify(token, configuration.jwt.secret, function(err, userToken) {
+      let follow = false
+
       if (!err) {
-        follow = user.followersRef.find(x => x.toString() === usertToken.id.toString()) != null
+        follow = user.followersRef.find(x => x.toString() === userToken.id.toString()) != null
       }
 
       res.send({
@@ -188,7 +189,6 @@ function getProfileByUsername(req, res, err){
     })
   })
 }
-
 
 function updateProfile(req, res, err){
   let username = req.user.username

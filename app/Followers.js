@@ -11,9 +11,10 @@ class Followers extends React.Component{
     }
   }
 
+
   componentWillReceiveProps(props){
-    let type = this.props.type
-    let username = this.props.profile.userName
+    let type = props.route.tab
+    let username = props.profile.userName
 
     APIInvoker.invokeGET('/' + type + "/" + username, response => {
       if(response.ok){
@@ -27,7 +28,6 @@ class Followers extends React.Component{
   }
 
   render(){
-
     return(
       <section>
         <div className="container-fluid no-padding">

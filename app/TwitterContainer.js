@@ -6,23 +6,16 @@ import { browserHistory,Link } from 'react-router'
 
 class TwitterContainer extends React.Component{
 
-  constructor(){
-    super(...arguments);
+  constructor(props){
+    super(props);
     this.state = {
       name: "",
       _id: ""
     }
   }
 
-  componentWillUpdate(){
-  }
-
   componentWillMount(){
-    this.loadProfile()
-  }
-
-  loadProfile(){
-    let user = window.sessionStorage.getItem("username")
+    let user = window.localStorage.getItem("username")
     if(user == null){
       browserHistory.push('/login');
     }
@@ -33,7 +26,6 @@ class TwitterContainer extends React.Component{
     },error => {
       console.log("Error al cargar los Tweets");
     })
-
   }
 
   render(){
@@ -42,7 +34,6 @@ class TwitterContainer extends React.Component{
         <TwitterDashboard  profile={this.state}/>
         {this.props.children}
       </div>
-
     )
   }
 }

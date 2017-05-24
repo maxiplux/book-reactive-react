@@ -7,8 +7,8 @@ import { browserHistory } from 'react-router';
 
 class TweetDetail extends React.Component{
 
-  constructor(){
-    super(...arguments)
+  constructor(props){
+    super(props)
   }
 
   componentWillMount(){

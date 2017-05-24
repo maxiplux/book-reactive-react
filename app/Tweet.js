@@ -29,7 +29,6 @@ class Tweet extends React.Component{
           liked: {$apply: (x) => {return !x}}
         })
         this.setState(newState)
-        console.log(this.state);
       }
     },error => {
       console.log("Error al cargar los Tweets");
@@ -37,6 +36,7 @@ class Tweet extends React.Component{
   }
 
   handleReply(e){
+    $( "html" ).addClass( "modal-mode");
     e.preventDefault()
 
     if(!this.props.detail){

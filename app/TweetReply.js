@@ -17,6 +17,7 @@ class TweetReply extends React.Component{
   }
 
   handleClose(){
+    $( "html" ).removeClass( "modal-mode");
     $( "#dialog" ).html( "");
   }
 

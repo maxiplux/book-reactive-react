@@ -6,8 +6,8 @@ const uuidV4 = require('uuid/v4');
 
 class Reply extends React.Component{
 
-  constructor(){
-    super(...arguments)
+  constructor(props){
+    super(props)
     this.state={
       focus: false,
       message: '',

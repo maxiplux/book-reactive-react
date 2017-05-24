@@ -20,7 +20,7 @@ class UserCard extends React.Component{
     return(
       <article className="user-card" >
         <header className="user-card-banner" style={css}>
-          <img src={user.avatar} className="user-card-avatar"/>
+          <img src={user.avatar} className="user-card-avatar"/> 
         </header>
         <div className="user-card-body">
           <Link to={"/" + user.userName} className="user-card-name" >

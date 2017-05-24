@@ -6,20 +6,21 @@ import APIInvoker from "./utils/APIInvoker"
 import PropTypes from 'prop-types'
 
 class TweetsContainer extends React.Component{
-  constructor(){
-    super(...arguments)
+  constructor(props){
+    super(props)
     this.state = {
       tweets: []
     }
   }
 
-  componentWillReceiveProps(props){
-    let username = props.profile.userName
-    let onlyUserTweet = props.onlyUserTweet
-    this.loadTweets(username, onlyUserTweet)
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.profile.userName !== this.props.profile.userName){
+      let username = this.props.profile.userName
+      let onlyUserTweet = this.props.onlyUserTweet
+      this.loadTweets(username, onlyUserTweet)
+    }
   }
 
-  // componentWillReceiveProps(props){
   componentWillMount(){
     let username = this.props.profile.userName
     let onlyUserTweet = this.props.onlyUserTweet
@@ -100,7 +101,7 @@ class TweetsContainer extends React.Component{
 
 TweetsContainer.propTypes = {
   onlyUserTweet: PropTypes.bool,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object
 }
 
 TweetsContainer.defaultProps = {
