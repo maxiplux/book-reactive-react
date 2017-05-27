@@ -2,6 +2,7 @@ import React from 'react'
 import Profile from './profile'
 import TweetsContainer from './TweetsContainer'
 import SuggestedUser from './SuggestedUser'
+import PropTypes from 'prop-types'
 
 class TwitterDashboard extends React.Component{
 
@@ -25,4 +26,9 @@ class TwitterDashboard extends React.Component{
     )
   }
 }
+
+TwitterDashboard.propTypes = {
+  profile: PropTypes.object.isRequired
+}
+
 export default TwitterDashboard;

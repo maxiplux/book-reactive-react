@@ -1,21 +1,28 @@
 import React from 'react'
 import UserCard from './UserCard'
 import APIInvoker from './utils/APIInvoker'
+import PropTypes from 'prop-types'
 
 class Followers extends React.Component{
 
   constructor(props){
     super(props)
+    console.log(props);
     this.state={
       users: []
     }
   }
 
 
-  componentWillReceiveProps(props){
-    let type = props.route.tab
-    let username = props.profile.userName
+  componentWillMount(){
+    this.findUsers(this.props.profile.userName,this.props.route.tab)
+  }
 
+  componentWillReceiveProps(props){
+    this.findUsers(props.profile.userName,props.route.tab)
+  }
+
+  findUsers(username, type){
     APIInvoker.invokeGET('/' + type + "/" + username, response => {
       if(response.ok){
           this.setState({
@@ -43,4 +50,9 @@ class Followers extends React.Component{
     )
   }
 }
+
+Followers.propTypes = {
+  profile: PropTypes.object.isRequired
+}
+
 export default Followers;

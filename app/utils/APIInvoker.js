@@ -46,14 +46,19 @@ class APIInvoker {
 
     fetch(`${API_URL}${url}`, params)
     .then((response) => {
-      if(response.ok){
-        return response.json()
-      } else {
-        failCallback(response)
+      if(debug){
+        console.log("Invoke Response => " );
+        console.log(response);
       }
+      return response.json()
     })
     .then((responseData) => {
-        okCallback(responseData)
+        if(responseData.ok){
+          okCallback(responseData)
+        }else{
+          failCallback(responseData)
+        }
+
     })
     //.catch((error) => {
     //  this.setState(prevState);

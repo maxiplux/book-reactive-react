@@ -1,6 +1,7 @@
 import React from 'react'
 import TweetsContainer from './TweetsContainer'
 import SuggestedUser from './SuggestedUser'
+import PropTypes from 'prop-types'
 
 class MyTweets extends React.Component{
 
@@ -21,4 +22,9 @@ class MyTweets extends React.Component{
     )
   }
 }
+
+MyTweets.propTypes = {
+  profile: PropTypes.object
+}
+
 export default MyTweets;

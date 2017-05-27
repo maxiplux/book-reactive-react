@@ -1,5 +1,6 @@
 import React from 'react'
 import { browserHistory,Link } from 'react-router'
+import PropTypes from 'prop-types'
 
 class Toolbar extends React.Component{
   constructor(props){
@@ -57,4 +58,10 @@ class Toolbar extends React.Component{
     )
   }
 }
+
+Toolbar.propTypes = {
+  profile: PropTypes.object,
+  selected: PropTypes.string
+}
+
 export default Toolbar;

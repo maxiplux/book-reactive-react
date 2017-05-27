@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router'
 import APIInvoker from './utils/APIInvoker'
 import TweetReply from './TweetReply'
 import { render } from 'react-dom';
+import PropTypes from 'prop-types'
 
 class Tweet extends React.Component{
 
@@ -91,4 +92,15 @@ class Tweet extends React.Component{
     )
   }
 }
+
+Tweet.propTypes = {
+  tweet: PropTypes.object.isRequired,
+  detail: PropTypes.bool
+}
+
+Tweet.defaultProps = {
+  detail: false
+}
+
+
 export default Tweet;

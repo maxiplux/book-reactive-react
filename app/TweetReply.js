@@ -3,6 +3,7 @@ import Reply from './Reply'
 import Tweet from './Tweet'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
+import PropTypes from 'prop-types'
 
 class TweetReply extends React.Component{
 
@@ -56,4 +57,11 @@ class TweetReply extends React.Component{
     )
   }
 }
+
+TweetReply.propTypes = {
+  tweet: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  tweetId: PropTypes.object.isRequired
+}
+
 export default TweetReply;

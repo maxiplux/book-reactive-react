@@ -10,12 +10,6 @@ import TwitterApp from './TwitterApp'
 import Followers from './Followers'
 import MyTweets from './MyTweets'
 var createBrowserHistory = require('history/createBrowserHistory')
-// var createHashHistory = require('history/createHashHistory')
-
-
-
-// render(<UserPageContainer/>, document.getElementById('root'));
-//render(<TwitterContainer/>, document.getElementById('root'));
 
 render((
   <Router history={ browserHistory }>
@@ -23,19 +17,12 @@ render((
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={Login}/>
 
-      {/* <Route path="/:user/followers" component={UserPage} tab="followers"/>
-      <Route path="/:user/following" component={UserPage} tab="followings"/>
-      <Route path="/:user" component={UserPage} tab="tweets">
-        <Route path="/:user/:tweet" component={TweetDetail}/>
-      </Route> */}
-
       <Route path="/:user" component={UserPage} >
         <IndexRoute component={MyTweets} tab="tweets" />
         <Route path="followers" component={Followers} tab="followers"/>
         <Route path="following" component={Followers} tab="followings"/>
         <Route path=":tweet" component={TweetDetail}/>
       </Route>
-
 
       {/* <Route path="/:user/:tweet" component={TweetDetail}/> */}
       {/* <Route path="*" component={Login} status={404}/> */}

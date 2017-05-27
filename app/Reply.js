@@ -1,6 +1,7 @@
 import React from 'react'
 import update from 'react-addons-update'
 import config from '../config.js'
+import PropTypes from 'prop-types'
 
 const uuidV4 = require('uuid/v4');
 
@@ -142,4 +143,10 @@ class Reply extends React.Component{
     )
   }
 }
+
+Reply.propTypes = {
+  profile: PropTypes.object,
+  operations: PropTypes.object.isRequired
+}
+
 export default Reply;

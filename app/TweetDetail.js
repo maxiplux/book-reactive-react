@@ -3,7 +3,8 @@ import Reply from './Reply'
 import Tweet from './Tweet'
 import APIInvoker from './utils/APIInvoker'
 import update from 'react-addons-update'
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
+import PropTypes from 'prop-types'
 
 class TweetDetail extends React.Component{
 

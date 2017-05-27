@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import PropTypes from 'prop-types'
 
 class UserCard extends React.Component{
   constructor(props){
@@ -20,7 +21,7 @@ class UserCard extends React.Component{
     return(
       <article className="user-card" >
         <header className="user-card-banner" style={css}>
-          <img src={user.avatar} className="user-card-avatar"/> 
+          <img src={user.avatar} className="user-card-avatar"/>
         </header>
         <div className="user-card-body">
           <Link to={"/" + user.userName} className="user-card-name" >
@@ -35,4 +36,9 @@ class UserCard extends React.Component{
     )
   }
 }
+
+UserCard.propTypes = {
+  user: PropTypes.object.isRequired
+}
+
 export default UserCard;

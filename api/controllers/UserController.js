@@ -104,6 +104,7 @@ function login(req, res, err){
 }
 
 function relogin(req,res, err){
+  console.log("relogin ==> ");
   let userToken = {
     id: req.user.id,
     username: req.user.username

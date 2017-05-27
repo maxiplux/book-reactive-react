@@ -28,20 +28,17 @@ class TwitterApp extends React.Component{
       })
     }else{
       APIInvoker.invokeGET('/secure/relogin', response => {
-        if(response.ok){
-          this.setState({
-            load: true,
-            profile: response.profile
-          });
-          window.localStorage.setItem("token", response.token)
-          window.localStorage.setItem("username", response.profile.userName)
-        }else{
-          window.localStorage.removeItem("token")
-          window.localStorage.removeItem("username")
-          browserHistory.push('/login');
-        }
+        this.setState({
+          load: true,
+          profile: response.profile
+        });
+        window.localStorage.setItem("token", response.token)
+        window.localStorage.setItem("username", response.profile.userName)
       },error => {
-        console.log("Error al cargar los Tweets");
+        console.log("Error al autenticar al autenticar al usuario " );
+        window.localStorage.removeItem("token")
+        window.localStorage.removeItem("username")
+        browserHistory.push('/login');
       })
     }
   }

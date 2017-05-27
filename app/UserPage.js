@@ -191,7 +191,6 @@ class UserPage extends React.Component{
             </div>
           </div>
         </header>
-
         <div className="container-fluid">
           <div className="row">
             <div className="hidden-xs col-sm-4 col-md-push-1 col-md-3 col-lg-push-1 col-lg-3" >
@@ -233,7 +232,6 @@ class UserPage extends React.Component{
                 </Choose>
               </aside>
             </div>
-
             <div className="col-xs-12 col-sm-8 col-md-7 col-md-push-1 col-lg-7">
               {childs}
             </div>

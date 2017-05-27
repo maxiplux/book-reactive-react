@@ -20,7 +20,7 @@ router.use('/secure',function(req, res, next) {
     if (err) {
       return res.status(401).send({
         ok: false,
-        message: 'Toket de inválido'
+        message: 'Toket inválido'
       });
     } else {
       req.user = user

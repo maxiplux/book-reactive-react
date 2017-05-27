@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import PropTypes from 'prop-types'
 
 class Profile extends React.Component{
 
@@ -55,4 +56,9 @@ class Profile extends React.Component{
     )
   }
 }
+
+Profile.propTypes = {
+  profile: PropTypes.object.isRequired
+}
+
 export default Profile;
