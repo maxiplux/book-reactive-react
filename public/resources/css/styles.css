@@ -760,7 +760,7 @@ input[type="file"]{
 
 #user-page .user-header .user-summary .user-summary-menu li a:hover::before{
   display: block;
-  height: 5px; 
+  height: 5px;
 }
 
 #user-page .user-header .user-summary .user-summary-menu li.selected a::before{
@@ -963,6 +963,38 @@ input[type="file"]{
 .user-card .user-card-body .user-card-name:hover{
   text-decoration: underline;
 }
+
+
+.card-enter{
+  opacity: 0;
+}
+
+.card-enter.card-enter-active{
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+
+}
+
+/*.card-leave {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.card-leave.card-leave-active {
+  opacity: 0.01;
+
+}
+
+.card-appear {
+  opacity: 0.01;
+}
+
+.card-appear.card-appear-active {
+  transition: 0.5s;
+  transform: scale(1.2);
+  margin: 30px;
+}*/
+
 
 @media (max-width: 576px) {
   #menu li .menu-item{

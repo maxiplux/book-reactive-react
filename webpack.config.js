@@ -15,9 +15,7 @@ module.exports = {
       loader: 'babel',
       query:{
         presets: ['es2015','react'],
-        plugins: [
-          ["jsx-control-statements"]
-        ]
+        plugins: ["jsx-control-statements","transform-decorators-legacy"]
       }
     }]
   }

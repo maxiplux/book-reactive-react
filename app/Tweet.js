@@ -15,7 +15,6 @@ class Tweet extends React.Component{
     this.state = props.tweet
   }
 
-
   handleLike(e){
     e.preventDefault()
     let request = {

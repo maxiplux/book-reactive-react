@@ -4,6 +4,7 @@ import Reply  from './Reply'
 import update from 'react-addons-update'
 import APIInvoker from "./utils/APIInvoker"
 import PropTypes from 'prop-types'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 class TweetsContainer extends React.Component{
   constructor(props){
@@ -42,11 +43,8 @@ class TweetsContainer extends React.Component{
     })
   }
 
-
-
   addNewTweet(newTweet){
     let oldState = this.state;
-
     let newState = update(this.state, {
       tweets: {$splice: [[0, 0, newTweet]]}
     })

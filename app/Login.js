@@ -2,7 +2,9 @@ import React from 'react'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
 import { browserHistory, Link, Router } from 'react-router';
+import { translate, Interpolate } from 'react-i18next'
 
+@translate()
 class Login extends React.Component{
 
   constructor(){

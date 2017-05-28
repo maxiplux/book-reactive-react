@@ -7,6 +7,7 @@ import APIInvoker from './utils/APIInvoker'
 import Followers from './Followers'
 import { Link } from 'react-router'
 import MyTweets from './MyTweets'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 class UserPage extends React.Component{
 
