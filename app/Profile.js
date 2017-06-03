@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 class Profile extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = {}
   }
 
 
@@ -61,4 +61,10 @@ Profile.propTypes = {
   profile: PropTypes.object.isRequired
 }
 
-export default Profile;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.loginStore.profile
+  }
+}
+
+export default connect(mapStateToProps, {}) (Profile);

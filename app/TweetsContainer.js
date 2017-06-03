@@ -1,46 +1,23 @@
+import {LOAD_TWEETS} from './actions/const'
 import React from 'react'
 import Tweet from './Tweet'
 import Reply  from './Reply'
+import { connect } from 'react-redux'
 import update from 'react-addons-update'
 import APIInvoker from "./utils/APIInvoker"
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import { getTweet } from './actions/Actions'
 
 class TweetsContainer extends React.Component{
   constructor(props){
     super(props)
-    this.state = {
-      tweets: []
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(prevProps.profile.userName !== this.props.profile.userName){
-      let username = this.props.profile.userName
-      let onlyUserTweet = this.props.onlyUserTweet
-      this.loadTweets(username, onlyUserTweet)
-    }
   }
 
   componentWillMount(){
     let username = this.props.profile.userName
     let onlyUserTweet = this.props.onlyUserTweet
-    this.loadTweets(username, onlyUserTweet)
-  }
-
-  loadTweets(username, onlyUserTweet){
-    APIInvoker.invokeGET('/tweets' + (onlyUserTweet  ? "/" + username : ""), response => {
-      if(response.ok){
-        this.setState({
-          tweets: response.body
-        })
-      }else{
-        console.log(response)
-      }
-
-    },error => {
-      console.log("Error al cargar los Tweets");
-    })
+    this.props.getTweet(username, onlyUserTweet);
   }
 
   addNewTweet(newTweet){
@@ -87,8 +64,8 @@ class TweetsContainer extends React.Component{
             <Reply profile={this.props.profile} operations={operations}/>
           </Otherwise>
         </Choose>
-        <If condition={this.state.tweets != null}>
-          <For each="tweet" of={this.state.tweets}>
+        <If condition={this.props.tweets != null}>
+          <For each="tweet" of={this.props.tweets}>
             <Tweet key={tweet._id} tweet={tweet}/>
           </For>
         </If>
@@ -106,5 +83,12 @@ TweetsContainer.defaultProps = {
   onlyUserTweet: false
 }
 
+const mapStateToProps = (state) => {
+  return {
+    profile: state.loginStore.profile,
+    tweets: state.tweetsStore.tweets
+  }
+}
 
-export default TweetsContainer;
+
+export default connect(mapStateToProps, {getTweet})(TweetsContainer);

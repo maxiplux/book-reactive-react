@@ -1,5 +1,8 @@
-import React, {Component} from 'react';
-import { render } from 'react-dom';
+import React, {Component} from 'react'
+import { render } from 'react-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 import { Router, Route, browserHistory, Link, IndexRoute  } from "react-router";
 import TwitterContainer from './TwitterContainer'
 import UserPage from './UserPage'
@@ -9,24 +12,32 @@ import Login from './Login'
 import TwitterApp from './TwitterApp'
 import Followers from './Followers'
 import MyTweets from './MyTweets'
+import reducer from './stores/TweeterReducer'
 
 var createBrowserHistory = require('history/createBrowserHistory')
 
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+)
+
 render((
-  <Router history={ browserHistory }>
-    <Router component={TwitterApp} path="/">
-      <Route path="/signup" component={Signup}/>
-      <Route path="/login" component={Login}/>
+  <Provider store={ store }>
+    <Router history={ browserHistory }>
+      <Router component={TwitterApp} path="/">
+        <Route path="/signup" component={Signup}/>
+        <Route path="/login" component={Login}/>
 
-      <Route path="/:user" component={UserPage} >
-        <IndexRoute component={MyTweets} tab="tweets" />
-        <Route path="followers" component={Followers} tab="followers"/>
-        <Route path="following" component={Followers} tab="followings"/>
-        <Route path=":tweet" component={TweetDetail}/>
-      </Route>
+        <Route path="/:user" component={UserPage} >
+          <IndexRoute component={MyTweets} tab="tweets" />
+          <Route path="followers" component={Followers} tab="followers"/>
+          <Route path="following" component={Followers} tab="followings"/>
+          <Route path=":tweet" component={TweetDetail}/>
+        </Route>
 
-      {/* <Route path="/:user/:tweet" component={TweetDetail}/> */}
-      {/* <Route path="*" component={Login} status={404}/> */}
+        {/* <Route path="/:user/:tweet" component={TweetDetail}/> */}
+        {/* <Route path="*" component={Login} status={404}/> */}
+      </Router>
     </Router>
-  </Router>
+  </Provider>
 ), document.getElementById('root'));

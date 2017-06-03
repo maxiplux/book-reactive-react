@@ -3,59 +3,61 @@ import APIInvoker from "./utils/APIInvoker"
 import Toolbar from './Toolbar'
 import { browserHistory } from 'react-router'
 import TwitterDashboard from './TwitterDashboard'
+import { connect } from 'react-redux'
+import { relogin } from './actions/Actions'
 
 class TwitterApp extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = {
-      load: false,
-      profile: null
-    }
+    // this.state = {
+    //   load: false,
+    //   profile: null
+    // }
   }
 
   componentWillMount(){
-    this.loadProfile()
+    this.props.relogin()
+    //this.loadProfile()
   }
 
-  loadProfile(){
-    let token = window.localStorage.getItem("token")
-    if(token == null){
-      browserHistory.push('/login');
-      this.setState({
-        load: true,
-        profile: null
-      })
-    }else{
-      APIInvoker.invokeGET('/secure/relogin', response => {
-        this.setState({
-          load: true,
-          profile: response.profile
-        });
-        window.localStorage.setItem("token", response.token)
-        window.localStorage.setItem("username", response.profile.userName)
-      },error => {
-        console.log("Error al autenticar al autenticar al usuario " );
-        window.localStorage.removeItem("token")
-        window.localStorage.removeItem("username")
-        browserHistory.push('/login');
-      })
-    }
-  }
+  // loadProfile(){
+  //   let token = window.localStorage.getItem("token")
+  //   if(token == null){
+  //     browserHistory.push('/login');
+  //     this.setState({
+  //       load: true,
+  //       profile: null
+  //     })
+  //   }else{
+  //     APIInvoker.invokeGET('/secure/relogin', response => {
+  //       this.setState({
+  //         load: true,
+  //         profile: response.profile
+  //       });
+  //       window.localStorage.setItem("token", response.token)
+  //       window.localStorage.setItem("username", response.profile.userName)
+  //     },error => {
+  //       console.log("Error al autenticar al autenticar al usuario " );
+  //       window.localStorage.removeItem("token")
+  //       window.localStorage.removeItem("username")
+  //       browserHistory.push('/login');
+  //     })
+  //   }
+  // }
 
   render(){
-
     return (
       <div id="mainApp">
-        <Toolbar profile={this.state.profile} selected="home"/>
+        <Toolbar profile={this.props.profile} selected="home"/>
         <Choose>
-          <When condition={!this.state.load}>
+          <When condition={!this.props.load}>
             <div className="tweet-detail">
               <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
             </div>
           </When>
-          <When condition={this.props.children == null && this.state.profile != null}>
-            <TwitterDashboard  profile={this.state.profile}/>
+          <When condition={this.props.children == null && this.props.profile != null}>
+            <TwitterDashboard  profile={this.props.profile}/>
           </When>
           <Otherwise>
             {this.props.children}
@@ -66,4 +68,15 @@ class TwitterApp extends React.Component{
     )
   }
 }
-export default TwitterApp;
+
+const mapStateToProps = (state) => {
+  return {
+    load: state.loginStore.load,
+    profile: state.loginStore.profile
+  }
+}
+
+
+
+
+export default connect(mapStateToProps, { relogin })(TwitterApp);
