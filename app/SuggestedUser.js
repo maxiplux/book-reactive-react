@@ -1,37 +1,37 @@
 import React from 'react'
 import APIInvoker from './utils/APIInvoker'
 import { Link } from 'react-router';
+import { getSugestedUsers } from './actions/Actions'
+import { connect } from 'react-redux'
 
 class SuggestedUser extends React.Component{
 
   constructor(){
     super(...arguments)
-    this.state = {
-      load: false
-    }
   }
 
   componentWillMount(){
-    APIInvoker.invokeGET('/secure/suggestedUsers', response => {
-      if(response.ok){
-        this.setState({
-          load: true,
-          users: response.body
-        })
-      }else{
-        console.error(response);
-      }
-    },error => {
-      console.log("Error al actualizar el perfil");
-    })
+    this.props.getSugestedUsers()
+    // APIInvoker.invokeGET('/secure/suggestedUsers', response => {
+    //   if(response.ok){
+    //     this.setState({
+    //       load: true,
+    //       users: response.body
+    //     })
+    //   }else{
+    //     console.error(response);
+    //   }
+    // },error => {
+    //   console.log("Error al actualizar el perfil");
+    // })
   }
 
   render(){
     return(
       <aside id="suggestedUsers" className="twitter-panel">
         <span className="su-title">A quién seguir</span>
-        <If condition={this.state.load} >
-          <For each="user" of={this.state.users}>
+        <If condition={this.props.load} >
+          <For each="user" of={this.props.users}>
             <div className="sg-item" key={user._id}>
               <div className="su-avatar">
                 <img src={user.avatar} alt="Juan manuel"/>
@@ -52,4 +52,11 @@ class SuggestedUser extends React.Component{
     )
   }
 }
-export default SuggestedUser;
+
+const mapStateToProps = (state) => {
+  return {
+    load: state.sugestedUserStore.load,
+    users: state.sugestedUserStore.users
+  }
+}
+export default connect(mapStateToProps, {getSugestedUsers})(SuggestedUser);

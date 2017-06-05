@@ -1,5 +1,6 @@
 import {
-  LOAD_TWEETS
+  LOAD_TWEETS,
+  ADD_NEW_TWEET_SUCCESS
 } from '../actions/const'
 
 const initialState = {
@@ -9,6 +10,10 @@ const initialState = {
 export const  tweetsStore = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_TWEETS:
+      return {
+        tweets: action.tweets
+      }
+    case ADD_NEW_TWEET_SUCCESS:
       return {
         tweets: action.tweets
       }

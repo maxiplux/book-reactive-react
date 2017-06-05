@@ -3,41 +3,24 @@ import UserCard from './UserCard'
 import APIInvoker from './utils/APIInvoker'
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import {connect} from 'react-redux'
+import {findFollowersFollowings} from  './actions/Actions'
 
 class Followers extends React.Component{
 
   constructor(props){
     super(props)
-    console.log(props);
-    this.state={
-      users: []
-    }
   }
 
 
   componentWillMount(){
-    this.findUsers(this.props.profile.userName,this.props.route.tab)
+    this.props.findFollowersFollowings(this.props.profile.userName,this.props.route.tab)
   }
 
-  componentWillReceiveProps(props){
-    this.setState({
-      tab: props.route.tab,
-      users: []
-    })
-    this.findUsers(props.profile.userName,props.route.tab)
-  }
-
-  findUsers(username, type){
-    APIInvoker.invokeGET('/' + type + "/" + username, response => {
-      if(response.ok){
-          this.setState({
-            users: response.body
-          })
-      }
-    },error => {
-      console.log("Error en la autenticación");
-    })
-
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.route.tab !== this.props.route.tab){
+      this.props.findFollowersFollowings(this.props.profile.userName,this.props.route.tab)
+    }
   }
 
   render(){
@@ -52,8 +35,8 @@ class Followers extends React.Component{
               transitionAppearTimeout={0}
               transitionLeave={false}
               transitionLeaveTimeout={0}>
-              <For each="user" of={ this.state.users }>
-                <div className="col-xs-12 col-sm-6 col-lg-4" key={this.state.tab + "-" + user._id}>
+              <For each="user" of={ this.props.state.users }>
+                <div className="col-xs-12 col-sm-6 col-lg-4" key={this.props.route.tab + "-" + user._id}>
                   <UserCard user={user} />
                 </div>
               </For>
@@ -69,4 +52,10 @@ Followers.propTypes = {
   profile: PropTypes.object
 }
 
-export default Followers;
+const mapStateToProps = (state) => {
+  return {
+    state: state.followerStore
+  }
+}
+
+export default connect(mapStateToProps, {findFollowersFollowings})(Followers);

@@ -1,8 +1,18 @@
 import { combineReducers } from 'redux'
 import loginStore from './loginStore'
 import tweetsStore from './TweetStore'
+import sugestedUserStore from './SugestedUserStore'
+import loginFormStore from './LoginFormStore'
+import signupFormStore from './SignupFormStore'
+import followerStore from './FollowerStore'
+import userPageStore from './UserPageStore'
 
-export default  combineReducers({
+export default combineReducers({
   loginStore,
-  tweetsStore
+  tweetsStore,
+  sugestedUserStore,
+  loginFormStore,
+  signupFormStore,
+  followerStore,
+  userPageStore
 })

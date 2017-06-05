@@ -7,7 +7,7 @@ import update from 'react-addons-update'
 import APIInvoker from "./utils/APIInvoker"
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import { getTweet } from './actions/Actions'
+import { getTweet, addNewTweet } from './actions/Actions'
 
 class TweetsContainer extends React.Component{
   constructor(props){
@@ -21,29 +21,7 @@ class TweetsContainer extends React.Component{
   }
 
   addNewTweet(newTweet){
-    let oldState = this.state;
-    let newState = update(this.state, {
-      tweets: {$splice: [[0, 0, newTweet]]}
-    })
-
-    this.setState(newState)
-
-    //Optimistic Update
-    APIInvoker.invokePOST('/secure/tweet',newTweet,  response => {
-      if(!response.ok){
-        this.setState(oldState)
-      }else{
-        this.setState(update(this.state,{
-          tweets:{
-            0 : {
-              _id: {$set: response.tweet._id}
-            }
-          }
-        }))
-      }
-    },error => {
-      console.log("Error al cargar los Tweets");
-    })
+    this.props.addNewTweet(newTweet)
   }
 
   render(){
@@ -91,4 +69,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {getTweet})(TweetsContainer);
+export default connect(mapStateToProps, {getTweet, addNewTweet})(TweetsContainer);

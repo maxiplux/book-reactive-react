@@ -66,6 +66,7 @@ function login(req, res, err){
         ok:false,
         message: "Usuario y contraseña inválida"
       })
+      return
     }
 
     bcrypt.compare(req.body.password, profile.password,
