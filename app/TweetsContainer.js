@@ -15,9 +15,20 @@ class TweetsContainer extends React.Component{
   }
 
   componentWillMount(){
-    let username = this.props.profile.userName
+    let username = this.props.state.profile.userName
     let onlyUserTweet = this.props.onlyUserTweet
-    this.props.getTweet(username, onlyUserTweet);
+
+    if( (onlyUserTweet && username != '') || !onlyUserTweet){
+      console.log("componentWillMount ==> ", username, onlyUserTweet);
+      this.props.getTweet(username, onlyUserTweet)
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.state.profile != null && prevProps.state.profile.userName !== this.props.state.profile.userName){
+      console.log("componentDidUpdate ==> ", this.props.state.profile.userName, this.props.onlyUserTweet);
+      this.props.getTweet(this.props.state.profile.userName, this.props.onlyUserTweet)
+    }
   }
 
   addNewTweet(newTweet){
@@ -39,11 +50,11 @@ class TweetsContainer extends React.Component{
             </div>
           </When>
           <Otherwise>
-            <Reply profile={this.props.profile} operations={operations}/>
+            <Reply profile={this.props.state.profile} operations={operations}/>
           </Otherwise>
         </Choose>
-        <If condition={this.props.tweets != null}>
-          <For each="tweet" of={this.props.tweets}>
+        <If condition={this.props.state.tweets != null}>
+          <For each="tweet" of={this.props.state.tweets}>
             <Tweet key={tweet._id} tweet={tweet}/>
           </For>
         </If>
@@ -63,8 +74,10 @@ TweetsContainer.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.loginStore.profile,
-    tweets: state.tweetsStore.tweets
+    state: {
+      profile: state.userPageStore.profile,
+      tweets: state.tweetsStore.tweets
+    }
   }
 }
 

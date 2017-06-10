@@ -199,6 +199,14 @@ function getUserTweets(req, res, err){
 
 function getTweetDetails(req, res, err){
   let tweetId = req.params.tweet
+  if(!mongoose.Types.ObjectId.isValid(tweetId)){
+    res.send({
+      ok: false,
+      message: "ID del Tweet Inválido"
+    })
+    return
+  }
+
   Tweet.findOne({_id: tweetId})
   .populate("_creator")
 
@@ -215,6 +223,8 @@ function getTweetDetails(req, res, err){
         message: "No existe el Tweet"
       })
     }
+
+
 
     Tweet.find({tweetParent: mongoose.Types.ObjectId(tweetId)})
     .populate("_creator")

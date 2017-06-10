@@ -1,11 +1,12 @@
 import React from 'react'
 import { browserHistory,Link } from 'react-router'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+
 
 class Toolbar extends React.Component{
   constructor(props){
     super(props)
-    this.state= {}
   }
 
   logout(e){
@@ -38,14 +39,14 @@ class Toolbar extends React.Component{
                 </li>
               </ul>
             </div>
-            <If condition={this.props.profile != null} >
+            <If condition={this.props.state.profile != null} >
               <ul className="nav navbar-nav navbar-right">
                 <li className="dropdown">
                   <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img className="navbar-avatar" src={this.props.profile.avatar} alt={this.props.profile.userName}/>
+                    <img className="navbar-avatar" src={this.props.state.profile.avatar} alt={this.props.state.profile.userName}/>
                   </a>
                   <ul className="dropdown-menu">
-                    <li><a href={"/"+this.props.profile.userName}>Ver perfil</a></li>
+                    <li><a href={"/"+this.props.state.profile.userName}>Ver perfil</a></li>
                     <li role="separator" className="divider"></li>
                     <li><a href="#" onClick={this.logout.bind(this)}>Cerrar sesión</a></li>
                   </ul>
@@ -64,4 +65,12 @@ Toolbar.propTypes = {
   selected: PropTypes.string
 }
 
-export default Toolbar;
+const mapStateToProps = (state) => {
+  return {
+    state: {
+      profile: state.loginStore.profile
+    }
+  }
+}
+
+export default connect(mapStateToProps,{})(Toolbar);

@@ -119,6 +119,11 @@ function relogin(req,res, err){
         message: "Error al consultar el usuario",
         error: err
       })
+    }else if(profile === null){
+      res.send({
+        ok: false,
+        message: "No existe el usuario"
+      })
     }else{
       res.send({
         ok:true,

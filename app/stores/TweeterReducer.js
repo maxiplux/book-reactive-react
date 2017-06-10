@@ -6,6 +6,8 @@ import loginFormStore from './LoginFormStore'
 import signupFormStore from './SignupFormStore'
 import followerStore from './FollowerStore'
 import userPageStore from './UserPageStore'
+import replyStore from './ReplyStore'
+import tweetDetailStore from './TweetDetailStore'
 
 export default combineReducers({
   loginStore,
@@ -14,5 +16,7 @@ export default combineReducers({
   loginFormStore,
   signupFormStore,
   followerStore,
-  userPageStore
+  userPageStore,
+  replyStore,
+  tweetDetailStore
 })

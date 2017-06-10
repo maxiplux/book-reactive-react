@@ -5,7 +5,8 @@ import {
   UPDATE_USER_PAGE_FORM_REQUEST,
   USER_PAGE_AVATAR_UPDATE,
   USER_PAGE_BANNER_UPDATE,
-  USER_PAGE_SAVE_CHANGES
+  USER_PAGE_SAVE_CHANGES,
+  USER_PAGE_FOLLOW_USER
 } from '../actions/const'
 import update from 'react-addons-update'
 
@@ -62,6 +63,12 @@ export const userPageStore = (state = initialState, action) => {
     case USER_PAGE_SAVE_CHANGES:
       return update(state,{
         edit: {$set: false}
+      })
+    case USER_PAGE_FOLLOW_USER:
+      return update(state, {
+        profile:{
+          follow: {$set: action.follow}
+        }
       })
     default:
       return state

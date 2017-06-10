@@ -1,6 +1,7 @@
 import {
   LOAD_TWEETS,
-  ADD_NEW_TWEET_SUCCESS
+  ADD_NEW_TWEET_SUCCESS,
+  CLEAR_TWEETS
 } from '../actions/const'
 
 const initialState = {

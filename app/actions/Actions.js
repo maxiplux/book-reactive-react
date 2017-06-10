@@ -16,7 +16,12 @@ import {
   UPDATE_USER_PAGE_FORM_REQUEST,
   USER_PAGE_AVATAR_UPDATE,
   USER_PAGE_BANNER_UPDATE,
-  USER_PAGE_SAVE_CHANGES
+  USER_PAGE_SAVE_CHANGES,
+  USER_PAGE_FOLLOW_USER,
+  UPDATE_REPLY_FORM,
+  RESET_REPLY_FORM,
+  LOAD_TWEET_DETAIL,
+  ADD_NEW_TWEET_REPLY
 } from './const'
 
 import APIInvoker from '../utils/APIInvoker'
@@ -201,7 +206,82 @@ export const userPageSaveChanges = () => (dispatch, getState) => {
   })
 }
 
+export const followUser = (username) => (dispatch,getState) => {
+  let request = {
+    followingUser: username
+  }
+
+  APIInvoker.invokePOST('/secure/follow', request, response => {
+    dispatch(followUserRequest(!response.unfollow))
+  },error => {
+    console.log("Error al actualizar el perfil");
+  })
+}
+
+export const updateReplyForm = (field,value) => (dispatch, getState) => {
+  dispatch(updateReplyFormRequest(field,value))
+}
+
+export const resetReplyForm = () => (dispatch, getState) => {
+  dispatch(resetReplyFormRequest())
+}
+
+export const loadTweetDetail= (tweet) => (dispatch, getState) => {
+  APIInvoker.invokeGET('/tweetDetails/'+tweet, response => {
+    console.log(response.body);
+    dispatch(loadTweetDetailRequest(response.body))
+  },error => {
+    console.log("Error al cargar los Tweets");
+  })
+}
+
+export const addNewTweetReply = (newTweetReply, tweetParentID) => (dispatch, getState) => {
+  // let oldState = this.props.state;
+  // let newState = update(this.props.state, {
+  //   replysTweets: {$splice: [[0, 0, newTweet]]}
+  // })
+  // this.setState(newState)
+
+  let request = {
+    tweetParent: tweetParentID,
+    message: newTweetReply.message,
+    image: newTweetReply.image
+  }
+
+  APIInvoker.invokePOST('/secure/tweet', request, response => {
+    dispatch(addNewTweetReplyRequest(newTweetReply))
+  },error => {
+    console.log("Error al cargar los Tweets");
+  })
+}
+
 //Actions
+
+const addNewTweetReplyRequest = (newTweetReply) => ({
+  type: ADD_NEW_TWEET_REPLY,
+  newTweetReply: newTweetReply
+})
+
+const loadTweetDetailRequest = (tweetDetails) => ({
+  type: LOAD_TWEET_DETAIL,
+  tweetDetails: tweetDetails
+})
+
+const resetReplyFormRequest = () => ({
+  type: RESET_REPLY_FORM
+})
+
+const updateReplyFormRequest = (field,value) => ({
+  type: UPDATE_REPLY_FORM,
+  field: field,
+  value: value
+})
+
+const followUserRequest = (follow) => ({
+  type: USER_PAGE_FOLLOW_USER,
+  follow: follow
+})
+
 const userPageSaveChangesRequest  = () => ({
   type: USER_PAGE_SAVE_CHANGES
 })

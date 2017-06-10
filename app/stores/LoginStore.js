@@ -24,11 +24,5 @@ export const loginStore = (state = initialState, action) => {
   }
 }
 
-// export getProfile(){
-//
-// }
-
-
-
 
 export default loginStore

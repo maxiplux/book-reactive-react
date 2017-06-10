@@ -15,6 +15,12 @@ class Tweet extends React.Component{
     this.state = props.tweet
   }
 
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.tweet != null && prevProps.tweet._id !==  this.props.tweet._id){
+      this.setState(this.props.tweet)
+    }
+  }
+
   handleLike(e){
     e.preventDefault()
     let request = {
@@ -60,10 +66,13 @@ class Tweet extends React.Component{
     }else{
       tweetClass = this.state.isNew ? 'tweet fadeIn animated' : 'tweet'
     }
-
     return (
+
         <article  className={tweetClass} onClick={this.props.detail ? '' : this.handleClick.bind(this)} id={"tweet-" + this.state._id}>
-          <img src={this.state._creator.avatar} className="tweet-avatar" />
+          <If condition = {this.state._creator != null && this.state._creator.avatar != null} >
+            <img src={this.state._creator.avatar} className="tweet-avatar" />
+          </If>
+
           <div className="tweet-body">
             <div className="tweet-user">
               <Link to={"/" + this.state._creator.userName} >

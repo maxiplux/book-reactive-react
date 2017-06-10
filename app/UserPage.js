@@ -8,7 +8,7 @@ import { Link } from 'react-router'
 import MyTweets from './MyTweets'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import { connect } from 'react-redux'
-import { getUserProfile, chageToEditMode, cancelEditMode, updateUserPageForm, userPageImageUpload, userPageSaveChanges} from './actions/Actions'
+import { getUserProfile, chageToEditMode, cancelEditMode, updateUserPageForm, userPageImageUpload, userPageSaveChanges, followUser, relogin} from './actions/Actions'
 
 class UserPage extends React.Component{
 
@@ -19,6 +19,12 @@ class UserPage extends React.Component{
   componentWillMount(){
     let username = this.props.params.user || window.localStorage.getItem("username")
     this.props.getUserProfile(username)
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.params.user!= null && prevProps.params.user !== this.props.params.user){
+      this.props.getUserProfile(username)
+    }
   }
 
   imageSelect(e){
@@ -37,49 +43,22 @@ class UserPage extends React.Component{
   changeToEditMode(e){
     if(this.props.state.edit){
       this.props.userPageSaveChanges()
-      // let request = {
-      //   username: this.props.state.profile.userName,
-      //   name: this.props.state.profile.name,
-      //   description: this.props.state.profile.description,
-      //   avatar: this.props.state.profile.avatar,
-      //   banner: this.props.state.profile.banner
-      // }
-      //
-      // APIInvoker.invokePUT('/secure/profile', request, response => {
-      //   this.setState(update(this.state,{
-      //     edit: {$set: false}
-      //   }))
-      // },error => {
-      //   console.log("Error al actualizar el perfil");
-      // })
-
+      this.props.relogin()
     }else{
       this.props.chageToEditMode()
     }
   }
 
   follow(e){
-    let request = {
-      followingUser: this.props.params.user
-    }
-    APIInvoker.invokePOST('/secure/follow', request, response => {
-      if(response.ok){
-        this.setState(update(this.state,{
-          profile:{
-            follow: {$set: !response.unfollow}
-          }
-        }))
-      }
-    },error => {
-      console.log("Error al actualizar el perfil");
-    })
+    this.props.followUser(this.props.params.user)
+    this.props.relogin()
   }
 
   render(){
     let bannerStyle = {
       backgroundImage: 'url(' + (this.props.state.profile.banner == null ? this.props.state.profile.banner : this.props.state.profile.banner) + ')'
     }
-    let childs = this.props.children && React.cloneElement(this.props.children, { profile: this.props.state.profile })
+    //let childs = this.props.children && React.cloneElement(this.props.children, { profile: this.props.state.profile })
 
     return(
       <div id="user-page" className="app-container">
@@ -178,7 +157,7 @@ class UserPage extends React.Component{
               </aside>
             </div>
             <div className="col-xs-12 col-sm-8 col-md-7 col-md-push-1 col-lg-7">
-              {childs}
+              {this.props.children}
             </div>
           </div>
         </div>
@@ -193,4 +172,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps,{getUserProfile, chageToEditMode, cancelEditMode, updateUserPageForm, userPageImageUpload, userPageSaveChanges})(UserPage);
+export default connect(mapStateToProps,{getUserProfile, chageToEditMode, cancelEditMode, updateUserPageForm, userPageImageUpload, userPageSaveChanges, followUser, relogin})(UserPage);

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var  userController = require('../api/controllers/UserController')
+var userController = require('../api/controllers/UserController')
 var configuration = require('../config')
 var tweetController = require('../api/controllers/TweetController')
 var jwt = require('jsonwebtoken');

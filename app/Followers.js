@@ -14,16 +14,21 @@ class Followers extends React.Component{
 
 
   componentWillMount(){
-    this.props.findFollowersFollowings(this.props.profile.userName,this.props.route.tab)
+    this.props.findFollowersFollowings(this.props.state.profile.userName,this.props.route.tab)
   }
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.route.tab !== this.props.route.tab){
-      this.props.findFollowersFollowings(this.props.profile.userName,this.props.route.tab)
+      this.props.findFollowersFollowings(this.props.state.profile.userName,this.props.route.tab)
     }
   }
 
+  componentWillUnmount(){
+    console.log("componentWillUnmount ==>");
+  }
+
   render(){
+
     return(
       <section>
         <div className="container-fluid no-padding">
