@@ -22,8 +22,12 @@ class UserPage extends React.Component{
   }
 
   componentDidUpdate(prevProps, prevState){
+    let username = this.props.params.user || window.localStorage.getItem("username")
     if(prevProps.params.user!= null && prevProps.params.user !== this.props.params.user){
       this.props.getUserProfile(username)
+      $( "html" ).removeClass( "modal-mode");
+      console.log("scroll ==>");
+      $(window).scrollTop(0)
     }
   }
 
@@ -60,6 +64,7 @@ class UserPage extends React.Component{
     }
     //let childs = this.props.children && React.cloneElement(this.props.children, { profile: this.props.state.profile })
 
+    let tabName = this.props.children.props.route.tab
     return(
       <div id="user-page" className="app-container">
         <header className="user-header">
@@ -81,19 +86,19 @@ class UserPage extends React.Component{
                 </div>
                 <div className="col-xs-12 col-sm-8 col-md-push-1 col-md-7 col-lg-push-1 col-lg-7">
                   <ul className="user-summary-menu">
-                    <li className={this.props.route.tab === 'tweets' ? 'selected':''}>
+                    <li className={tabName === 'tweets' ? 'selected':''}>
                       <Link to={"/" + this.props.state.profile.userName}>
                         <p className="summary-label">TWEETS</p>
                         <p className="summary-value">{this.props.state.profile.tweetCount}</p>
                       </Link>
                     </li>
-                    <li className={this.props.route.tab === 'followings' ? 'selected':''}>
+                    <li className={tabName === 'followings' ? 'selected':''}>
                       <Link to={"/" + this.props.state.profile.userName + "/following" }>
                         <p className="summary-label">SIGUIENDO</p>
                         <p className="summary-value">{this.props.state.profile.following}</p>
                       </Link>
                     </li>
-                    <li className={this.props.route.tab === 'followers' ? 'selected':''}>
+                    <li className={tabName === 'followers' ? 'selected':''}>
                       <Link to={"/" + this.props.state.profile.userName + "/followers" }>
                         <p className="summary-label">SEGUIDORES</p>
                         <p className="summary-value">{this.props.state.profile.followers}</p>

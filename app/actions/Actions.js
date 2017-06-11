@@ -9,7 +9,6 @@ import {
   VALIDATE_USER_RESPONSE,
   SIGNUP_RESULT_FAIL,
   FIND_FOLLOWERS_FOLLOWINGS_REQUEST,
-  RESET_FOLLOWERS_STORE,
   USER_PROFILE_REQUEST,
   CHANGE_TO_EDIT_MODE_REQUEST,
   CANCEL_EDIT_MODEL_REQUEST,
@@ -21,7 +20,8 @@ import {
   UPDATE_REPLY_FORM,
   RESET_REPLY_FORM,
   LOAD_TWEET_DETAIL,
-  ADD_NEW_TWEET_REPLY
+  ADD_NEW_TWEET_REPLY,
+  RESET_FOLLOWERS_FOLLOWINGS_REQUEST
 } from './const'
 
 import APIInvoker from '../utils/APIInvoker'
@@ -140,12 +140,15 @@ export const  updateSignupForm = (field,value) => (dispatch, getState) => {
 }
 
 export const findFollowersFollowings = (username, type) => (dispatch, getState) => {
-  // dispatch(resetFollowersStoreRequest())
   APIInvoker.invokeGET('/' + type + "/" + username, response => {
     dispatch(findFollowersFollowingsRequest(response.body))
   },error => {
     console.log("Error al obtener los seguidores");
   })
+}
+
+export const resetFollowersFollowings = () => (dispatch, getState) => {
+  dispatch(resetFollowersFollowingsRequest())
 }
 
 export const getUserProfile = (username)  => (dispatch, getState) => {
@@ -319,13 +322,13 @@ const getUserProfileResponse = (profile) => ({
   profile: profile
 })
 
-const resetFollowersStoreRequest = () => ({
-  type: RESET_FOLLOWERS_STORE
-})
-
 const findFollowersFollowingsRequest = (users) => ({
   type: FIND_FOLLOWERS_FOLLOWINGS_REQUEST,
   users: users
+})
+
+const resetFollowersFollowingsRequest = () => ({
+  type: RESET_FOLLOWERS_FOLLOWINGS_REQUEST
 })
 
 const signupResultFail = (signupFailMessage) => ({

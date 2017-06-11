@@ -28,29 +28,16 @@ class TweetDetail extends React.Component{
   }
 
   addNewTweet(newTweet){
-    // // let oldState = this.props.state;
-    // // let newState = update(this.props.state, {
-    // //   replysTweets: {$splice: [[0, 0, newTweet]]}
-    // // })
-    // // this.setState(newState)
-    //
-    // let request = {
-    //   tweetParent: this.props.params.tweet,
-    //   message: newTweet.message,
-    //   image: newTweet.image
-    // }
-    //
-    // APIInvoker.invokePOST('/secure/tweet', request, response => {
-    //   //this.setState( response)
-    // },error => {
-    //   console.log("Error al cargar los Tweets");
-    // })
-
     this.props.addNewTweetReply(newTweet, this.props.params.tweet)
   }
 
-  handleClose(){
+
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
     $( "html" ).removeClass( "modal-mode");
+  }
+
+  handleClose(){
     browserHistory.goBack()
   }
 
@@ -59,10 +46,6 @@ class TweetDetail extends React.Component{
 
     let operations = {
       addNewTweet: this.addNewTweet.bind(this)
-    }
-
-    if(this.props.state != null){
-      console.log("Creator ==> ", this.props.state._creator);
     }
 
     return(

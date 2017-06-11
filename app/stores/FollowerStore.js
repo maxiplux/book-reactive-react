@@ -1,6 +1,7 @@
 import {
   FIND_FOLLOWERS_FOLLOWINGS_REQUEST,
-  RESET_FOLLOWERS_STORE
+  RESET_FOLLOWERS_STORE,
+  RESET_FOLLOWERS_FOLLOWINGS_REQUEST
 } from '../actions/const'
 
 const initialState = {
@@ -19,6 +20,8 @@ export const followerStore = (state = initialState, action) => {
         tab: null,
         users: []
       }
+    case RESET_FOLLOWERS_FOLLOWINGS_REQUEST:
+      return initialState
     default:
       return state
 

@@ -6,7 +6,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import {connect} from 'react-redux'
 import {findFollowersFollowings, resetFollowersFollowings} from  './actions/Actions'
 
-class Followers extends React.Component{
+class Followings extends React.Component{
 
   constructor(props){
     super(props)
@@ -14,7 +14,7 @@ class Followers extends React.Component{
 
 
   componentWillMount(){
-    this.props.findFollowersFollowings(this.props.params.user,'followers')
+    this.props.findFollowersFollowings(this.props.params.user,'followings')
   }
 
   // componentDidUpdate(prevProps, prevState){
@@ -53,7 +53,7 @@ class Followers extends React.Component{
   }
 }
 
-Followers.propTypes = {
+Followings.propTypes = {
   profile: PropTypes.object
 }
 
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {findFollowersFollowings, resetFollowersFollowings})(Followers);
+export default connect(mapStateToProps, {findFollowersFollowings, resetFollowersFollowings})(Followings);
