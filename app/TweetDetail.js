@@ -33,7 +33,6 @@ class TweetDetail extends React.Component{
 
 
   componentWillUnmount(){
-    console.log("componentWillUnmount");
     $( "html" ).removeClass( "modal-mode");
   }
 

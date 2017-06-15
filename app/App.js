@@ -14,12 +14,20 @@ import Followers from './Followers'
 import Followings from './Followings'
 import MyTweets from './MyTweets'
 import reducer from './stores/TweeterReducer'
+import { createLogger } from 'redux-logger'
 
 var createBrowserHistory = require('history/createBrowserHistory')
 
+
+const middleware = [ thunk ];
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(createLogger());
+}
+
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  applyMiddleware(...middleware),
+
 )
 
 render((

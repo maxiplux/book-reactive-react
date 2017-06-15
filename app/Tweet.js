@@ -7,13 +7,20 @@ import APIInvoker from './utils/APIInvoker'
 import TweetReply from './TweetReply'
 import { render } from 'react-dom';
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {likeTweet, likeTweetDetail} from './actions/Actions'
+
 
 class Tweet extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = props.tweet
+    //this.state = props.tweet
   }
+
+  // componentWillMount(){
+  //
+  // }
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.tweet != null && prevProps.tweet._id !==  this.props.tweet._id){
@@ -23,22 +30,35 @@ class Tweet extends React.Component{
 
   handleLike(e){
     e.preventDefault()
-    let request = {
-      tweetID: this.state._id,
-      like: !this.state.liked
+
+    if(this.props.detail){
+      this.props.likeTweetDetail(this.props.tweet._id, !this.props.tweet.liked)
+    }else{
+      this.props.likeTweet(this.props.tweet._id, !this.props.tweet.liked)
     }
 
-    APIInvoker.invokePOST('/secure/like', request, response => {
-      if(response.ok){
-        let newState = update(this.state,{
-          likeCounter : {$set: response.body.likeCounter},
-          liked: {$apply: (x) => {return !x}}
-        })
-        this.setState(newState)
-      }
-    },error => {
-      console.log("Error al cargar los Tweets");
-    })
+
+
+    // let request = {
+    //   tweetID: this.props.tweet._id,
+    //   like: !this.props.tweet.liked
+    // }
+    //
+    // APIInvoker.invokePOST('/secure/like', request, response => {
+    //   if(response.ok){
+    //     let newState = update(this.props.tweet,{
+    //       likeCounter : {$set: response.body.likeCounter},
+    //       liked: {$apply: (x) => {return !x}}
+    //     })
+    //     this.setState(newState)
+    //   }
+    // },error => {
+    //   console.log("Error al cargar los Tweets");
+    // })
+  }
+
+  componentWillUnmount(){
+    console.log('componentWillUnmount ==>' );
   }
 
   handleReply(e){
@@ -46,7 +66,7 @@ class Tweet extends React.Component{
     e.preventDefault()
 
     if(!this.props.detail){
-      render(<TweetReply tweet={this.props.tweet} profile={this.state._creator} />, document.getElementById('dialog'))
+      render(<TweetReply tweet={this.props.tweet} profile={this.props.tweet._creator} />, document.getElementById('dialog'))
     }
   }
 
@@ -54,7 +74,7 @@ class Tweet extends React.Component{
     if(e.target.getAttribute("data-ignore-onclick")){
       return
     }
-    let url = "/" + this.state._creator.userName + "/" + this.state._id
+    let url = "/" + this.props.tweet._creator.userName + "/" + this.props.tweet._id
     browserHistory.push(url);
     let tweetId = e.target.id;
   }
@@ -64,38 +84,38 @@ class Tweet extends React.Component{
     if(this.props.detail){
       tweetClass = 'tweet detail'
     }else{
-      tweetClass = this.state.isNew ? 'tweet fadeIn animated' : 'tweet'
+      tweetClass = this.props.tweet.isNew ? 'tweet fadeIn animated' : 'tweet'
     }
     return (
 
-        <article  className={tweetClass} onClick={this.props.detail ? '' : this.handleClick.bind(this)} id={"tweet-" + this.state._id}>
-          <If condition = {this.state._creator != null && this.state._creator.avatar != null} >
-            <img src={this.state._creator.avatar} className="tweet-avatar" />
+        <article  className={tweetClass} onClick={this.props.detail ? '' : this.handleClick.bind(this)} id={"tweet-" + this.props.tweet._id}>
+          <If condition = {this.props.tweet._creator != null && this.props.tweet._creator.avatar != null} >
+            <img src={this.props.tweet._creator.avatar} className="tweet-avatar" />
           </If>
 
           <div className="tweet-body">
             <div className="tweet-user">
-              <Link to={"/" + this.state._creator.userName} >
-                <span  className="tweet-name" data-ignore-onclick>{this.state._creator.name}</span>
+              <Link to={"/" + this.props.tweet._creator.userName} >
+                <span  className="tweet-name" data-ignore-onclick>{this.props.tweet._creator.name}</span>
               </Link>
-              <span className="tweet-username">@{this.state._creator.userName}</span>
+              <span className="tweet-username">@{this.props.tweet._creator.userName}</span>
             </div>
-            <p className="tweet-message">{this.state.message}</p>
-            <If condition={this.state.image != null}>
-              <img className="tweet-img" src={this.state.image}/>
+            <p className="tweet-message">{this.props.tweet.message}</p>
+            <If condition={this.props.tweet.image != null}>
+              <img className="tweet-img" src={this.props.tweet.image}/>
             </If>
             <div className="tweet-footer">
-              <a className={this.state.liked ? 'like-icon liked' : 'like-icon'} onClick={this.handleLike.bind(this)} data-ignore-onclick>
-                <i className="fa fa-heart " aria-hidden="true" data-ignore-onclick></i> {this.state.likeCounter}
+              <a className={this.props.tweet.liked ? 'like-icon liked' : 'like-icon'} onClick={this.handleLike.bind(this)} data-ignore-onclick>
+                <i className="fa fa-heart " aria-hidden="true" data-ignore-onclick></i> {this.props.tweet.likeCounter}
               </a>
               <If condition={!this.props.detail} >
                 <a className="reply-icon" onClick={this.handleReply.bind(this)} data-ignore-onclick>
-                  <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> {this.state.replys}
+                  <i className="fa fa-reply " aria-hidden="true" data-ignore-onclick></i> {this.props.tweet.replys}
                 </a>
               </If>
             </div>
           </div>
-          <div id={"tweet-detail-" + this.state._id}/>
+          <div id={"tweet-detail-" + this.props.tweet._id}/>
         </article>
     )
   }
@@ -110,5 +130,9 @@ Tweet.defaultProps = {
   detail: false
 }
 
+const mapStateToProps = (state) => {
+  return {}
+}
 
-export default Tweet;
+
+export default connect(mapStateToProps, {likeTweet, likeTweetDetail})(Tweet);

@@ -18,7 +18,6 @@ const initialState = {
 
 
 export const signupFormStore = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case UPDATE_SIGNUP_FORM_REQUEST:
       return update(state, {

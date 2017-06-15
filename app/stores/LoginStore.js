@@ -1,6 +1,7 @@
 import {
   LOGIN_SUCCESS,
-  LOGIN_REQUEST
+  LOGIN_REQUEST,
+  LOGOUT_REQUEST
 } from '../actions/const'
 
 const initialState = {
@@ -17,6 +18,8 @@ export const loginStore = (state = initialState, action) => {
         load: true,
         profile: action.profile
       }
+    case LOGOUT_REQUEST:
+      return initialState
     case LOGIN_REQUEST:
       return state
     default:

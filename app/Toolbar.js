@@ -2,6 +2,7 @@ import React from 'react'
 import { browserHistory,Link } from 'react-router'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { logout } from './actions/Actions'
 
 
 class Toolbar extends React.Component{
@@ -11,13 +12,16 @@ class Toolbar extends React.Component{
 
   logout(e){
     e.preventDefault()
+
     window.localStorage.removeItem("token")
     window.localStorage.removeItem("username")
+
+    this.props.logout()
+
     window.location = '/login';
   }
 
   render(){
-
     return(
       <nav className="navbar navbar-default navbar-fixed-top">
         <span className="visible-xs bs-test">XS</span>
@@ -28,16 +32,18 @@ class Toolbar extends React.Component{
         <div className="container-fluid">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand" href="/">
                 <i className="fa fa-twitter" aria-hidden="true"></i>
               </a>
-              <ul id="menu">
-                <li id="tbHome" className={this.props.selected === 'home' ? "selected" : ""}>
-                  <Link to="/">
-                    <p className="menu-item"><i className="fa fa-home menu-item-icon" aria-hidden="true"></i>  <span className="hidden-xs hidden-sm">Inicio</span></p>
-                  </Link>
-                </li>
-              </ul>
+              <If condition={this.props.state.profile != null} >
+                <ul id="menu">
+                  <li id="tbHome" className={this.props.selected === 'home' ? "selected" : ""}>
+                    <Link to="/">
+                      <p className="menu-item"><i className="fa fa-home menu-item-icon" aria-hidden="true"></i>  <span className="hidden-xs hidden-sm">Inicio</span></p>
+                    </Link>
+                  </li>
+                </ul>
+              </If>
             </div>
             <If condition={this.props.state.profile != null} >
               <ul className="nav navbar-nav navbar-right">
@@ -73,4 +79,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps,{})(Toolbar);
+export default connect(mapStateToProps,{logout})(Toolbar);

@@ -289,23 +289,28 @@ function like(req, res, err){
   let user = req.user
 
   Tweet.findOne({_id: req.body.tweetID},function(err, tweet){
-      tweet.likeCounter = tweet.likeCounter + (req.body.like ? 1 : -1)
-      tweet.save(function(err, tweetUpdate){
-        if(err){
-          res.send({
-            ok: false,
-            message: "Error al actualizar el Tweet",
-            error: err
-          })
-        }else{
-          res.send({
-            ok: true,
-            body: tweetUpdate
-          })
-        }
+    if(tweet == null){
+      res.send({
+        ok:false,
+        message: "No existe el Tweet solicitado"
       })
+    }
+    tweet.likeCounter = tweet.likeCounter + (req.body.like ? 1 : -1)
+    tweet.save(function(err, tweetUpdate){
+      if(err){
+        res.send({
+          ok: false,
+          message: "Error al actualizar el Tweet",
+          error: err
+        })
+      }else{
+        res.send({
+          ok: true,
+          body: tweetUpdate
+        })
+      }
+    })
   })
-
 }
 
 

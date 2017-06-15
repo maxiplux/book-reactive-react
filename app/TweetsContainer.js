@@ -19,14 +19,12 @@ class TweetsContainer extends React.Component{
     let onlyUserTweet = this.props.onlyUserTweet
 
     if( (onlyUserTweet && username != '') || !onlyUserTweet){
-      console.log("componentWillMount ==> ", username, onlyUserTweet);
       this.props.getTweet(username, onlyUserTweet)
     }
   }
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.state.profile != null && prevProps.state.profile.userName !== this.props.state.profile.userName){
-      console.log("componentDidUpdate ==> ", this.props.state.profile.userName, this.props.onlyUserTweet);
       this.props.getTweet(this.props.state.profile.userName, this.props.onlyUserTweet)
     }
   }

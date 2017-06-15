@@ -145,6 +145,7 @@ function relogin(req,res, err){
 
 function getProfileByUsername(req, res, err){
   let user = req.params.user
+  console.log("req.params.user ==> ", user);
   if(user === null){
     res.send({
       ok:false,

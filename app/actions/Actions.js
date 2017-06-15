@@ -21,7 +21,10 @@ import {
   RESET_REPLY_FORM,
   LOAD_TWEET_DETAIL,
   ADD_NEW_TWEET_REPLY,
-  RESET_FOLLOWERS_FOLLOWINGS_REQUEST
+  RESET_FOLLOWERS_FOLLOWINGS_REQUEST,
+  LOGOUT_REQUEST,
+  LIKE_TWEET_REQUEST,
+  LIKE_TWEET_DETAIL_REQUEST
 } from './const'
 
 import APIInvoker from '../utils/APIInvoker'
@@ -61,7 +64,6 @@ export const getTweet = (username, onlyUserTweet) => (dispatch, getState) => {
 export const addNewTweet = (newTweet) => (dispatch, getState) => {
   APIInvoker.invokePOST('/secure/tweet',newTweet,  response => {
     newTweet._id = response.tweet._id
-    console.log("newState ==> ", getState().tweetsStore);
     let newState = update(getState().tweetsStore, {
       tweets: {$splice: [[0, 0, newTweet]]}
     })
@@ -86,7 +88,6 @@ export const loginRequest = ()  => (dispatch, getState) => {
     username: getState().loginFormStore.username,
     password: getState().loginFormStore.password
   }
-  console.log("Credentials state ==> ", credential);
 
   APIInvoker.invokePOST('/login',credential, response => {
     window.localStorage.setItem("token", response.token)
@@ -115,10 +116,8 @@ export const validateUser = (username) => (dispatch, getState) => {
 export const signup = () => (dispatch, getState) => {
   let currentState = getState().signupFormStore
   if(!currentState.license){
-    console.log("licence ==>");
     dispatch(signupResultFail('Acepte los términos de licencia'))
   }else if(!currentState.userOk){
-    console.log("userOK ==> ");
     dispatch(signupResultFail('Favor de revisar su nombre de usuario'))
   }else{
     let request = {
@@ -231,7 +230,6 @@ export const resetReplyForm = () => (dispatch, getState) => {
 
 export const loadTweetDetail= (tweet) => (dispatch, getState) => {
   APIInvoker.invokeGET('/tweetDetails/'+tweet, response => {
-    console.log(response.body);
     dispatch(loadTweetDetailRequest(response.body))
   },error => {
     console.log("Error al cargar los Tweets");
@@ -239,12 +237,6 @@ export const loadTweetDetail= (tweet) => (dispatch, getState) => {
 }
 
 export const addNewTweetReply = (newTweetReply, tweetParentID) => (dispatch, getState) => {
-  // let oldState = this.props.state;
-  // let newState = update(this.props.state, {
-  //   replysTweets: {$splice: [[0, 0, newTweet]]}
-  // })
-  // this.setState(newState)
-
   let request = {
     tweetParent: tweetParentID,
     message: newTweetReply.message,
@@ -252,13 +244,62 @@ export const addNewTweetReply = (newTweetReply, tweetParentID) => (dispatch, get
   }
 
   APIInvoker.invokePOST('/secure/tweet', request, response => {
+    newTweetReply._id = response.tweet._id
     dispatch(addNewTweetReplyRequest(newTweetReply))
   },error => {
     console.log("Error al cargar los Tweets");
   })
 }
 
+export const logout = () => (dispatch, getState) => {
+  dispatch(logoutRequest())
+}
+
+export const likeTweet = (tweetId, like) => (dispatch, getState) => {
+
+  let request = {
+    tweetID: tweetId,
+    like: like
+  }
+
+  APIInvoker.invokePOST('/secure/like', request, response => {
+    dispatch(likeTweetRequest(tweetId, response.body.likeCounter))
+  },error => {
+    console.log("Error al cargar los Tweets");
+  })
+}
+
+export const likeTweetDetail = (tweetId, like) => (dispatch, getState) => {
+  let request = {
+    tweetID: tweetId,
+    like: like
+  }
+
+  APIInvoker.invokePOST('/secure/like', request, response => {
+    dispatch(likeTweetDetailRequest(tweetId, response.body.likeCounter))
+  },error => {
+    console.log("Error al cargar los Tweets");
+  })
+}
+
+//
+
 //Actions
+const  likeTweetDetailRequest = (tweetId, likeCounter) => ({
+  type: LIKE_TWEET_DETAIL_REQUEST,
+  tweetId: tweetId,
+  likeCounter: likeCounter
+})
+
+const  likeTweetRequest = (tweetId, likeCounter) => ({
+  type: LIKE_TWEET_REQUEST,
+  tweetId: tweetId,
+  likeCounter: likeCounter
+})
+
+const logoutRequest = () => ({
+  type: LOGOUT_REQUEST
+})
 
 const addNewTweetReplyRequest = (newTweetReply) => ({
   type: ADD_NEW_TWEET_REPLY,
