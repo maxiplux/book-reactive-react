@@ -44,24 +44,19 @@ class Signup extends React.Component{
   validateUser(e){
     let username = e.target.value
     APIInvoker.invokeGET('/usernameValidate/' + username, response => {
-      if(response.ok){
-        this.setState(update(this.state, {
-          userOk: {$set: true}
-        }))
-        this.refs.usernameLabel.innerHTML = response.message
-        this.refs.usernameLabel.className = 'fadeIn animated ok'
-      }else{
-        this.setState(update(this.state,{
-          userOk: {$set: false}
-        }))
-        this.refs.usernameLabel.innerHTML = response.message
-        this.refs.usernameLabel.className = 'fadeIn animated fail'
-      }
+      this.setState(update(this.state, {
+        userOk: {$set: true}
+      }))
+      this.refs.usernameLabel.innerHTML = response.message
+      this.refs.usernameLabel.className = 'fadeIn animated ok'
     },error => {
       console.log("Error al cargar los Tweets");
+      this.setState(update(this.state,{
+        userOk: {$set: false}
+      }))
+      this.refs.usernameLabel.innerHTML = error.message
+      this.refs.usernameLabel.className = 'fadeIn animated fail'
     })
-
-
   }
 
 
@@ -88,14 +83,11 @@ class Signup extends React.Component{
     }
 
     APIInvoker.invokePOST('/signup',request, response => {
-      if(response.ok){
-        browserHistory.push('/login');
-      }else{
-        this.refs.submitBtnLabel.innerHTML = response.error
-        this.refs.submitBtnLabel.className = 'shake animated'
-      }
+      browserHistory.push('/login');
     },error => {
       console.log("Error al cargar los Tweets");
+      this.refs.submitBtnLabel.innerHTML = response.error
+      this.refs.submitBtnLabel.className = 'shake animated'
     })
   }
 

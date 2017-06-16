@@ -9,6 +9,7 @@ import Login from './Login'
 import TwitterApp from './TwitterApp'
 import Followers from './Followers'
 import MyTweets from './MyTweets'
+import Followings from './Followings'
 
 var createBrowserHistory = require('history/createBrowserHistory')
 
@@ -21,7 +22,7 @@ render((
       <Route path="/:user" component={UserPage} >
         <IndexRoute component={MyTweets} tab="tweets" />
         <Route path="followers" component={Followers} tab="followers"/>
-        <Route path="following" component={Followers} tab="followings"/>
+        <Route path="following" component={Followings} tab="followings"/>
         <Route path=":tweet" component={TweetDetail}/>
       </Route>
 

@@ -2,9 +2,7 @@ import React from 'react'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
 import { browserHistory, Link, Router } from 'react-router';
-import { translate, Interpolate } from 'react-i18next'
 
-@translate()
 class Login extends React.Component{
 
   constructor(){
@@ -41,17 +39,12 @@ class Login extends React.Component{
     }
 
     APIInvoker.invokePOST('/login',request, response => {
-      console.log(response);
-      if(response.ok){
-        window.localStorage.setItem("token", response.token)
-        window.localStorage.setItem("username", response.profile.userName)
-        //browserHistory.push('/');
-        window.location = '/';
-      }else{
-        this.refs.submitBtnLabel.innerHTML = response.message
-        this.refs.submitBtnLabel.className = 'shake animated'
-      }
+      window.localStorage.setItem("token", response.token)
+      window.localStorage.setItem("username", response.profile.userName)
+      window.location = '/';
     },error => {
+      this.refs.submitBtnLabel.innerHTML = error.message
+      this.refs.submitBtnLabel.className = 'shake animated'
       console.log("Error en la autenticación");
     })
   }

@@ -30,9 +30,7 @@ class TweetReply extends React.Component{
     }
 
     APIInvoker.invokePOST('/secure/tweet', request, response => {
-      if(response.ok){
-        this.handleClose()
-      }
+      this.handleClose()
     },error => {
       console.log("Error al cargar los Tweets");
     })

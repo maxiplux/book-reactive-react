@@ -30,16 +30,11 @@ class TweetsContainer extends React.Component{
 
   loadTweets(username, onlyUserTweet){
     APIInvoker.invokeGET('/tweets' + (onlyUserTweet  ? "/" + username : ""), response => {
-      if(response.ok){
-        this.setState({
-          tweets: response.body
-        })
-      }else{
-        console.log(response)
-      }
-
+      this.setState({
+        tweets: response.body
+      })
     },error => {
-      console.log("Error al cargar los Tweets");
+      console.log("Error al cargar los Tweets", error);
     })
   }
 
@@ -53,19 +48,16 @@ class TweetsContainer extends React.Component{
 
     //Optimistic Update
     APIInvoker.invokePOST('/secure/tweet',newTweet,  response => {
-      if(!response.ok){
-        this.setState(oldState)
-      }else{
-        this.setState(update(this.state,{
-          tweets:{
-            0 : {
-              _id: {$set: response.tweet._id}
-            }
+      this.setState(update(this.state,{
+        tweets:{
+          0 : {
+            _id: {$set: response.tweet._id}
           }
-        }))
-      }
+        }
+      }))
     },error => {
       console.log("Error al cargar los Tweets");
+      this.setState(oldState)
     })
   }
 

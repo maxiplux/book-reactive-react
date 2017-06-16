@@ -23,15 +23,13 @@ class Tweet extends React.Component{
     }
 
     APIInvoker.invokePOST('/secure/like', request, response => {
-      if(response.ok){
-        let newState = update(this.state,{
-          likeCounter : {$set: response.body.likeCounter},
-          liked: {$apply: (x) => {return !x}}
-        })
-        this.setState(newState)
-      }
+      let newState = update(this.state,{
+        likeCounter : {$set: response.body.likeCounter},
+        liked: {$apply: (x) => {return !x}}
+      })
+      this.setState(newState)
     },error => {
-      console.log("Error al cargar los Tweets");
+      console.log("Error al cargar los Tweets", error);
     })
   }
 

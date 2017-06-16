@@ -13,16 +13,12 @@ class SuggestedUser extends React.Component{
 
   componentWillMount(){
     APIInvoker.invokeGET('/secure/suggestedUsers', response => {
-      if(response.ok){
-        this.setState({
-          load: true,
-          users: response.body
-        })
-      }else{
-        console.error(response);
-      }
+      this.setState({
+        load: true,
+        users: response.body
+      })
     },error => {
-      console.log("Error al actualizar el perfil");
+      console.log("Error al actualizar el perfil", error);
     })
   }
 

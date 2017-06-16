@@ -28,13 +28,10 @@ class UserPage extends React.Component{
   componentWillMount(){
     let user = this.props.params.user || window.localStorage.getItem("username")
     APIInvoker.invokeGET('/profile/' + user, response => {
-      if(response.ok){
-        this.setState({
-          edit:false,
-          profile: response.body
-        });
-      }
-      console.log(response)
+      this.setState({
+        edit:false,
+        profile: response.body
+      });
     },error => {
       console.log("Error al cargar los Tweets");
     })

@@ -20,9 +20,7 @@ class TwitterContainer extends React.Component{
       browserHistory.push('/login');
     }
     APIInvoker.invokeGET('/profile/' + user, response => {
-      if(response.ok){
-        this.setState(response.body);
-      }
+      this.setState(response.body);
     },error => {
       console.log("Error al cargar los Tweets");
     })

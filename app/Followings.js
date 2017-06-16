@@ -4,7 +4,7 @@ import APIInvoker from './utils/APIInvoker'
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
-class Followers extends React.Component{
+class Followings extends React.Component{
 
   constructor(props){
     super(props)
@@ -28,7 +28,7 @@ class Followers extends React.Component{
   }
 
   findUsers(username){
-    APIInvoker.invokeGET('/followers/' + username, response => {
+    APIInvoker.invokeGET('/followings/' + username, response => {
       this.setState({
         users: response.body
       })
@@ -63,8 +63,8 @@ class Followers extends React.Component{
   }
 }
 
-Followers.propTypes = {
+Followings.propTypes = {
   profile: PropTypes.object
 }
 
-export default Followers;
+export default Followings;
