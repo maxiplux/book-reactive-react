@@ -1,7 +1,6 @@
 import React from 'react'
 import update from 'react-addons-update'
 import { Link } from 'react-router'
-import TweetDetail from './TweetDetail'
 import { browserHistory } from 'react-router'
 import APIInvoker from './utils/APIInvoker'
 import TweetReply from './TweetReply'
@@ -47,8 +46,8 @@ class Tweet extends React.Component{
       return
     }
     let url = "/" + this.state._creator.userName + "/" + this.state._id
-    browserHistory.push(url);
-    let tweetId = e.target.id;
+    browserHistory.push(url)
+    let tweetId = e.target.id
   }
 
   render(){

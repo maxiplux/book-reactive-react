@@ -41,11 +41,11 @@ class Login extends React.Component{
     APIInvoker.invokePOST('/login',request, response => {
       window.localStorage.setItem("token", response.token)
       window.localStorage.setItem("username", response.profile.userName)
-      window.location = '/';
+      window.location = '/'
     },error => {
       this.refs.submitBtnLabel.innerHTML = error.message
       this.refs.submitBtnLabel.className = 'shake animated'
-      console.log("Error en la autenticación");
+      console.log("Error en la autenticación")
     })
   }
 

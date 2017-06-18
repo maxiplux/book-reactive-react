@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory, Link, IndexRoute  } from "react-router";
-import TwitterContainer from './TwitterContainer'
 import UserPage from './UserPage'
 import TweetDetail from './TweetDetail'
 import Signup from './Signup'
@@ -25,9 +24,6 @@ render((
         <Route path="following" component={Followings} tab="followings"/>
         <Route path=":tweet" component={TweetDetail}/>
       </Route>
-
-      {/* <Route path="/:user/:tweet" component={TweetDetail}/> */}
-      {/* <Route path="*" component={Login} status={404}/> */}
     </Router>
   </Router>
 ), document.getElementById('root'));

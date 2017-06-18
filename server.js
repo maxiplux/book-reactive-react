@@ -59,6 +59,10 @@ app.get('/styles.css', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/resources/styles.css'));
 });
 
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.get('/signup', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });

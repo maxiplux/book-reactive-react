@@ -1,12 +1,7 @@
 import React from 'react'
 import update from 'react-addons-update'
-import Profile from './Profile'
-import TweetsContainer from './TweetsContainer'
-import SuggestedUser from './SuggestedUser'
 import APIInvoker from './utils/APIInvoker'
-import Followers from './Followers'
 import { Link } from 'react-router'
-import MyTweets from './MyTweets'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 class UserPage extends React.Component{
@@ -34,6 +29,7 @@ class UserPage extends React.Component{
       });
     },error => {
       console.log("Error al cargar los Tweets");
+      window.location = '/not-found'
     })
   }
 
