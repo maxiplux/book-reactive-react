@@ -57,10 +57,10 @@ class Login extends React.Component{
 const mapStateToProps = (state) => {
     return {
       state: {
-        username: state.loginFormStore.username,
-        password: state.loginFormStore.password,
-        loginError: state.loginFormStore.loginError,
-        loginMessage: state.loginFormStore.loginMessage
+        username: state.loginFormReducer.username,
+        password: state.loginFormReducer.password,
+        loginError: state.loginFormReducer.loginError,
+        loginMessage: state.loginFormReducer.loginMessage
       }
 
     }

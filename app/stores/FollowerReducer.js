@@ -9,7 +9,7 @@ const initialState = {
   users: []
 }
 
-export const followerStore = (state = initialState, action) => {
+export const followerReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIND_FOLLOWERS_FOLLOWINGS_REQUEST:
       return {
@@ -29,4 +29,4 @@ export const followerStore = (state = initialState, action) => {
 }
 
 
-export default followerStore
+export default followerReducer

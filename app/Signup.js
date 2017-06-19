@@ -79,7 +79,7 @@ class Signup extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    state: state.signupFormStore
+    state: state.signupFormReducer
   }
 }
 

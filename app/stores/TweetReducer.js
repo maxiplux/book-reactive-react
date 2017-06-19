@@ -10,7 +10,7 @@ const initialState = {
   tweets: []
 }
 
-export const  tweetsStore = (state = initialState, action) => {
+export const  tweetsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_TWEETS:
       return {
@@ -36,4 +36,4 @@ export const  tweetsStore = (state = initialState, action) => {
   }
 }
 
-export default tweetsStore
+export default tweetsReducer

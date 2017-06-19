@@ -7,7 +7,7 @@ import update from 'react-addons-update'
 
 let initialState = null
 
-export const tweetDetailStore = (state = initialState, action) => {
+export const tweetDetailReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_TWEET_DETAIL:
       return action.tweetDetails
@@ -38,4 +38,4 @@ export const tweetDetailStore = (state = initialState, action) => {
   }
 }
 
-export default tweetDetailStore
+export default tweetDetailReducer

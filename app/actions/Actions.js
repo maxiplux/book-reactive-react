@@ -64,7 +64,7 @@ export const getTweet = (username, onlyUserTweet) => (dispatch, getState) => {
 export const addNewTweet = (newTweet) => (dispatch, getState) => {
   APIInvoker.invokePOST('/secure/tweet',newTweet,  response => {
     newTweet._id = response.tweet._id
-    let newState = update(getState().tweetsStore, {
+    let newState = update(getState().tweetsReducer, {
       tweets: {$splice: [[0, 0, newTweet]]}
     })
 
@@ -85,8 +85,8 @@ export const getSugestedUsers = ()  => (dispatch, getState) => {
 export const loginRequest = ()  => (dispatch, getState) => {
 
   let credential = {
-    username: getState().loginFormStore.username,
-    password: getState().loginFormStore.password
+    username: getState().loginFormReducer.username,
+    password: getState().loginFormReducer.password
   }
 
   APIInvoker.invokePOST('/login',credential, response => {
@@ -114,7 +114,7 @@ export const validateUser = (username) => (dispatch, getState) => {
 }
 
 export const signup = () => (dispatch, getState) => {
-  let currentState = getState().signupFormStore
+  let currentState = getState().signupFormReducer
   if(!currentState.license){
     dispatch(signupResultFail('Acepte los términos de licencia'))
   }else if(!currentState.userOk){
@@ -159,7 +159,7 @@ export const getUserProfile = (username)  => (dispatch, getState) => {
 }
 
 export const chageToEditMode = () => (dispatch, getState) => {
-  let currentProfile = getState().userPageStore.profile
+  let currentProfile = getState().userPageReducer.profile
   dispatch(changeToEditModeRequest(currentProfile))
 }
 
@@ -192,7 +192,7 @@ export const userPageImageUpload = (event) => (dispatch, getState) => {
 }
 
 export const userPageSaveChanges = () => (dispatch, getState) => {
-  let state = getState().userPageStore
+  let state = getState().userPageReducer
   let request = {
     username: state.profile.userName,
     name: state.profile.name,

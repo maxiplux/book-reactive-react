@@ -73,8 +73,8 @@ TweetsContainer.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     state: {
-      profile: state.userPageStore.profile,
-      tweets: state.tweetsStore.tweets
+      profile: state.userPageReducer.profile,
+      tweets: state.tweetsReducer.tweets
     }
   }
 }

@@ -132,8 +132,8 @@ Reply.propTypes = {
 const mapStateToProps = state => {
   return {
     state:{
-      reply: state.replyStore,
-      profile: state.loginStore.profile
+      reply: state.replyReducer,
+      profile: state.loginReducer.profile
     }
   }
 }

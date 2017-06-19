@@ -82,7 +82,7 @@ class TweetDetail extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    state: state.tweetDetailStore
+    state: state.tweetDetailReducer
   }
 }
 

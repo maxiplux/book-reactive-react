@@ -55,8 +55,8 @@ class SuggestedUser extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    load: state.sugestedUserStore.load,
-    users: state.sugestedUserStore.users
+    load: state.sugestedUserReducer.load,
+    users: state.sugestedUserReducer.users
   }
 }
 export default connect(mapStateToProps, {getSugestedUsers})(SuggestedUser);

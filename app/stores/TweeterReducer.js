@@ -1,22 +1,22 @@
 import { combineReducers } from 'redux'
-import loginStore from './loginStore'
-import tweetsStore from './TweetStore'
-import sugestedUserStore from './SugestedUserStore'
-import loginFormStore from './LoginFormStore'
-import signupFormStore from './SignupFormStore'
-import followerStore from './FollowerStore'
-import userPageStore from './UserPageStore'
-import replyStore from './ReplyStore'
-import tweetDetailStore from './TweetDetailStore'
+import loginReducer from './LoginReducer'
+import tweetsReducer from './TweetReducer'
+import sugestedUserReducer from './SugestedUserReducer'
+import loginFormReducer from './LoginFormReducer'
+import signupFormReducer from './SignupFormReducer'
+import followerReducer from './FollowerReducer'
+import userPageReducer from './UserPageReducer'
+import replyReducer from './ReplyReducer'
+import tweetDetailReducer from './TweetDetailReducer'
 
 export default combineReducers({
-  loginStore,
-  tweetsStore,
-  sugestedUserStore,
-  loginFormStore,
-  signupFormStore,
-  followerStore,
-  userPageStore,
-  replyStore,
-  tweetDetailStore
+  loginReducer,
+  tweetsReducer,
+  sugestedUserReducer,
+  loginFormReducer,
+  signupFormReducer,
+  followerReducer,
+  userPageReducer,
+  replyReducer,
+  tweetDetailReducer
 })

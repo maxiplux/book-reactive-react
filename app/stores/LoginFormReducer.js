@@ -16,7 +16,7 @@ const initialState = {
 }
 
 
-export const loginFormStore = (state = initialState, action) => {
+export const loginFormReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return state
@@ -41,4 +41,4 @@ export const loginFormStore = (state = initialState, action) => {
   }
 }
 
-export default loginFormStore
+export default loginFormReducer

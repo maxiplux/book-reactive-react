@@ -9,7 +9,8 @@ import { render } from 'react-dom';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {likeTweet, likeTweetDetail} from './actions/Actions'
-
+import { Provider } from 'react-redux'
+import {store} from './App'
 
 class Tweet extends React.Component{
 
@@ -65,8 +66,14 @@ class Tweet extends React.Component{
     $( "html" ).addClass( "modal-mode");
     e.preventDefault()
 
+    console.log(store);
     if(!this.props.detail){
-      render(<TweetReply tweet={this.props.tweet} profile={this.props.tweet._creator} />, document.getElementById('dialog'))
+      // render(<TweetReply tweet={this.props.tweet} profile={this.props.tweet._creator} />, document.getElementById('dialog'))
+
+      render(
+        <Provider store={ store }>
+          <TweetReply tweet={this.props.tweet} profile={this.props.tweet._creator} />
+        </Provider>, document.getElementById('dialog'))
     }
   }
 

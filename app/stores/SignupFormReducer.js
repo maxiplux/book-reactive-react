@@ -17,7 +17,7 @@ const initialState = {
 }
 
 
-export const signupFormStore = (state = initialState, action) => {
+export const signupFormReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_SIGNUP_FORM_REQUEST:
       return update(state, {
@@ -38,4 +38,4 @@ export const signupFormStore = (state = initialState, action) => {
   }
 }
 
-export default signupFormStore
+export default signupFormReducer

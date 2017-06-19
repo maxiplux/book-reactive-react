@@ -8,7 +8,7 @@ const initialState = {
 }
 
 
-export const sugestedUserStore = (state = initialState,action) => {
+export const sugestedUserReducer = (state = initialState,action) => {
   switch (action.type) {
     case LOAD_SUGESTED_USERS:
       return {
@@ -20,4 +20,4 @@ export const sugestedUserStore = (state = initialState,action) => {
   }
 }
 
-export default sugestedUserStore
+export default sugestedUserReducer

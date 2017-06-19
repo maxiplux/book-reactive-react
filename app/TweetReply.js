@@ -4,16 +4,12 @@ import Tweet from './Tweet'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 
 class TweetReply extends React.Component{
 
   constructor(props){
     super(props)
-
-  }
-
-  componentWillMount(){
-    let tweetId = this.props.tweetId
 
   }
 
@@ -60,8 +56,11 @@ class TweetReply extends React.Component{
 
 TweetReply.propTypes = {
   tweet: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-  tweetId: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired
 }
 
-export default TweetReply;
+const mapStateToProps = (state) => {
+  return {}
+}
+
+export default connect(mapStateToProps, {})(TweetReply)

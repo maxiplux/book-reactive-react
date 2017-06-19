@@ -10,7 +10,7 @@ let initialState = {
   image: null
 }
 
-export const replyStore = (state = initialState, action) => {
+export const replyReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_REPLY_FORM:
         return update(state, {
@@ -23,4 +23,4 @@ export const replyStore = (state = initialState, action) => {
   }
 }
 
-export default replyStore
+export default replyReducer

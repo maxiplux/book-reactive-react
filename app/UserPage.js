@@ -173,7 +173,7 @@ class UserPage extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    state: state.userPageStore
+    state: state.userPageReducer
   }
 }
 

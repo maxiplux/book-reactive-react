@@ -41,8 +41,8 @@ class TwitterApp extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    load: state.loginStore.load,
-    profile: state.loginStore.profile
+    load: state.loginReducer.load,
+    profile: state.loginReducer.profile
   }
 }
 

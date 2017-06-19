@@ -63,7 +63,7 @@ Profile.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.loginStore.profile
+    profile: state.loginReducer.profile
   }
 }
 

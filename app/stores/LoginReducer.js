@@ -11,7 +11,7 @@ const initialState = {
 
 
 //Login Reducer
-export const loginStore = (state = initialState, action) => {
+export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
@@ -28,4 +28,4 @@ export const loginStore = (state = initialState, action) => {
 }
 
 
-export default loginStore
+export default loginReducer

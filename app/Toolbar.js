@@ -74,7 +74,7 @@ Toolbar.propTypes = {
 const mapStateToProps = (state) => {
   return {
     state: {
-      profile: state.loginStore.profile
+      profile: state.loginReducer.profile
     }
   }
 }

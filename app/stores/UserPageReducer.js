@@ -23,7 +23,7 @@ const initialState = {
 
 
 
-export const userPageStore = (state = initialState, action) => {
+export const userPageReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_PROFILE_REQUEST:
       return {
@@ -75,4 +75,4 @@ export const userPageStore = (state = initialState, action) => {
   }
 }
 
-export default userPageStore
+export default userPageReducer

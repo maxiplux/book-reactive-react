@@ -59,7 +59,7 @@ Followings.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    state: state.followerStore
+    state: state.followerReducer
   }
 }
 
