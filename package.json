@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Aplicación de red social",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --progress"
+    "start": "node_modules/.bin/webpack-dev-server --progress",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:dist": "webpack --env=prod --progress --profile --colors"
   },
   "author": "Oscar Blancarte Blog",
   "license": "ISC",
