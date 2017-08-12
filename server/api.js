@@ -48,4 +48,8 @@ router.get('/followers/:user',userController.getFollower)
 router.get('/followings/:user',userController.getFollowing)
 router.get('/secure/relogin',userController.relogin)
 
+router.get('/', function(req, res){
+  res.send("Welcome to API REST")
+})
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const API_URL = 'http://api.localhost:3000'
 const debug = false;
+var configuration = require('../../config')
 
 class APIInvoker {
 
@@ -44,7 +45,8 @@ class APIInvoker {
       console.log(params.body);
     }
 
-    fetch(`${API_URL}${url}`, params)
+    console.log(`${configuration.server.host}:${configuration.server.port}${url}`);
+    fetch(`${configuration.server.host}:${configuration.server.port}${url}`, params)
     .then((response) => {
       if(debug){
         console.log("Invoke Response => " );
