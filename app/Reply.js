@@ -103,7 +103,6 @@ class Reply extends React.Component{
             <If condition={this.props.state.reply.image != null} >
               <div className="image-box"><img src={this.props.state.reply.image}/></div>
             </If>
-
         </div>
         <div className={this.props.state.reply.focus ? 'reply-controls' : 'hidden'}>
           <label htmlFor={"reply-camara-" + randomID} className={this.props.state.reply.message.length===0 ? 'btn pull-left disabled' : 'btn pull-left'}>

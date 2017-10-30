@@ -267,6 +267,13 @@ function follow(req, res, err){
       })
     }else{
       Profile.findOne({userName: followingUser}, function(err, otherUser){
+        if(!otherUser){
+          res.send({
+            ok: false,
+            message: "Usuario inválido"
+          })
+          return;
+        }
         let unfollow = myUser.followingRef.find(x => x.toString() === otherUser._id.toString()) != null
         if(unfollow){
           myUser.followingRef.pop(otherUser._id)
@@ -302,8 +309,7 @@ function follow(req, res, err){
               }else{
                 res.send({
                   ok: true,
-                  unfollow: unfollow,
-                  body: myUser
+                  unfollow: unfollow
                 })
               }
             })

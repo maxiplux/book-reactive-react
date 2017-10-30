@@ -46,7 +46,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-
-
-
 export default connect(mapStateToProps, { relogin })(TwitterApp);

@@ -18,8 +18,8 @@ const initialState = {
 
 export const loginFormReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
-      return state
+    // case LOGIN_REQUEST:
+    //   return state
     case UPDATE_LOGIN_FORM_REQUEST:
       if(action.field === 'username'){
         let value = action.value.replace(' ','').replace('@','').substring(0, 15)

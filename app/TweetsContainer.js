@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import update from 'react-addons-update'
 import APIInvoker from "./utils/APIInvoker"
 import PropTypes from 'prop-types'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import { getTweet, addNewTweet } from './actions/Actions'
 
 class TweetsContainer extends React.Component{

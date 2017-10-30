@@ -12,7 +12,7 @@ class Profile extends React.Component{
 
   render(){
     let bannerStyle = {
-      backgroundImage: (this.props.profile.banner!=null ? 'url('+this.props.profile.banner +')' : 'none')
+      backgroundImage: (this.props.profile.banner ? 'url('+this.props.profile.banner +')' : 'none')
     }
     return(
       <aside id="profile" className="twitter-panel">

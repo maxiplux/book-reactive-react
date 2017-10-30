@@ -12,12 +12,9 @@ class Toolbar extends React.Component{
 
   logout(e){
     e.preventDefault()
-
     window.localStorage.removeItem("token")
     window.localStorage.removeItem("username")
-
     this.props.logout()
-
     window.location = '/login';
   }
 

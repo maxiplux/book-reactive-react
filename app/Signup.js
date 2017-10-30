@@ -1,7 +1,7 @@
 import React from 'react'
 import update from 'react-addons-update'
 import APIInvoker from './utils/APIInvoker'
-import { browserHistory,Link } from 'react-router'
+import { Link } from 'react-router'
 import {updateSignupForm, validateUser, signup} from './actions/Actions'
 import {connect} from 'react-redux'
 

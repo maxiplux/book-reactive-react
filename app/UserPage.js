@@ -55,7 +55,7 @@ class UserPage extends React.Component{
 
   follow(e){
     this.props.followUser(this.props.params.user)
-    this.props.relogin()
+    // this.props.relogin()
   }
 
   render(){

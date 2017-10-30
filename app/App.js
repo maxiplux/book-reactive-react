@@ -26,8 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 export const store = createStore(
   reducer,
-  applyMiddleware(...middleware),
-
+  applyMiddleware(...middleware)
 )
 
 render((
