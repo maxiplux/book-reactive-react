@@ -32,7 +32,7 @@
     "jsx-control-statements": "^3.1.5",
     "mongoose": "^4.9.1",
     "mongoose-sequence": "^3.2.0",
-    "npm": "^4.5.0",
+    "npm": "^6.13.4",
     "react": "^15.0.0",
     "react-addons-update": "^15.5.2",
     "react-dom": "^15.0.0",
